@@ -24,7 +24,7 @@ try {
             const newTypes = JSON.parse(typeFile)
             for (const [name, newType] of Object.entries(newTypes)) {
                 if (Array.isArray(newType)) {
-                    newType.map(subtype => validateType(subType))
+                    newType.map(subtype => validateType(subtype))
                     continue
                 }
                 validateType(newType)
