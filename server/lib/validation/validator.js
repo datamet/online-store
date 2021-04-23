@@ -1,6 +1,12 @@
+/**
+ * Exports: Validate function that matches a format
+ * with a value.
+ */
+
 const error = require('../error')
 const types = require('./types')
 
+// Map of accepted formats and how to validate them
 const formats = new Map()
 
 formats.set(
@@ -29,6 +35,7 @@ const matchRegex = (type, value) => {
 	else return true
 }
 
+// Exported validate function
 const validate = (format, value) => {
     if (!format) throw error.config()
     if (!value) throw error.bad()
