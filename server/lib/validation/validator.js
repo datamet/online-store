@@ -10,28 +10,33 @@ const types = require('./types')
 const formats = new Map()
 
 formats.set(
-	format => matchRegex('type', format) ? format.slice(1, -1) : false,
+	format => matchRegex('type', format, { noerror: true }) ? format.slice(1, -1) : false,
 	(type, value) => matchRegex(type, value)
 )
 
 formats.set(
-	format => matchRegex('type_array', format) ? format.slice(1, -1) : false,
+	format => matchRegex('type_array', format, { noerror: true }) ? format.slice(1, -1) : false,
 	(type, values) => {
         if (!Array.isArray(values)) throw error.bad()
         values.map(value => matchRegex(type, value))
+        return true
     }
 )
 
 formats.set(
-	format => matchRegex('path_variable', format) ? format.slice(1) : false,
+	format => matchRegex('path_variable', format, { noerror: true }) ? format.slice(1) : false,
 	(type, value) => matchRegex(type, value)
 )
 
-const matchRegex = (type, value) => {
+const matchRegex = (type, value, options) => {
+    const noerror = options ? options.noerror : false
     t = types[type]
     if (!t) throw error.config()
 	const matches = value.match(new RegExp(t.regex))
-	if (!matches) throw error.custom(400, t.error)
+	if (!matches) {
+        if (!noerror) throw error.custom(400, t.error)
+        else return false
+    }
 	else return true
 }
 
