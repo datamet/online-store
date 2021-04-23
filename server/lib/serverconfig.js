@@ -35,15 +35,15 @@ dev.autoport = true
 debug.autoport = true
 prod.autoport = false
 
-// Debug messages printet to the console
-debug.debug = ['server', 'mode', 'error', 'fatal', 'listening', 'process', 'tips', 'accept', 'reject']
-dev.debug = ['server', 'mode', 'error', 'fatal', 'listening', 'process', 'tips', 'accept', 'reject']
-prod.debug = ['server', 'mode', 'listening', 'fatal', 'tips']
+// Log messages printed to the console
+debug.log = ['server', 'mode', 'error', 'fatal', 'listening', 'process', 'tips', 'accept', 'reject']
+dev.log = ['server', 'mode', 'error', 'fatal', 'listening', 'process', 'tips', 'accept', 'reject']
+prod.log = ['server', 'mode', 'listening', 'fatal', 'tips']
 
 // Error messages printet to the console
-debug.errorMessages = 'all'
-dev.errorMessages = 'all'
-prod.errorMessages = 'critical'
+debug.error = 'all'
+dev.error = 'all'
+prod.error = 'critical'
 
 // Error traceback printed to the console
 debug.traceback = 'all'
