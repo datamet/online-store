@@ -1,3 +1,8 @@
+/**
+ * Exports: Log function which formats and chooses
+ * if it should display a log message
+ */
+
 const { log : logsToPrint, error, traceback } = require('./serverconfig')
 const format = require('./format')
 
