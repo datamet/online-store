@@ -13,5 +13,10 @@
             },
             "?email" : "[email]"
         }
+    },
+    {
+        "method" : "get",
+        "path" : "/api/v1/users",
+        "handler" : "Users.getMultiple"
     }
 ]
