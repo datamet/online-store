@@ -14,7 +14,7 @@ const setupPolicy = policies => (name, value) => {
         return policies[name](value)
     }
     catch (error) {
-        log(debug.ERROR, `Could not parse policy ${name}`, { error })
+        log(log.ERROR, `Could not parse policy ${name}`, { error })
     }
 }
 
@@ -68,7 +68,7 @@ const setupHandlers = handlers => rawHandler => {
         return handlers[entity][action]
     }
     catch (error) {
-        log(debug.ERROR, `Could not parse handler ${rawHandler}`, { error })
+        log(log.ERROR, `Could not parse handler ${rawHandler}`, { error })
     }
 } 
 
@@ -96,7 +96,7 @@ const endpointParser = (handlers, policies) => raw => {
         return parsed
     }
     catch (error) {
-        log(debug.ERROR, `Could not parse ${raw.method ? raw.method.toUpperCase() : ''} ${raw.path ? raw.path : 'endpoint'}`, { error })
+        log(log.ERROR, `Could not parse ${raw.method ? raw.method.toUpperCase() : ''} ${raw.path ? raw.path : 'endpoint'}`, { error })
     }
     return null
 }

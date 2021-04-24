@@ -16,7 +16,7 @@
          endpoints = JSON.parse(rawData)
      }
      catch (error) {
-         log(debug.ERROR, `Could not load ${filename}`, { error })
+         log(log.ERROR, `Could not load ${filename}`, { error })
      }
      return endpoints
  }
@@ -33,7 +33,7 @@
          }
      }
      catch (error) {
-         log(debug.ERROR, `Could not load api`, { error })
+         log(log.ERROR, `Could not load api`, { error })
      }
      return endpoints
  }

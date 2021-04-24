@@ -18,12 +18,12 @@
                  policies[name] = require(`${dir}/${filename}`)
              }
              catch (error) {
-                 log(debug.ERROR, `Could not load ${filename}`, { error })
+                 log(log.ERROR, `Could not load ${filename}`, { error })
              }
          }
      }
      catch (error) {
-         log(debug.ERROR, `Could not load policies`, { error })
+         log(log.ERROR, `Could not load policies`, { error })
      }
      return policies
  }
