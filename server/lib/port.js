@@ -1,3 +1,8 @@
+/**
+ * Exports: Function that takes starting port as argument
+ * and finds next available port if starting port is not available
+ */
+
 const http = require('http')
 
 const availablePort = (startingAt) => {
