@@ -10,8 +10,7 @@ const printAction = action => {
     return logsToPrint.indexOf(action) !== -1
 }
 
-const printTraceback = (error, dirname) => {
-    console.log(`📁 ${format.Yellow}[directory] ${dirname}${format.Reset}`)
+const printTraceback = error => {
     console.log(`\n${format.Red}${error.stack}${format.Reset}\n`)
 }
 
@@ -32,8 +31,8 @@ const log = (action, message, options) => {
         }
 
         if (error && traceback) {
-            if (traceback === 'all') printTraceback(error ,dirname)
-            else if (traceback === 'critical' && status === 500) printTraceback(error ,dirname)
+            if (traceback === 'all') printTraceback(error)
+            else if (traceback === 'critical' && status === 500) printTraceback(error)
         }
         else if (error && error) {
             if (error === 'all') printErrorMessage(error)
