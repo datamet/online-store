@@ -8,4 +8,10 @@ Users.createOne = (req, res, next) => {
     next()
 }
 
+Users.getMultiple = (req, res, next) => {
+    log(log.ACCEPT, `(200) ${req.path}`)
+    res.send('here are some users for you :)')
+    next()
+}
+
 module.exports = Users
