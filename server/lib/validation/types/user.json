@@ -1,7 +1,7 @@
 {
     "username" : {
         "regex" : "^[A-Za-z0-9]+(?:[ _-][A-Za-z0-9]+)*$",
-        "error" : "Configruation key does not match spesifications"
+        "error" : "Username cannot include special characters"
     },
     "password" : [
         {
