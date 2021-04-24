@@ -2,9 +2,9 @@
  * Purpose: Requires server and listens on port
  */
 
- const server = require('./server')
+ const { server } = require('./server')
  const log = require('./lib/logger')
- const getAvailablePort = require('./lib/availablePort')
+ const getAvailablePort = require('./lib/port')
  const { port : startingPort, mode, autoport } = require('./lib/serverconfig')
  
  const listen = async () => {
