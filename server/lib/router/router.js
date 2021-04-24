@@ -8,7 +8,7 @@
 const fs = require('fs')
 const path = require('path')
 const express = require('express')
-const log = require('../log')
+const log = require('../logger')
 
 const getPolicies = require('./policyloader')
 const getHandlers = require('./handleloader')
@@ -17,7 +17,7 @@ const getEndpoints = require('./endpointParser')
 
 const policies = getPolicies(path.resolve(__dirname, '../middleware/policies'))
 const handlers = getHandlers(path.resolve(__dirname, '../../handlers'))
-const rawEndpoints = getRawEndpoints(path.resolve(__dirname, config.api))
+const rawEndpoints = getRawEndpoints(path.resolve(__dirname, '../../api'))
 const endpoints = getEndpoints(rawEndpoints, handlers, policies)
 
 const app = express()
