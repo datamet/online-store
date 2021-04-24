@@ -4,6 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "NODE_ENV=production node index",
+    "debug": "NODE_ENV=debug node index",
+    "dev": "node node index",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
