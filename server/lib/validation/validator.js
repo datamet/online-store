@@ -10,31 +10,42 @@ const types = require('./types')
 const formats = new Map()
 
 formats.set(
-	format => matchRegex('type', format, { noerror: true }) ? format.slice(1, -1) : false,
-	(type, value) => matchRegex(type, value)
+	format => matchType('type', format, { noerror: true }) ? format.slice(1, -1) : false,
+	(type, value) => matchType(type, value)
 )
 
 formats.set(
-	format => matchRegex('type_array', format, { noerror: true }) ? format.slice(1, -1) : false,
+	format => matchType('type_array', format, { noerror: true }) ? format.slice(1, -1) : false,
 	(type, values) => {
         if (!Array.isArray(values)) throw error.bad()
-        values.map(value => matchRegex(type, value))
+        values.map(value => matchType(type, value))
         return true
     }
 )
 
 formats.set(
-	format => matchRegex('path_variable', format, { noerror: true }) ? format.slice(1) : false,
-	(type, value) => matchRegex(type, value)
+	format => matchType('path_variable', format, { noerror: true }) ? format.slice(1) : false,
+	(type, value) => matchType(type, value)
 )
+
+const matchType = (type, value, options) => {
+    typeObj = types[type]
+    if (!typeObj) throw error.config()
+
+    if (Array.isArray(typeObj)) {
+        for (const requirement of typeObj) {
+            matchRegex(requirement, value, options)
+        }
+        return true
+    }
+    return matchRegex(typeObj, value, options)
+}
 
 const matchRegex = (type, value, options) => {
     const noerror = options ? options.noerror : false
-    t = types[type]
-    if (!t) throw error.config()
-	const matches = value.match(new RegExp(t.regex))
+	const matches = value.match(new RegExp(type.regex))
 	if (!matches) {
-        if (!noerror) throw error.custom(400, t.error)
+        if (!noerror) throw error.custom(400, type.error)
         else return false
     }
 	else return true
