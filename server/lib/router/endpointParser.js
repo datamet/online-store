@@ -1,3 +1,11 @@
+/**
+ * Purpose: Parse all json api endpoints into js objects
+ * with validators, handlers and policies injected
+ * 
+ * Exports: Function that takes endpints, handlers and policies
+ * to parse them to js objects
+ */
+
 const log = require('../logger')
 const validator = require('../validation/validator')
 
