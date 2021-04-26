@@ -18,12 +18,14 @@
                  handlers[name] = require(`${dir}/${filename}`)
              }
              catch (error) {
+                 console.log(error)
                  log(log.ERROR, `Could not load ${filename}`, { error })
              }
          }
      }
      catch (error) {
-         log(log.ERROR, `Could not load handlers`, { error })
+        console.log(error)
+        log(log.ERROR, `Could not load handlers`, { error })
      }
      return handlers
  }
