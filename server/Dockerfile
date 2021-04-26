@@ -17,7 +17,5 @@ COPY ./server .
 # our app is running on port 5000 within the container, so need to expose it
 EXPOSE 3000
 
-ENV NODE_ENV='production'
-
 # the command that starts our app
 CMD ["node", "index.js"]
