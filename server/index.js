@@ -52,7 +52,7 @@ const close = () => {
 }
 
 // Handeling Ctrl + c interrupt
-process.on('SIGINT', function () {
+process.on('SIGINT', () =>  {
 	log(log.PROCESS, `Recieved CTRL + C. Shuttind down server`, {
 		newline: true,
 	})

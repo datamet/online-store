@@ -23,7 +23,7 @@ const setupMatchFrom = (req, res) => (form, matchedValue) => {
                     try {
                         validate(format, matchedValue[key])
                         const policies = [...meta.policies]
-                        
+
                         const next = (error) => {
                             if (error) throw error
                             const policy = policies.shift()

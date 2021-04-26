@@ -25,7 +25,7 @@ const parseKeys = (keys, parsePolicy) => {
             optional: false,
             default: null,
             values: [],
-            policies: []
+            policies: [],
         }
         if (validator('[config_key]', key)) {
             if (key[0] === '?') {
