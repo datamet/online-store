@@ -7,5 +7,5 @@
 
 **How to run:**
 ```
-docker-componse up --build
+docker-componse --env-file .env.production up --build
 ```
