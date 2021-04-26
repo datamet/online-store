@@ -1,19 +1,33 @@
 version: "3.8"
 services:
     mongodb:
+        container_name: mongodb
         image: mongo:latest
         environment:
-            MONGO_INITDB_ROOT_USERNAME: root
-            MONGO_INITDB_ROOT_PASSWORD: rootpassword
+            MONGO_INITDB_ROOT_USERNAME: ${DB_ROOT_USERNAME}
+            MONGO_INITDB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+            MONGO_INITDB_DATABASE: ${DB_NAME}
         ports:
-            - 27017:27017
+            - ${DB_PORT}:27017
         volumes:
             - mongodb_data_container:/data/db
-    nodeserver:
+    node:
+        container_name: node-api
+        depends_on: 
+            - mongodb
         build:
-            context: ./server
+            context: .
+            dockerfile: 
+                ./server/Dockerfile
         ports:
-            - "3000:3000"
+            - ${PORT}:3000
+            - "9229:9229"
+        command:
+            - node
+            - "--inspect=0.0.0.0"
+            - "./index.js"
+        links:
+            - mongodb
     nginx:
         restart: always
         build:
@@ -22,4 +36,4 @@ services:
             - "80:80"
             - "443:443"
 volumes:
-    mongodb_data_container:
+    mongodb_data_container:        
