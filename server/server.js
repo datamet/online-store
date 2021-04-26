@@ -7,6 +7,7 @@
 
 const http = require('http')
 const express = require('express')
+const { dbconnect } = require('./lib/db')
 const bodyparser = require('./lib/middleware/bodyparser')
 const router = require('./lib/router/router')
 const errorhandler = require('./lib/middleware/errorhandler')
@@ -22,4 +23,4 @@ app.use(router)
 app.use(errorhandler)
 app.use(logger)
 
-module.exports = { server }
+module.exports = { server, dbconnect }
