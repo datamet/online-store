@@ -1,0 +1,21 @@
+{
+  "name": "online-store",
+  "version": "1.0.0",
+  "description": "**Authors:** - Erik Storås Sommer - Adrian Tokle Storset - Mats Nome Sommervold, s341829",
+  "main": "index.js",
+  "scripts": {
+    "up": "docker-compose up --env-file ./.env.production -d --build",
+    "down": "docker-compose stop && docker-compose down"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/datamet/online-store.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/datamet/online-store/issues"
+  },
+  "homepage": "https://github.com/datamet/online-store#readme"
+}

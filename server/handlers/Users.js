@@ -1,16 +1,16 @@
-const log = require('../lib/logger')
+const { db } = require('../lib/db')
 
 const Users = {}
 
-Users.createOne = (req, res, next) => {
-    log(log.ACCEPT, `(200) ${req.path}`)
+Users.createOne = async (req, res, next) => {
+    await db.createUser({ username: req.body.username })
     res.send('ok')
     next()
 }
 
-Users.getMultiple = (req, res, next) => {
-    log(log.ACCEPT, `(200) ${req.path}`)
-    res.send('here are some users for you :)')
+Users.getMultiple = async (req, res, next) => {
+    const users = await db.getUsers()
+    res.json(users)
     next()
 }
 

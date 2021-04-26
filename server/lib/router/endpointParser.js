@@ -83,7 +83,10 @@ const endpointParser = (handlers, policies) => raw => {
     try {
         if (validator('[method]', raw.method)) parsed.method = raw.method
         if (validator('[path]', raw.path)) parsed.path = raw.path
-        if (validator('[handler]', raw.handler)) parsed.handler = parseHandler(raw.handler)
+        if (validator('[handler]', raw.handler)) {
+            parsed.handler = parseHandler(raw.handler)
+            if (!parsed.handler) parsed.handler = (req, res, next) => { next() }
+        }
         if (typeof raw.policies === 'object') {
             for (const [rawPolicy, value] of Object.entries(raw.policies)) {
                 parsed.policies.push(parsePolicy(rawPolicy, value))

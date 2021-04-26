@@ -3,7 +3,7 @@
  * if it should display a log message
  */
 
-const { log : logsToPrint, error, traceback } = require('./serverconfig')
+const { log : logsToPrint, error : errorMessage, traceback } = require('../serverconfig')
 const format = require('./format')
 
 const printAction = action => {
@@ -34,14 +34,15 @@ const log = (action, message, options) => {
             if (traceback === 'all') printTraceback(error)
             else if (traceback === 'critical' && status === 500) printTraceback(error)
         }
-        else if (error && error) {
-            if (error === 'all') printErrorMessage(error)
-            else if (error === 'critical' && status === 500) printErrorMessage(error)
+        else if (error && errorMessage) {
+            if (errorMessage === 'all') printErrorMessage(error)
+            else if (errorMessage === 'critical' && status === 500) printErrorMessage(error)
         }
     }
 }
 
 // Actions
+log.DB = { name: 'database', icon: '💾', color: format.Magenta }
 log.ACCEPT = { name: 'accept', icon: '✳️', color: format.Green }
 log.REJECT = { name: 'reject', icon: '⛔', color: format.Red}
 log.SERVER = { name: 'server', icon: '💻', color: format.Yellow }

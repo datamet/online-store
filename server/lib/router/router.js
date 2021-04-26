@@ -5,10 +5,8 @@
  * Exports: An express app that uses the router
  */
 
-const fs = require('fs')
 const path = require('path')
 const express = require('express')
-const log = require('../logger')
 
 const getPolicies = require('./policyloader')
 const getHandlers = require('./handleloader')
@@ -29,7 +27,16 @@ for (const endpoint of endpoints) {
     const handler = endpoint.handler
     const policies = endpoint.policies
 
-    router[method](path, ...policies, handler)
+    const catcher = handler => async (req, res, next) => {
+        try {
+            await handler(req, res, next)
+        }
+        catch(err) {
+            next(err)
+        } 
+    }
+
+    router[method](path, ...policies, catcher(handler))
 }
 
 app.use(router)

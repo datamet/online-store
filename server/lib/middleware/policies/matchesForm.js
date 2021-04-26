@@ -1,5 +1,6 @@
 const error = require('../../error')
 const validate = require('../../validation/validator')
+const log = require('../../logger')
 
 const setupMatchFrom = (req, res) => (form, matchedValue) => {
     if (!matchedValue || typeof matchedValue !== 'object') throw error.missing()
