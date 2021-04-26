@@ -5,10 +5,8 @@
  * Exports: Instance of config object which differs
  * based on what environment node is running in.
  */
-const path = require('path')
 
 const ENV = process.env.NODE_ENV || 'production'
-require('dotenv').config({ path: path.resolve(__dirname, `../.env.${ENV}`) })
 
 const mode = ENV
 const port = process.env.PORT || 3000
