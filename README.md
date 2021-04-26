@@ -1,7 +1,7 @@
 # RESTful Online Store
 
 **Authors:**
-- Erik Storås Sommer
+- Erik Storås Sommer, s341870
 - Adrian Tokle Storset, s341859
 - Mats Nome Sommervold, s341829
 
