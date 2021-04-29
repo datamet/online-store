@@ -17,11 +17,30 @@ const app = express()
 
 server.on('request', app)
 
+const middleware = []
+const userMiddleware = (req, res, next) => {
+    middlewareToUse = [...middleware]
+    
+    const nextUserMiddleware = (error) => {
+        if (error) throw error
+        const policy = middlewareToUse.shift()
+        if (policy) policy(req, res, nextUserMiddleware)
+    }
+    nextUserMiddleware()
+
+    next()
+}
+
+const use = (func) => {
+    middleware.push(func)
+}
+
 module.exports = (api_path, handlers_path, policies_path) => {
     app.use(bodyparser)
     app.use(router(api_path, handlers_path, policies_path))
+    app.use(userMiddleware)
     app.use(errorhandler)
     app.use(logger)
 
-    return { server }
+    return { server, use }
 }
