@@ -1,39 +1,17 @@
-const express = require('express')
 const path = require('path')
-const { decode, verify } = require('./jwt')
+const { server } = require('../server-base')
 
-const app = express()
-
-app.post('/api/v1/auth/local', (req, res) => {
-    res.sendFile(path.resolve(__dirname, './index.html'))
+const app = server({
+    api:        path.resolve(__dirname, './api'),
+    connectors: path.resolve(__dirname, './db/connectors'),
+    gateways:   path.resolve(__dirname, './db/gateways'),
+    handlers:   path.resolve(__dirname, './handlers'),
+    policies:   path.resolve(__dirname, './policies'),
+    types:      path.resolve(__dirname,'./types')
 })
 
-app.delete('/api/v1/auth/local', (req, res) => {
-    
-})
+// app.use((req, res, next) => {
+//     res.send('ok')
+// })
 
-app.post('api/v1/auth/google', (req, res) => {
-    const id_token = req.query.id_token
-    const verifyToken = async () => {
-        try {
-            console.log(id_token)
-            const token = await verify(id_token)
-            console.log(token)
-            res.json(token)
-        }
-        catch(error) {
-            res.send('not ok')
-        }
-    }
-    verifyToken()
-})
-
-app.delete('/api/v1/auth/google', (req, res) => {
-    
-})
-
-app.use((req, res) => {
-    res.status(200).send('ok bro')
-})
-
-app.listen(4000)
+app.listen()
