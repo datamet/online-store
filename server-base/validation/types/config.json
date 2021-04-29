@@ -1,0 +1,30 @@
+{
+    "type" : {
+        "regex" : "^\\[[a-zA-Z_]*\\]$",
+        "error" : "Unvalid type"
+    },
+    "type_array" : {
+        "regex" : "^<[a-zA-Z_]*>$",
+        "error" : "Unvalid array type"
+    },
+    "path_variable" : {
+        "regex" : "^:[a-zA-Z_]*",
+        "error" : "Unvalid path variable"
+    },
+    "config_key" : {
+        "regex" : "\\??[a-zA-Z]{1,30}",
+        "error" : "Configruation key does not match spesifications"
+    },
+    "method" : {
+        "regex" : "\\b(post|get|put|delete)\\b",
+        "error" : "Method not recognized"
+    },
+    "path" : {
+        "regex" : ".*",
+        "error" : "Invalid path"
+    },
+    "handler" : {
+        "regex" : ".*",
+        "error" : "Invalid path"
+    }
+}
