@@ -1,5 +1,4 @@
 const https = require('https')
-const { google_client_id, google_issuer_urls } = require('./keys')
 
 const atob = (b64Str) => Buffer.from(b64Str, `base64`).toString(`binary`)
 
