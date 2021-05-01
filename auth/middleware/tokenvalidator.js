@@ -6,7 +6,7 @@ const tokenvalidator = (req, res, next) => {
             if (!res.headersSent) {
                 const auth_token = req.getCookie('auth_token')
                 await verifyLocalToken(auth_token)
-                res.send('ok')
+                res.sendStatus(200)
             }
             next()
         }
