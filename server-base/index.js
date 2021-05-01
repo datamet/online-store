@@ -13,9 +13,10 @@ const app = {
 const server = (options) => {
     validatorSetup(options.types)
     db.setup(options.connectors, options.gateways)
-    const { server: expressServer, use } = setupServer(options.api, options.handlers, options.policies)
+    const { server: expressServer, useBefore, useAfter } = setupServer(options.api, options.handlers, options.policies)
     const { listen } = listento(expressServer, db.connect)
-    app.use = use
+    app.useBefore = useBefore
+    app.useAfter = useAfter
     app.listen = listen
 
     return app
