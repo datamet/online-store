@@ -5,9 +5,10 @@
  */
 
  const error = {
-    custom: (status, message) => {
+    custom: (status, message, responseObj) => {
         const err = new Error(message)
         err.status = status
+        err.resObj = responseObj
         return err
     },
     exists: () => error.custom(409, "Resource already exists"),
