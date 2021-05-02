@@ -1,6 +1,8 @@
 const path = require('path')
 const { server } = require('../server-base')
 
+const tokenvalidator = require('./middleware/tokenvalidator')
+
 const app = server({
     api:        path.resolve(__dirname, './api'),
     connectors: path.resolve(__dirname, './db/connectors'),
@@ -10,11 +12,6 @@ const app = server({
     types:      path.resolve(__dirname,'./types')
 })
 
-app.use((req, res, next) => {
-    setTimeout(() => {
-        if (!res.headersSent) res.send('ok')
-        next()
-    }, 50)
-})
+app.useAfter(tokenvalidator)
 
 app.listen()
