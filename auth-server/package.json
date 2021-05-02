@@ -1,0 +1,16 @@
+{
+  "name": "auth",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "GATEWAY='memory' PORT=3000 AUTO_PORT=true ACTIONS_TO_LOG='server, mode, error, fatal, process, tips, accept, reject, database' ERRORS_TO_LOG='all' TRACEBACKS_TO_LOG='critical' node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mongodb": "^3.6.6",
+    "server-framework": "file:../packages/server-framework"
+  }
+}

@@ -1,0 +1,7 @@
+if (tokenObj.aud !== google_client_id) throw new Error('Unauthorized')
+    let issuerValid = false
+    for (const validIssuer of google_issuer_urls) {
+        if (tokenObj.iss === validIssuer) issuerValid = true
+    }
+    if (!issuerValid) throw new Error('Issuer un')
+    if (Date.now() > tokenObj.exp) throw new Error('Token expired')
