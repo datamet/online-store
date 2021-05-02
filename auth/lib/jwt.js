@@ -94,7 +94,7 @@ const setAuthCookie = (auth_token, res) => {
 	res.cookie('auth_token', auth_token, {
 		maxAge: time,
 		httpOnly: true,
-		// secure: process.env.NODE_ENV === 'production'? true: false
+		secure: true
 	})
 }
 
