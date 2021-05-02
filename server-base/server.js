@@ -11,36 +11,38 @@ const bodyparser = require('./middleware/bodyparser')
 const router = require('./router/router')
 const errorhandler = require('./middleware/errorhandler')
 const logger = require('./middleware/logger')
+const cookieparser = require('./middleware/cookieparser')
 
 const server = http.createServer()
 const app = express()
 
 server.on('request', app)
 
-const middleware = []
-const userMiddleware = (req, res, next) => {
-    middlewareToUse = [...middleware]
+const middlewareAfter = []
+const middlewareBefore = []
+const userMiddleware = middleware => (req, res, next) => {
+    let middlewareToUse = [...middleware]
     
     const nextUserMiddleware = (error) => {
-        if (error) throw error
-        const policy = middlewareToUse.shift()
-        if (policy) policy(req, res, nextUserMiddleware)
+        if (error) return next(error)
+        const middleware = middlewareToUse.shift()
+        if (middleware) middleware(req, res, nextUserMiddleware)
+        else next()
     }
     nextUserMiddleware()
-
-    next()
 }
 
-const use = (func) => {
-    middleware.push(func)
-}
+const useBefore = (func) => middlewareBefore.push(func)
+const useAfter = (func) => middlewareAfter.push(func)
 
 module.exports = (api_path, handlers_path, policies_path) => {
     app.use(bodyparser)
+    app.use(cookieparser)
+    app.use(userMiddleware(middlewareBefore))
     app.use(router(api_path, handlers_path, policies_path))
-    app.use(userMiddleware)
-    app.use(errorhandler)
+    app.use(userMiddleware(middlewareAfter))
     app.use(logger)
+    app.use(errorhandler)
 
-    return { server, use }
+    return { server, useBefore, useAfter }
 }
