@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "GATEWAY='memory' PORT=5000 AUTO_PORT=true ACTIONS_TO_LOG='server, mode, error, fatal, process, tips, accept, reject, database' ERRORS_TO_LOG='all' TRACEBACKS_TO_LOG='critical' node index.js"
+    "dev": "GATEWAY='memory' PORT=3000 AUTO_PORT=true ACTIONS_TO_LOG='server, mode, error, fatal, process, tips, accept, reject, database' ERRORS_TO_LOG='all' TRACEBACKS_TO_LOG='critical' node index.js"
   },
   "keywords": [],
   "author": "",
