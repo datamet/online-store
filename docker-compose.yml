@@ -16,6 +16,11 @@ services:
         volumes:
             - mongodb_data_container:/data/db
             # - ./.docker/mongodb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+    client-server:
+        container_name: client-server
+        build: ./client-server/svelte
+        ports: 
+            - "5000:5000"   
     auth:
         container_name: auth-server
         depends_on: 
