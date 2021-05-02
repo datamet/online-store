@@ -11,7 +11,7 @@
 <body>
     <script>
         const signIn = async (id_token) => {
-            const url = `/auth/google?id_token=${id_token}`
+            const url = `/api/v1/auth/google?id_token=${id_token}`
 
             const res = await fetch(url, { method: 'post' })
             const body = await res.json()
