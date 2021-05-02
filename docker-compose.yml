@@ -11,6 +11,11 @@ services:
             - ${DB_PORT}:27017
         volumes:
             - mongodb_data_container:/data/db
+    client-server:
+        container_name: client-server
+        build: ./client-server/svelte
+        ports: 
+            - "5000:5000"
     node:
         container_name: node-api
         depends_on: 
