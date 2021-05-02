@@ -27,12 +27,12 @@
   },
   {
     "method": "get",
-    "path": "/api/v1/user/:userID",
+    "path": "/api/v1/user/:user_id",
     "handler": "Users.getOne"
   },
   {
     "method": "put",
-    "path": "/api/v1/user/:userID",
+    "path": "/api/v1/user/:user_id",
     "handler": "Users.updateOne",
     "policies": {
       "inGroup": [
@@ -55,7 +55,7 @@
   },
   {
     "method": "delete",
-    "path": "/api/v1/users/:userID",
+    "path": "/api/v1/users/:user_id",
     "handler": "Users.deleteOne",
     "policies": {
       "inGroup": [

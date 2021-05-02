@@ -25,7 +25,7 @@ Products.getMultiple = async (req, res, next) => {
 }
 
 Products.getProduct = async (req, res, next) => {
-	const product = await db.getProduct({ _id: req.params.productID })
+	const product = await db.getProduct({ _id: req.params.product_id })
 	res.json(product)
 	next()
 }
@@ -43,7 +43,7 @@ Products.deleteMultiple = async (req, res, next) => {
 }
 
 Products.deleteOne = async (req, res, next) => {
-	await db.deleteProduct({ _id: req.params.productID })
+	await db.deleteProduct({ _id: req.params.product_id })
 	res.json({
 		message: 'Product deleted'
 	})

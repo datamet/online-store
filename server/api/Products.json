@@ -23,12 +23,12 @@
   },
   {
     "method": "get",
-    "path": "/api/v1/product/:productID",
+    "path": "/api/v1/product/:product_id",
     "handler": "Products.getProduct"
   },
   {
     "method": "put",
-    "path": "/api/v1/product/:productID",
+    "path": "/api/v1/product/:product_id",
     "handler": "Products.updateOne",
     "policies": {
       "inGroup": [
@@ -38,7 +38,7 @@
   },
   {
     "method": "delete",
-    "path": "/api/v1/product/:productID",
+    "path": "/api/v1/product/:product_id",
     "handler": "Products.deleteMultiple",
     "policies": {
       "inGroup": [

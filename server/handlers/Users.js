@@ -9,7 +9,7 @@ Users.createOne = async (req, res, next) => {
 }
 
 Users.getOne = async (req, res, next) => {
-	const user = await db.getUser({ _id: req.params.userID })
+	const user = await db.getUser({ _id: req.params.user_id })
 	delete user.hash
 	delete user.salt
 
@@ -33,7 +33,7 @@ Users.updateOne = async (req, res, next) => {
 
 	const params = {
 		updatedInfo,
-		id : req.params.userID
+		id : req.params.user_id
 	}
 	await db.updateUser(params)
 	res.json({
@@ -43,7 +43,7 @@ Users.updateOne = async (req, res, next) => {
 }
 
 Users.deleteOne = async (req, res, next) => {
-	await db.deleteUser({ _id: req.params.userID })
+	await db.deleteUser({ _id: req.params.user_id })
 	res.json({
 		message: 'User deleted'
 	})
