@@ -5,13 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <meta name="google-signin-client_id" content="115574111400-snu8ig2jb9ffg3nd5nefs8011lpqs84e.apps.googleusercontent.com">
+    <meta name="google-signin-client_id" content="115574111400-1rce1qc0mc07t4dttjhrr52gmcdn257p.apps.googleusercontent.com">
     <title>google signin</title>
 </head>
 <body>
     <script>
         const signIn = async (id_token) => {
-            const url = `/api/v1/auth/google?id_token=${id_token}`
+            const url = `/auth/google?id_token=${id_token}`
 
             const res = await fetch(url, { method: 'post' })
             const body = await res.json()
