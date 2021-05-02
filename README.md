@@ -24,5 +24,6 @@ AUTO_PORT="false" \
 ACTIONS_TO_LOG="server, mode, fatal, tips, database, error" \
 ERRORS_TO_LOG="all" \
 TRACEBACKS_TO_LOG="all" \
+INSPECT_FLAG="--inspect=0.0.0.0" \
 docker-compose up --build
 ```
