@@ -73,6 +73,18 @@ const setupHandlers = handlers => rawHandler => {
     }
 } 
 
+const parsePathVariables = (rawPath) => {
+    const variables = {}
+    const splitPath = rawPath.split('/')
+    for (const segment of splitPath) {
+        if (segment[0] === ':') {
+            key = segment.slice(1)
+            variables[key] = segment
+        }
+    }
+    return variables
+}
+
 const endpointParser = (handlers, policies) => raw => {
     let parsePolicy = setupPolicy(policies)
     let parseHandler = setupHandlers(handlers)
@@ -83,7 +95,12 @@ const endpointParser = (handlers, policies) => raw => {
     }
     try {
         if (validate('[method]', raw.method)) parsed.method = raw.method
-        if (validate('[path]', raw.path)) parsed.path = raw.path
+        if (validate('[path]', raw.path)) {
+            const pathVariables = parsePathVariables(raw.path)
+            parsed.params = parseKeys(pathVariables, parsePolicy)
+            parsed.path = raw.path
+            parsed.policies.unshift(matchesForm(parsed.params, 'params'))
+        }
         if (validate('[handler]', raw.handler)) {
             parsed.handler = parseHandler(raw.handler)
             if (!parsed.handler) parsed.handler = (req, res, next) => { next() }
@@ -93,9 +110,13 @@ const endpointParser = (handlers, policies) => raw => {
                 parsed.policies.push(parsePolicy(rawPolicy, value))
             }
         }
+        if (typeof raw.query === 'object') {
+            parsed.query = parseKeys(raw.query, parsePolicy)
+            parsed.policies.unshift(matchesForm(parsed.query, 'query'))
+        }
         if (typeof raw.body === 'object') {
             parsed.body = parseKeys(raw.body, parsePolicy)
-            parsed.policies.unshift(matchesForm(parsed.body, "body"))
+            parsed.policies.unshift(matchesForm(parsed.body, 'body'))
         }
         return parsed
     }
