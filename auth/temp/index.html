@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="115574111400-1rce1qc0mc07t4dttjhrr52gmcdn257p.apps.googleusercontent.com">
+    <title>google signin</title>
+</head>
+<body>
+    <script>
+        const signIn = async (id_token) => {
+            const url = `/auth/google?id_token=${id_token}`
+
+            const res = await fetch(url, { method: 'post' })
+            const body = await res.json()
+            console.log(body)
+        } 
+
+        function onSignIn(googleUser) {
+            const id_token = googleUser.getAuthResponse().id_token
+            signIn(id_token)
+        }
+    </script>
+
+    <h1>login</h1>
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+</body>
+</html>

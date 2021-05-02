@@ -7,18 +7,45 @@ services:
             MONGO_INITDB_ROOT_USERNAME: ${DB_ROOT_USERNAME}
             MONGO_INITDB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
             MONGO_INITDB_DATABASE: ${DB_NAME}
+            DB_AUTH_USER: ${DB_AUTH_USER}
+            DB_AUTH_PWD: ${DB_AUTH_PWD}
+            DB_USER: ${DB_USER}
+            DB_PWD: ${DB_PWD}
         ports:
             - ${DB_PORT}:27017
         volumes:
             - mongodb_data_container:/data/db
+            # - ./.docker/mongodb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+    auth:
+        container_name: auth-server
+        depends_on: 
+            - mongodb
+        build:
+            context: .
+            dockerfile: ./auth/Dockerfile
+        ports:
+            - 4000:3000
+        environment:
+            - DB_GATEWAY=${DB_GATEWAY}
+            - DB_URI=${DB_URI}
+            - DB_PROTOCOL=${DB_PROTOCOL}
+            - DB_HOST=${DB_HOST}
+            - DB_PORT=${DB_PORT}
+            - DB_NAME=${DB_NAME}
+            - DB_USERNAME=${DB_USERNAME}
+            - DB_PASSWORD=${DB_PASSWORD}
+            - PORT=${PORT}
+            - AUTO_PORT=${AUTO_PORT}
+            - ACTIONS_TO_LOG=${ACTIONS_TO_LOG}
+            - ERRORS_TO_LOG=${ERRORS_TO_LOG}
+            - TRACEBACKS_TO_LOG=${TRACEBACKS_TO_LOG}
     node:
         container_name: node-api
         depends_on: 
             - mongodb
         build:
             context: .
-            dockerfile: 
-                ./server/Dockerfile
+            dockerfile: ./server/Dockerfile
         environment:
             - DB_GATEWAY=${DB_GATEWAY}
             - DB_URI=${DB_URI}
