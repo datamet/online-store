@@ -7,7 +7,7 @@ const logger = (req, res, next) => {
             res.status(404).json({ error: `Cannot ${req.method} ${req.path}` })
             log(log.REJECT, `(${res.statusCode}) ${req.method} ${req.path}`)
         }
-        next()
+        res.end()
     }, 50)
 }
 
