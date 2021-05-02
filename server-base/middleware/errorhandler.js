@@ -12,11 +12,16 @@ const errorhandler = (error, req, res, next) => {
 		status,
 	})
 
-	res.status(status).json(
-		status === 500
-			? { error: 'Internal server error' }
-			: { error: error.message }
-	)
+	let e = {}
+
+	if (status === 500) e = { message: 'Internal server error' }
+	else {
+		if (error.resObj) e = { ...error.resObj }
+		e.message = error.message
+	}
+
+	res.status(status).json({ error: e })
+	res.end()
 }
 
 module.exports = errorhandler
