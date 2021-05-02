@@ -18,7 +18,5 @@
     "url": "https://github.com/datamet/online-store/issues"
   },
   "homepage": "https://github.com/datamet/online-store#readme",
-  "dependencies": {
-    
-  }
+  "dependencies": {}
 }
