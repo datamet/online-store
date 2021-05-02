@@ -19,7 +19,14 @@
   {
     "method": "get",
     "path": "/api/v1/products",
-    "handler": "Products.getMultiple"
+    "handler": "Products.getMultiple",
+    "query": {
+      "?index": {
+        "$value": "[count]",
+        "$default": 0
+      },
+      "?search": "[search_query]"
+    }
   },
   {
     "method": "get",

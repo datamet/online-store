@@ -8,6 +8,11 @@ gateway.getProducts = async db => {
 	return await db.collection('products').find().toArray()
 }
 
+gateway.getProductsSorted = async db => {
+	let mySort = { name: 1 };
+	return await db.collection('products').find().sort(mySort).toArray()
+}
+
 gateway.deleteAllProducts = async db => {
 	await db.collection('products').drop()
 }

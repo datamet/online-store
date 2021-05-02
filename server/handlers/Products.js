@@ -19,8 +19,24 @@ Products.createOne = async (req, res, next) => {
 }
 
 Products.getMultiple = async (req, res, next) => {
-	const products = await db.getProducts()
-	res.json(products)
+	const sortedList = await db.getProductsSorted()
+	const listLength = sortedList.length
+	const start = req.query.index
+	const end = start + 20
+	const products = []
+
+	for (let i = start; i < listLength - 1 && i <= end; i++) {
+		products.push(sortedList[i])
+	}
+
+	const response = {
+		products
+	}
+
+	if (end+1 < products.length) products.next = `/api/v1/products?index=${end + 1}`
+	if (start > 0) products.prev = `/api/v1/products?index=${start - 20}`
+
+	res.json(response)
 	next()
 }
 
