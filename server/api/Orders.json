@@ -15,11 +15,10 @@
         "path": "/api/v1/orders",
         "handler": "Orders.getMultiple",
         "query": {
-            "user_id": "user_id"
+            "?user_id": "[user_id]"
         },
         "policies": {
             "inGroup": [
-                "admin",
                 "owner"
             ]
         }
