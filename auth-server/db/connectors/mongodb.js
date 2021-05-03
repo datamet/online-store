@@ -1,11 +1,8 @@
 const { MongoClient } = require('mongodb')
 const { config } = require('server-framework')
+const { db_protocol, db_user, db_pwd, db_host, db_port, db_name } = config
 
-let uri = config.db_uri.replace('<protocol>', config.db_protocol)
-	uri = 	 uri.replace('<host>', config.db_host)
-	uri = 	 uri.replace('<port>', config.db_port)
-	uri = 	 uri.replace('<username>', config.db_username)
-	uri = 	 uri.replace('<password>', config.db_password)
+let uri = `${db_protocol}://${db_user}:${db_pwd}@${db_host}:${db_port}/${db_name}`
 
 let db
 
