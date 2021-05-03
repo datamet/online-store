@@ -1,22 +1,64 @@
 [
-  {
-    "method": "post",
-    "path": "/api/v1/user/:user_id/cart",
-    "handler": "CartItems.createOne"
-  },
-  {
-    "method": "get",
-    "path": "/api/v1/user/:user_id/cart",
-    "handler": "CartItems.getOne"
-  },
-  {
-    "method": "put",
-    "path": "/api/v1/user/:user_id/cart",
-    "handler": "CartItems.updateOne"
-  },
-  {
-    "method": "delete",
-    "path": "/api/v1/user/:user_id/cart",
-    "handler": "CartItems.deleteOne"
-  }
+    {
+        "method": "post",
+        "path": "/api/v1/user/:user_id/cart/items",
+        "handler": "CartItems.createOne",
+        "body": {
+            "product_id": "[product_id]",
+            "amount": "[amount]"
+        },
+        "policies": {
+            "inGroup": [
+                "admin",
+                "owner"
+            ]
+        }
+    },
+    {
+        "method": "get",
+        "path": "/api/v1/user/:user_id/cart/items",
+        "handler": "CartItems.getMultiple",
+        "policies": {
+            "inGroup": [
+                "admin",
+                "owner"
+            ]
+        }
+    },
+    {
+        "method": "put",
+        "path": "/api/v1/user/:user_id/cart/item/:product_id",
+        "handler": "CartItems.updateOne",
+        "body": {
+            "amount": "[amount]"
+        },
+        "policies": {
+            "inGroup": [
+                "admin",
+                "owner"
+            ]
+        }
+    },
+    {
+        "method": "delete",
+        "path": "/api/v1/user/:user_id/cart/item/:product_id",
+        "handler": "CartItems.deleteOne",
+        "policies": {
+            "inGroup": [
+                "admin",
+                "owner"
+            ]
+        }
+    },
+    {
+        "method": "delete",
+        "path": "/api/v1/user/:user_id/cart/items",
+        "handler": "CartItems.deleteMultiple",
+        "policies": {
+            "inGroup": [
+                "admin",
+                "owner"
+            ]
+        }
+    }
 ]
