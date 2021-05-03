@@ -11,8 +11,7 @@ Users.createOne = async (req, res, next) => {
     validate('[email]', email)
     validate('[password]', password)
     const hash = hasher.create(password)
-    const first_name = req.body.first_name
-    const last_name = req.body.last_name
+    const username = req.body.username
 
     let user = await db.getUserByEmail({ email })
     if (user) throw error.custom(409, "A user with that email allready exists")
@@ -20,8 +19,7 @@ Users.createOne = async (req, res, next) => {
     user = await db.createUser({
         email,
         email_verified: false,
-        first_name,
-        last_name,
+        username,
         hash
     })
     
