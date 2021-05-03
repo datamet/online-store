@@ -1,11 +1,7 @@
 const { MongoClient } = require('mongodb')
-const { db_protocol, db_uri, db_host, db_port, db_username, db_password, db_name } = require('../../../serverconfig')
+const { db_protocol, db_host, db_port, db_user, db_pwd, db_name } = require('../../../serverconfig')
 
-let uri = db_uri.replace('<protocol>', db_protocol)
-	uri = 	 uri.replace('<host>', db_host)
-	uri = 	 uri.replace('<port>', db_port)
-	uri = 	 uri.replace('<username>', db_username)
-	uri = 	 uri.replace('<password>', db_password)
+let uri = `${db_protocol}://${db_user}:${db_pwd}@${db_host}:${db_port}/${db_name}`
 
 let db
 
