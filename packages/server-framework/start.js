@@ -2,17 +2,15 @@
  * Purpose: Requires server and listens on port
  */
 
-let server, dbconnect
+let server, dbconnect, autoport, startingPort, mode
 const { log } = require('./lib/logger')
 const getAvailablePort = require('./lib/port')
-const { port: startingPort, mode, autoport } = require('./serverconfig')
 
 const listen = async () => {
 	try {
 		await dbconnect()
 		log(log.DB, `Connected to db`)
-	}
-	catch (error) {
+	} catch (error) {
 		log(log.ERROR, `Cannot connect to db`, { error })
 		return
 	}
@@ -52,7 +50,7 @@ const close = () => {
 }
 
 // Handeling Ctrl + c interrupt
-process.on('SIGINT', () =>  {
+process.on('SIGINT', () => {
 	log(log.PROCESS, `Recieved CTRL + C. Shuttind down server`, {
 		newline: true,
 	})
@@ -65,7 +63,14 @@ process.on('SIGTERM', function () {
 	close()
 })
 
-module.exports = (_server, _dbconnect) => {
+module.exports = ({
+	mode: _mode,
+	port: _port,
+	autoport: _autoport,
+	server: _server,
+	connect: _dbconnect,
+}) => {
+	;(mode = _mode), (startingPort = _port), (autoport = _autoport)
 	server = _server
 	dbconnect = _dbconnect
 
