@@ -19,22 +19,32 @@ Products.createOne = async (req, res, next) => {
 }
 
 Products.getMultiple = async (req, res, next) => {
-	const sortedList = await db.getProductsSorted()
-	const listLength = sortedList.length
+	const count = req.query.count
 	const start = req.query.index
-	const end = start + 20
-	const products = []
+	const end = start + count
+	const search = req.query.search
+	const rawKeywords = req.query.keywords
+	const keywords = rawKeywords.split('%2c')
 
-	for (let i = start; i < listLength - 1 && i <= end; i++) {
-		products.push(sortedList[i])
-	}
+	let products = await db.getProductsFiltered({keywords, search})
+
+	products = products.slice(start, end)
 
 	const response = {
 		products
 	}
 
-	if (end+1 < products.length) products.next = `/api/v1/products?index=${end + 1}`
-	if (start > 0) products.prev = `/api/v1/products?index=${start - 20}`
+	if (end < products.length) {
+		response.next = `/api/v1/products?index=${end}&count=${count}`
+		if (rawKeywords) response.next = `${response.next}&keywords=${rawKeywords}`
+		if (search) response.next = `${response.next}&search=${search}`
+	}
+
+	if (start > 0) {
+		response.prev = `/api/v1/products?index=${Math.max(0, start - count)}`
+		if (rawKeywords) response.prev = `${response.prev}&keywords=${rawKeywords}`
+		if (search) response.prev = `${response.prev}&search=${search}`
+	}
 
 	res.json(response)
 	next()
@@ -48,14 +58,6 @@ Products.getProduct = async (req, res, next) => {
 
 Products.updateOne = async (req, res, next) => {
 
-}
-
-Products.deleteMultiple = async (req, res, next) => {
-	await db.deleteAllProducts()
-	res.json({
-		message: 'Deleted all products'
-	})
-	next()
 }
 
 Products.deleteOne = async (req, res, next) => {
