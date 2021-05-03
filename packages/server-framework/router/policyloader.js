@@ -5,7 +5,7 @@
  * policies in and loades those policies
  */
  const fs = require('fs')
- const log = require('../lib/logger')
+ const { log } = require('../lib/logger')
  
  loadPolicies = dir => {
      const policies = {}

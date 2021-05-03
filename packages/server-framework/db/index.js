@@ -1,6 +1,6 @@
 const config = require('../serverconfig')
 const error = require('../lib/error')
-const log = require('../lib/logger')
+const { log } = require('../lib/logger')
 
 let gateway
 const db = {

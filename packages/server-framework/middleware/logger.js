@@ -1,4 +1,4 @@
-const log = require('../lib/logger')
+const { log } = require('../lib/logger')
 
 const logger = (req, res, next) => {
     setTimeout(() => {

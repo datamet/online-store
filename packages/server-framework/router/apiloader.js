@@ -7,7 +7,7 @@
  */
  const fs = require('fs')
  const path = require('path')
- const log = require('../lib/logger')
+ const { log } = require('../lib/logger')
  
  const loadFile = (filename, filePath) => {
      let endpoints = []

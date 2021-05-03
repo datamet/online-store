@@ -3,7 +3,7 @@
  */
 
 let server, dbconnect
-const log = require('./lib/logger')
+const { log } = require('./lib/logger')
 const getAvailablePort = require('./lib/port')
 const { port: startingPort, mode, autoport } = require('./serverconfig')
 

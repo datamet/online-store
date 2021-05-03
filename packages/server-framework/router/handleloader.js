@@ -5,7 +5,7 @@
  * to look for handlers
  */
  const fs = require('fs')
- const log = require('../lib/logger')
+ const { log } = require('../lib/logger')
  
  loadHandlers = dir => {
      const handlers = {}

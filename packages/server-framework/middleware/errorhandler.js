@@ -2,7 +2,7 @@
  * Exports: Error handeling function that
  * logs erors and sends errors back to the client
  */
-const log = require('../lib/logger')
+const { log } = require('../lib/logger')
 
 const errorhandler = (error, req, res, next) => {
 	const status = error.status ? error.status : 500

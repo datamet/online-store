@@ -2,9 +2,9 @@
  * Exports: Log function which formats and chooses
  * if it should display a log message
  */
-
-const { log : logsToPrint, error : errorMessage, traceback } = require('../serverconfig')
 const format = require('./format')
+
+let logsToPrint, errorMessage, traceback
 
 const printAction = action => {
     return logsToPrint.indexOf(action) !== -1
@@ -53,4 +53,10 @@ log.ERROR = { name: 'error', icon: '❌', color: format.Red }
 log.MODE = { name: 'mode', icon: '🔧', color: format.Cyan }
 log.TIPS = { name: 'tips', icon: '📚', color: format.Magenta }
 
-module.exports = log
+const setup = (events, errors, tracebacks) => {
+    logsToPrint = events
+    errorMessage = errors
+    traceback = tracebacks
+}
+
+module.exports = { log, setup }

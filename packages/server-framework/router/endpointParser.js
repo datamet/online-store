@@ -6,7 +6,7 @@
  * to parse them to js objects
  */
 
-const log = require('../lib/logger')
+const { log } = require('../lib/logger')
 const { validate } = require('../validation/validator')
 const matchesForm = require('./matchesForm')
 

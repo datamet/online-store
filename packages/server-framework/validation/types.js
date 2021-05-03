@@ -8,7 +8,7 @@
 const fs = require("fs")
 const path = require("path")
 const error = require("../lib/error")
-const log = require('../lib/logger')
+const { log } = require('../lib/logger')
 
 let types = {}
 
