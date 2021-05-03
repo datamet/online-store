@@ -1,0 +1,26 @@
+[
+  {
+    "method": "get",
+    "path": "/api/v1/order/:order_id",
+    "handler": "Orders.getOne"
+  },
+  {
+    "method": "get",
+    "path": "/api/v1/orders",
+    "handler": "Orders.getOne",
+    "query": {
+      "user_id": "user_id"
+    }
+  },
+  {
+    "method": "delete",
+    "path": "/api/v1/order/:order_id",
+    "handler": "Orders.deleteOne",
+    "policies": {
+      "inGroup": [
+        "admin",
+        "owner"
+      ]
+    }
+  }
+]
