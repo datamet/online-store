@@ -3,7 +3,7 @@
  * if it should display a log message
  */
 
-const { log : logsToPrint, error : errorMessage, traceback } = require('../serverconfig')
+const { events : logsToPrint, errors : errorMessage, tracebacks } = require('../serverconfig')
 const format = require('./format')
 
 const printAction = action => {
@@ -30,9 +30,9 @@ const log = (action, message, options) => {
             console.log(`${action.color}${str}${format.Reset}`)
         }
 
-        if (error && traceback) {
-            if (traceback === 'all') printTraceback(error)
-            else if (traceback === 'critical' && status === 500) printTraceback(error)
+        if (error && tracebacks) {
+            if (tracebacks === 'all') printTraceback(error)
+            else if (tracebacks === 'critical' && status === 500) printTraceback(error)
         }
         else if (error && errorMessage) {
             if (errorMessage === 'all') printErrorMessage(error)
