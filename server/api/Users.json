@@ -15,12 +15,12 @@
     "handler": "Users.updateOne",
     "policies": {
       "inGroup": [
+        "admin",
         "owner"
       ]
     },
     "body": {
       "?username": "[username]",
-      "?password": "[password]",
       "?groups": {
         "$value": "<group>",
         "$policies": {
