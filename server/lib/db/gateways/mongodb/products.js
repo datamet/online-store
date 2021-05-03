@@ -16,8 +16,8 @@ gateway.getProduct = async (db, { _id }) => {
 	return await db.collection('products').find({ _id })
 }
 
-gateway.updateProduct = async (db, { _id }) => {
-	return await db.collection('products').updateOne()
+gateway.updateProduct = async (db, { _id, updatedInfo }) => {
+	return await db.collection('products').updateOne({ _id }, updatedInfo)
 }
 
 gateway.deleteProduct = async (db, { _id }) => {

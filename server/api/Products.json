@@ -47,6 +47,14 @@
             "inGroup": [
                 "admin"
             ]
+        },
+        "body": {
+            "name": "[name]",
+            "price": "[price]",
+            "stock": "[stock]",
+            "keywords": "<keywords>",
+            "short_desc": "[short_desc]",
+            "long_desc": "[long_desc]"
         }
     },
     {
