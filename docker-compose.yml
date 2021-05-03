@@ -1,11 +1,11 @@
 version: "3.8"
 services:
-    mongodb:
-        container_name: mongodb
+    mongodb-server:
+        container_name: mongodb-server
         image: mongo:latest
         environment:
-            MONGO_INITDB_ROOT_USERNAME: ${DB_ROOT_USERNAME}
-            MONGO_INITDB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+            MONGO_INITDB_ROOT_USERNAME: ${DB_ROOT_USER}
+            MONGO_INITDB_ROOT_PASSWORD: ${DB_ROOT_PWD}
             MONGO_INITDB_DATABASE: ${DB_NAME}
             DB_AUTH_USER: ${DB_AUTH_USER}
             DB_AUTH_PWD: ${DB_AUTH_PWD}
@@ -14,72 +14,68 @@ services:
         ports:
             - ${DB_PORT}:27017
         volumes:
-            - mongodb_data_container:/data/db
-            # - ./.docker/mongodb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+            - mongodb:/data/db
+            - ./docker-entrypoint-initdb.d/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     client-server:
         container_name: client-server
         build: ./client-server/svelte
-        ports: 
-            - "5000:5000"   
-    auth:
+    auth-server:
         container_name: auth-server
         depends_on: 
-            - mongodb
-        build:
-            context: .
-            dockerfile: ./auth/Dockerfile
-        ports:
-            - 4000:3000
+            - mongodb-server
+        build: ./auth-server
+        volumes:
+            - ./packages:/usr/src/packages
         environment:
             - DB_GATEWAY=${DB_GATEWAY}
-            - DB_URI=${DB_URI}
             - DB_PROTOCOL=${DB_PROTOCOL}
             - DB_HOST=${DB_HOST}
             - DB_PORT=${DB_PORT}
             - DB_NAME=${DB_NAME}
-            - DB_USERNAME=${DB_USERNAME}
-            - DB_PASSWORD=${DB_PASSWORD}
-            - PORT=${PORT}
-            - AUTO_PORT=${AUTO_PORT}
-            - ACTIONS_TO_LOG=${ACTIONS_TO_LOG}
-            - ERRORS_TO_LOG=${ERRORS_TO_LOG}
-            - TRACEBACKS_TO_LOG=${TRACEBACKS_TO_LOG}
-    node:
-        container_name: node-api
+            - DB_USER=${DB_AUTH_USER}
+            - DB_PWD=${DB_AUTH_PWD}
+            - PORT=${AUTH_SERVER_PORT}
+            - EVENTS_TO_LOG=${AUTH_SERVER_ACTIONS}
+            - ERRORS_TO_LOG=${AUTH_SERVER_ERRORS}
+            - TRACEBACKS_TO_LOG=${AUTH_SERVER_TRACEBACKS}
+        links:
+            - mongodb-server:mongodb
+    resource-server:
+        container_name: resourece-server
         depends_on: 
-            - mongodb
-        build:
-            context: .
-            dockerfile: ./server/Dockerfile
+            - mongodb-server
+        build: ./resource-server
         environment:
             - DB_GATEWAY=${DB_GATEWAY}
-            - DB_URI=${DB_URI}
             - DB_PROTOCOL=${DB_PROTOCOL}
             - DB_HOST=${DB_HOST}
             - DB_PORT=${DB_PORT}
             - DB_NAME=${DB_NAME}
-            - DB_USERNAME=${DB_USERNAME}
-            - DB_PASSWORD=${DB_PASSWORD}
-            - PORT=${PORT}
-            - AUTO_PORT=${AUTO_PORT}
-            - ACTIONS_TO_LOG=${ACTIONS_TO_LOG}
-            - ERRORS_TO_LOG=${ERRORS_TO_LOG}
-            - TRACEBACKS_TO_LOG=${TRACEBACKS_TO_LOG}
+            - DB_USER=${DB_USER}
+            - DB_PWD=${DB_PWD}
+            - PORT=${RESOURCE_SERVER_PORT}
+            - EVENTS_TO_LOG=${RESOURCE_SERVER_ACTIONS}
+            - ERRORS_TO_LOG=${RESOURCE_SERVER_ERRORS}
+            - TRACEBACKS_TO_LOG=${RESOURCE_SERVER_TRACEBACKS}
         ports:
-            - ${PORT}:3000
             - "9229:9229"
         command:
             - node
-            - "--inspect=0.0.0.0"
+            - ${RESOURCE_SERVER_FLAGS}
             - "./index.js"
         links:
-            - mongodb
+            - mongodb-server:mongodb
     nginx:
         restart: always
         build:
-            context: ./nginx
+            context: ./nginx-server
+        links:
+            - auth-server:auth
+            - resource-server:resource
+            - client-server:frontend
         ports:
             - "80:80"
             - "443:443"
 volumes:
-    mongodb_data_container:        
+    mongodb:
+    
