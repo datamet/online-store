@@ -11,6 +11,7 @@
     "body": {
       "name": "[name]",
       "price": "[price]",
+      "stock": "[stock]",
       "keywords": "<keywords>",
       "short_desc": "[short_desc]",
       "long_desc": "[long_desc]"
@@ -25,13 +26,18 @@
         "$value": "[count]",
         "$default": 0
       },
+      "?count": {
+        "$value": "[count]",
+        "$default": 0
+      },
+      "?keywords": "[keywords]",
       "?search": "[search_query]"
     }
   },
   {
     "method": "get",
     "path": "/api/v1/product/:product_id",
-    "handler": "Products.getProduct"
+    "handler": "Products.getOne"
   },
   {
     "method": "put",
@@ -46,20 +52,11 @@
   {
     "method": "delete",
     "path": "/api/v1/product/:product_id",
-    "handler": "Products.deleteMultiple",
+    "handler": "Products.deleteOne",
     "policies": {
       "inGroup": [
-        "admin"
-      ]
-    }
-  },
-  {
-    "method": "delete",
-    "path": "/api/v1/products",
-    "handler": "Products.deleteMultiple",
-    "policies": {
-      "inGroup": [
-        "admin"
+        "admin",
+        "owner"
       ]
     }
   }
