@@ -5,18 +5,20 @@ gateway.createUser = async (db, { username }) => {
 }
 
 gateway.getUsers = async db => {
-	return await db.collection('users').find().toArray()
+	return await db.collection('users').find({}, { username: 1 }).toArray()
 }
 
 gateway.getUser = async (db, { _id }) => {
-	await db.collection('users').find({ _id })
+	return await db.collection('users').find({ _id })
 }
 
-gateway.updateUser = async (db, params) => {
-	await db.collection('users').updateOne({ _id: params.id }, params.updatedInfo)
+gateway.updateUser = async (db, { _id, updatedInfo }) => {
+	await db.collection('users').updateOne({ _id }, updatedInfo)
 }
 
 gateway.deleteUser = async (db, { _id }) => {
+	await db.collection('hashes').deleteOne({ user_id: _id })
+	await db.collection('tokens').deleteMany({ user_id: _id })
 	await db.collection('users').deleteOne({ _id })
 }
 
