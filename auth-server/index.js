@@ -1,5 +1,5 @@
 const path = require('path')
-const config = require('./config')
+const { mode, port, autoport, gateway, events, errors, tracebacks } = require('./config')
 const { server } = require('server-framework')
 
 const tokenvalidator = require('./middleware/tokenvalidator')
@@ -14,13 +14,13 @@ const app = server({
         types:      path.resolve(__dirname,'./types')
     },
     config: {
-        // mode,
-        // port,
-        // autoport,
-        // gateway,
-        events: 'server, mode, error, fatal, process, tips, accept, reject, database',
-        errors: 'all',
-        tracebacks: 'all'
+        mode,
+        port,
+        autoport,
+        gateway,
+        events,
+        errors,
+        tracebacks
     }
 })
 
