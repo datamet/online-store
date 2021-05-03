@@ -1,0 +1,22 @@
+[
+  {
+    "method": "post",
+    "path": "/api/v1/user/:user_id/cart",
+    "handler": "CartItems.createOne"
+  },
+  {
+    "method": "get",
+    "path": "/api/v1/user/:user_id/cart",
+    "handler": "CartItems.getOne"
+  },
+  {
+    "method": "put",
+    "path": "/api/v1/user/:user_id/cart",
+    "handler": "CartItems.updateOne"
+  },
+  {
+    "method": "delete",
+    "path": "/api/v1/user/:user_id/cart",
+    "handler": "CartItems.deleteOne"
+  }
+]

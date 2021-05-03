@@ -1,26 +1,61 @@
 [
-  {
-    "method": "get",
-    "path": "/api/v1/order/:order_id",
-    "handler": "Orders.getOne"
-  },
-  {
-    "method": "get",
-    "path": "/api/v1/orders",
-    "handler": "Orders.getOne",
-    "query": {
-      "user_id": "user_id"
+    {
+        "method": "get",
+        "path": "/api/v1/order/:order_id",
+        "handler": "Orders.getOne",
+        "policies": {
+            "inGroup": [
+                "admin",
+                "owner"
+            ]
+        }
+    },
+    {
+        "method": "get",
+        "path": "/api/v1/orders",
+        "handler": "Orders.getMultiple",
+        "query": {
+            "user_id": "user_id"
+        },
+        "policies": {
+            "inGroup": [
+                "admin",
+                "owner"
+            ]
+        }
+    },
+    {
+        "method": "delete",
+        "path": "/api/v1/order/:order_id",
+        "handler": "Orders.deleteOne",
+        "policies": {
+            "inGroup": [
+                "admin",
+                "owner"
+            ]
+        }
+    },
+    {
+        "method": "post",
+        "path": "/api/v1/user/:user_id/orders",
+        "handler": "Orders.createOne",
+        "body": {
+            "buyer": "[user_id]",
+            "products": "<order_item>",
+            "order_note": "[note]",
+            "address": {
+                "country": "[country]",
+                "province": "[province]",
+                "city": "[city]",
+                "zip": "[zip]",
+                "street_name": "[street_name]",
+                "street_number": "[street_number]"
+            }
+        },
+        "policies": {
+            "inGroup": [
+                "user"
+            ]
+        }
     }
-  },
-  {
-    "method": "delete",
-    "path": "/api/v1/order/:order_id",
-    "handler": "Orders.deleteOne",
-    "policies": {
-      "inGroup": [
-        "admin",
-        "owner"
-      ]
-    }
-  }
 ]
