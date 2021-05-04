@@ -10,8 +10,8 @@ Local.authenticate = async (req, res, next) => {
     const hash_info = await db.getHashByEmail({ email })
     if (!hash_info || !hash_info.hash) throw error.credentials()
     hash.compare(hash_info.hash, password)
-    await authenticate(user._id, res)
-    res.json({ message: 'Logged in' })
+    await authenticate(hash_info.user_id, res)
+    res.json({ message: 'Logged in', user_id: hash_info.user_id })
     next()
 }
 
