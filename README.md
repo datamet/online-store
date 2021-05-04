@@ -55,6 +55,7 @@ RESOURCE_SERVER_ACTIONS="server, mode, fatal, tips, database, accept, reject" \
 RESOURCE_SERVER_ERRORS="all" \
 RESOURCE_SERVER_TRACEBACKS="all" \
 RESOURCE_SERVER_FLAGS="--inspect=0.0.0.0" \
+AUTH_SERVER_FLAGS="--inspect=0.0.0.0" \
 FRONTEND_SERVER_PORT="3000" \
 docker-compose up --build
 ```
