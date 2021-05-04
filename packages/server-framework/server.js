@@ -12,6 +12,7 @@ const router = require('./router/router')
 const errorhandler = require('./middleware/errorhandler')
 const logger = require('./middleware/logger')
 const cookieparser = require('./middleware/cookieparser')
+const wrap = require('./lib/wrap')
 
 const server = http.createServer()
 const app = express()
@@ -32,8 +33,8 @@ const userMiddleware = middleware => (req, res, next) => {
     nextUserMiddleware()
 }
 
-const useBefore = (func) => middlewareBefore.push(func)
-const useAfter = (func) => middlewareAfter.push(func)
+const useBefore = (func) => middlewareBefore.push(wrap(func))
+const useAfter = (func) => middlewareAfter.push(wrap(func))
 
 module.exports = (api_path, handlers_path, policies_path) => {
     app.use(bodyparser)

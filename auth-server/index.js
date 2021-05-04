@@ -2,7 +2,8 @@ const path = require('path')
 const { mode, port, autoport, gateway, events, errors, tracebacks } = require('./config')
 const { server } = require('server-framework')
 
-const tokenvalidator = require('./middleware/tokenvalidator')
+const tokenparser = require('./middleware/tokenparser')
+const responder = require('./middleware/responder')
 
 const app = server({
     resources: {
@@ -24,6 +25,7 @@ const app = server({
     }
 })
 
-app.useAfter(tokenvalidator)
+app.useBefore(tokenparser)
+app.useAfter(responder)
 
 app.listen()

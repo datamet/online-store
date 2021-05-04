@@ -29,7 +29,8 @@ Google.authenticate = async (req, res, next) => {
 			google_id,
 			email,
 			email_verified,
-			username
+			username,
+			groups: ['user']
 		})
 	}
 	await authenticate(user._id, res)

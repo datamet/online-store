@@ -48,26 +48,53 @@ db.createCollection('tokens')
 db.users.createIndex({ email: 1 }, { unique: true })
 
 db.createRole({
-	role: "hashaccess",
-    privileges: [
-        { resource: { db: "production", collection: "products" }, actions: [ "find", "update", "insert" ] },
-        { resource: { db: "production", collection: "hashes" }, actions: [ "find", "update", "insert" ] },
-        { resource: { db: "production", collection: "orders" }, actions: [ "find", "update", "insert" ] },
-        { resource: { db: "production", collection: "tokens" }, actions: [ "find", "update", "insert" ] },
-        { resource: { db: "production", collection: "users" },  actions: [ "find", "update", "insert" ] }
-    ],
-	roles: []
+	role: 'hashaccess',
+	privileges: [
+		{
+			resource: { db: 'production', collection: 'products' },
+			actions: ['find', 'update', 'insert', 'delete'],
+		},
+		{
+			resource: { db: 'production', collection: 'hashes' },
+			actions: ['find', 'update', 'insert', 'delete'],
+		},
+		{
+			resource: { db: 'production', collection: 'orders' },
+			actions: ['find', 'update', 'insert', 'delete'],
+		},
+		{
+			resource: { db: 'production', collection: 'tokens' },
+			actions: ['find', 'update', 'insert', 'delete'],
+		},
+		{
+			resource: { db: 'production', collection: 'users' },
+			actions: ['find', 'update', 'insert', 'delete'],
+		},
+	],
+	roles: [],
 })
 
 db.createRole({
-	role: "restricted",
-    privileges: [
-        { resource: { db: "production", collection: "products" }, actions: [ "find", "update", "insert" ] },
-        { resource: { db: "production", collection: "orders" }, actions: [ "find", "update", "insert" ] },
-        { resource: { db: "production", collection: "tokens" }, actions: [ "find" ] },
-        { resource: { db: "production", collection: "users" },  actions: [ "find", "update" ] }
-    ],
-	roles: []
+	role: 'restricted',
+	privileges: [
+		{
+			resource: { db: 'production', collection: 'products' },
+			actions: ['find', 'update', 'insert', 'delete'],
+		},
+		{
+			resource: { db: 'production', collection: 'orders' },
+			actions: ['find', 'update', 'insert', 'delete'],
+		},
+		{
+			resource: { db: 'production', collection: 'tokens' },
+			actions: ['find'],
+		},
+		{
+			resource: { db: 'production', collection: 'users' },
+			actions: ['find', 'update'],
+		},
+	],
+	roles: [],
 })
 
 db.createUser({
@@ -92,40 +119,66 @@ db.createUser({
 	],
 })
 
-
 /**
  * Setup development database
  */
- db = db.getSiblingDB('development')
+db = db.getSiblingDB('development')
 
- db.createCollection('users')
- db.createCollection('products')
- db.createCollection('orders')
- db.createCollection('hashes')
- db.createCollection('tokens')
- db.users.createIndex({ email: 1 }, { unique: true })
+db.createCollection('users')
+db.createCollection('products')
+db.createCollection('orders')
+db.createCollection('hashes')
+db.createCollection('tokens')
+db.users.createIndex({ email: 1 }, { unique: true })
 
- db.createRole({
-	role: "hashaccess",
-    privileges: [
-        { resource: { db: "development", collection: "products" }, actions: [ "find", "update", "insert" ] },
-        { resource: { db: "development", collection: "hashes" }, actions: [ "find", "update", "insert" ] },
-        { resource: { db: "development", collection: "orders" }, actions: [ "find", "update", "insert" ] },
-        { resource: { db: "development", collection: "tokens" }, actions: [ "find", "update", "insert" ] },
-        { resource: { db: "development", collection: "users" },  actions: [ "find", "update", "insert" ] }
-    ],
-	roles: []
+db.createRole({
+	role: 'hashaccess',
+	privileges: [
+		{
+			resource: { db: 'development', collection: 'products' },
+			actions: ['find', 'update', 'insert'],
+		},
+		{
+			resource: { db: 'development', collection: 'hashes' },
+			actions: ['find', 'update', 'insert'],
+		},
+		{
+			resource: { db: 'development', collection: 'orders' },
+			actions: ['find', 'update', 'insert'],
+		},
+		{
+			resource: { db: 'development', collection: 'tokens' },
+			actions: ['find', 'update', 'insert'],
+		},
+		{
+			resource: { db: 'development', collection: 'users' },
+			actions: ['find', 'update', 'insert'],
+		},
+	],
+	roles: [],
 })
 
 db.createRole({
-	role: "restricted",
-    privileges: [
-        { resource: { db: "development", collection: "products" }, actions: [ "find", "update", "insert" ] },
-        { resource: { db: "development", collection: "orders" }, actions: [ "find", "update", "insert" ] },
-        { resource: { db: "development", collection: "tokens" }, actions: [ "find" ] },
-        { resource: { db: "development", collection: "users" },  actions: [ "find", "update" ] }
-    ],
-	roles: []
+	role: 'restricted',
+	privileges: [
+		{
+			resource: { db: 'development', collection: 'products' },
+			actions: ['find', 'update', 'insert'],
+		},
+		{
+			resource: { db: 'development', collection: 'orders' },
+			actions: ['find', 'update', 'insert'],
+		},
+		{
+			resource: { db: 'development', collection: 'tokens' },
+			actions: ['find'],
+		},
+		{
+			resource: { db: 'development', collection: 'users' },
+			actions: ['find', 'update'],
+		},
+	],
+	roles: [],
 })
 
 db.createUser({

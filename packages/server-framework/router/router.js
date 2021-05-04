@@ -7,6 +7,7 @@
 
 const path = require('path')
 const express = require('express')
+const wrap = require('../lib/wrap')
 
 const getPolicies = require('./policyloader')
 const getHandlers = require('./handleloader')
@@ -27,17 +28,10 @@ module.exports = (api_path, handlers_path, policies_path) => {
         const path = endpoint.path
         const handler = endpoint.handler
         const policies = endpoint.policies
+
+        const wrappedPolicies = policies.map(policy => wrap(policy))
     
-        const catcher = handler => async (req, res, next) => {
-            try {
-                await handler(req, res, next)
-            }
-            catch(err) {
-                next(err)
-            } 
-        }
-    
-        router[method](path, ...policies, catcher(handler))
+        router[method](path, ...wrappedPolicies, wrap(handler))
     }
     
     app.use(router)
