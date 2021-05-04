@@ -1,7 +1,7 @@
 const error = require('../lib/error')
 const { validate } = require('../validation/validator')
 
-const setupMatchFrom = (req, res) => (form, matchedValue) => {
+const setupMatchFrom = (req, res) => async (form, matchedValue) => {
     if (!matchedValue || typeof matchedValue !== 'object') throw error.missing()
     for (const [key, meta] of Object.entries(form)) {
         if (matchedValue[key]) {
@@ -24,12 +24,12 @@ const setupMatchFrom = (req, res) => (form, matchedValue) => {
                         const policies = [...meta.policies]
 
                         // muligens feil for flere policies
-                        const next = (error) => {
+                        const next = async (error) => {
                             if (error) throw error
                             const policy = policies.shift()
-                            if (policy) policy(req, res, next)
+                            if (policy) await policy(req, res, next)
                         }
-                        next()
+                        await next()
 
                         match = true
                         break
@@ -50,12 +50,12 @@ const setupMatchFrom = (req, res) => (form, matchedValue) => {
     }
 }
 
-const matchesFrom = (form, toMatch) => (req, res, next) => {
+const matchesFrom = (form, toMatch) => async (req, res, next) => {
     const matchFormRecursive = setupMatchFrom(req, res)
     
     try {
         const matchedValue = req[toMatch]
-        matchFormRecursive(form, matchedValue)
+        await matchFormRecursive(form, matchedValue)
     }
     catch (error) {
         next(error)
