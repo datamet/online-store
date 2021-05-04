@@ -12,12 +12,14 @@ const bodyparser = require('./lib/middleware/bodyparser')
 const router = require('./lib/router/router')
 const errorhandler = require('./lib/middleware/errorhandler')
 const logger = require('./lib/middleware/logger')
+const userparser = require('./lib/middleware/userparser')
 
 const server = http.createServer()
 const app = express()
 
 server.on('request', app)
 
+app.use(userparser)
 app.use(bodyparser)
 app.use(router)
 app.use(errorhandler)
