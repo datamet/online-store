@@ -12,7 +12,7 @@ Users.getOne = async (req, res, next) => {
 		username: user.username
 	}
 
-	if (inGroup(user._id, ['owner', 'admin'])) {
+	if (inGroup(req.user._id, ['owner', 'admin'])) {
 		resUser.email = user.email
 		if (resUser.cart) resUser.cart = user.cart
 	}
