@@ -33,12 +33,8 @@
         "regex" : "^((?!\\.)[\\w-_.]*[^.])(@\\w+)(\\.\\w+(\\.\\w+)?[^.\\W])$",
         "error" : "Email is not valid"
     },
-    "first_name" : {
+    "user_group" : {
         "regex" : ".*",
-        "error" : "Password needs to inclued one or more lowercase letters"
-    },
-    "last_name" : {
-        "regex" : ".*",
-        "error" : "Password needs to inclued one or more lowercase letters"
+        "error" : "Usergroup cannot include special characters"
     }
 }
