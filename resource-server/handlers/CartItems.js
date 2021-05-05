@@ -15,8 +15,8 @@ CartItems.createOne = async (req, res, next) => {
 }
 
 CartItems.getMultiple = async (req, res, next) => {
-	const cartItem = await db.getCartItems({ user_id: req.params.user_id })
-	res.json(cartItem)
+	const cartItems = await db.getCartItems({ user_id: req.params.user_id })
+	res.json({ cart: cartItems })
 	next()
 }
 

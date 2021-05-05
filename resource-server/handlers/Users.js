@@ -1,4 +1,3 @@
-const path = require('path')
 const { db } = require('../lib/db')
 const { inGroup } = require('../lib/middleware/policies/inGroup')
 const error = require('../lib/error')
@@ -25,7 +24,7 @@ Users.getOne = async (req, res, next) => {
 Users.getMultiple = async (req, res, next) => {
 	const users = await db.getUsers()
 
-	res.json(users)
+	res.json({ users })
 	next()
 }
 
@@ -54,11 +53,6 @@ Users.deleteOne = async (req, res, next) => {
 		message: 'User deleted'
 	})
 	next()
-}
-
-Users.login = () => {
-    res.sendFile(path.resolve(__dirname, '../../auth/temp/index.html'))
-    next()
 }
 
 module.exports = Users

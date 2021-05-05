@@ -53,7 +53,7 @@ Products.getMultiple = async (req, res, next) => {
 
 Products.getProduct = async (req, res, next) => {
 	const product = await db.getProduct({ _id: req.params.product_id })
-	res.json(product)
+	res.json({ product })
 	next()
 }
 

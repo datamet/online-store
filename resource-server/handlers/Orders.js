@@ -5,7 +5,7 @@ const Orders = {}
 
 Orders.createOne = async (req, res, next) => {
 	const products = req.body.products.map(product => {
-		const [product_id, amount] = product.split(":")
+		const [product_id, amount] = product.split(':')
 
 		return {
 			product_id,
@@ -38,7 +38,7 @@ Orders.createOne = async (req, res, next) => {
 
 Orders.getOne = async (req, res, next) => {
 	const order = await db.getOrder({ _id: req.params.order_id })
-	res.json(order)
+	res.json({ order })
 	next()
 }
 
@@ -52,7 +52,7 @@ Orders.getMultiple = async (req, res, next) => {
 		orders = await db.getOrders()
 	}
 
-	res.json(orders)
+	res.json({ orders })
 	next()
 }
 
