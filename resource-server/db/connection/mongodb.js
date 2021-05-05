@@ -1,4 +1,4 @@
-const { MongoClient } = require('resource-server/db/connection/mongodb')
+const { MongoClient } = require('mongodb')
 const { db_protocol, db_host, db_port, db_user, db_pwd, db_name } = require('../../config')
 
 let uri = `${db_protocol}://${db_user}:${db_pwd}@${db_host}:${db_port}/${db_name}`

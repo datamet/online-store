@@ -15,9 +15,7 @@ const inGroup = async (user_id, groups, options) => {
     const entity = options && options.entity ? options.entity : null
 
     const user_groups = await db.getUserGroups({ _id: user_id })
-    console.log("This user is in user group: ------------", user_groups)
     let result = user_groups.some(group => groups.includes(group))
-    console.log(`User includes ${groups}: ${result}`)
     if (!result && groups.includes('owner')) {
         result = await isOwner(user_id, { params, query, entity })
     }
