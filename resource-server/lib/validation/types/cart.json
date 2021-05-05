@@ -1,0 +1,6 @@
+{
+    "amount": {
+        "regex": ".*",
+        "error": "Amount must be an integer equal to or above one"
+    }
+}

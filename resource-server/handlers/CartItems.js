@@ -1,4 +1,5 @@
 const { db } = require('../lib/db')
+const { cart_timeout } = require('../serverconfig')
 
 const CartItems = {}
 
@@ -6,7 +7,8 @@ CartItems.createOne = async (req, res, next) => {
 	await db.createCartItem({
 		user_id: req.params.user_id,
 		product_id: req.body.product_id,
-		amount: req.body.amount
+		amount: req.body.amount,
+		exp: Date.now()+cart_timeout
 	})
 	res.json({
 		message: 'Item cart created'
@@ -23,7 +25,8 @@ CartItems.getMultiple = async (req, res, next) => {
 CartItems.updateOne = async (req, res, next) => {
 	await db.updateCartItem({
 		user_id: req.params.user_id,
-		product_id: req.params.product_id
+		product_id: req.params.product_id,
+		amount: req.body.amount
 	})
 	res.json({
 		message: 'Updated cart item'
