@@ -1,5 +1,5 @@
-const { db } = require('../lib/db')
-const { inGroup } = require('../lib/middleware/policies/inGroup')
+const { db } = require('../db')
+const { inGroup } = require('../policies/inGroup')
 const error = require('../lib/error')
 
 const Users = {}

@@ -1,5 +1,5 @@
-const { db } = require('../lib/db')
-const { cart_timeout } = require('../serverconfig')
+const { db } = require('../db')
+const { cart_timeout } = require('../config')
 
 const CartItems = {}
 

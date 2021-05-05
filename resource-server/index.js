@@ -5,7 +5,7 @@
 const { server, dbconnect } = require('./server')
 const log = require('./lib/logger')
 const getAvailablePort = require('./lib/port')
-const { port: startingPort, mode, autoport } = require('./serverconfig')
+const { port: startingPort, mode, autoport } = require('./config')
 
 const listen = async () => {
 	try {

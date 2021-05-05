@@ -1,4 +1,4 @@
-const error = require('../../error')
+const error = require('../lib/error')
 
 const inGroup = groups => (req, res, next) => {
     if (groups.indexOf("admin") !== -1) next(error.unauthorized())
