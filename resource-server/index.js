@@ -1,73 +1,29 @@
-/**
- * Purpose: Requires server and listens on port
- */
+const path = require('path')
+const { mode, port, autoport, gateway, events, errors, tracebacks } = require('./config')
+const { server } = require('server-framework')
 
-const { server, dbconnect } = require('./server')
-const log = require('./lib/logger')
-const getAvailablePort = require('./lib/port')
-const { port: startingPort, mode, autoport } = require('./config')
+const userparser = require('./middleware/userparser')
 
-const listen = async () => {
-	try {
-		await dbconnect()
-		log(log.DB, `Connected to db`)
+const app = server({
+	resources: {
+		api:        path.resolve(__dirname, './api'),
+		connectors: path.resolve(__dirname, './db/connectors'),
+		gateways:   path.resolve(__dirname, './db/gateways'),
+		handlers:   path.resolve(__dirname, './handlers'),
+		policies:   path.resolve(__dirname, './policies'),
+		types:      path.resolve(__dirname,'./types')
+	},
+	config: {
+		mode,
+		port,
+		autoport,
+		gateway,
+		events,
+		errors,
+		tracebacks
 	}
-	catch (error) {
-		log(log.ERROR, `Cannot connect to db`, { error })
-		return
-	}
-
-	log(log.MODE, `Server starting in ${mode} mode`)
-
-	// Getting available port if autoport is enabled
-	const port = autoport ? await getAvailablePort(startingPort) : startingPort
-
-	// Logging if original port is not available
-	if (startingPort !== port)
-		log(
-			log.SERVER,
-			`Port ${startingPort} not available, using ${port} instead`
-		)
-
-	// Listening on port
-	server.listen(port, () => {
-		log(log.LISTENING, `Server listening on port ${port}`)
-	})
-
-	// Handeling port error
-	server.on('error', () => {
-		log(log.FATAL, `Port ${port} allready in use.`)
-		log(
-			log.TIPS,
-			`Enable autoport for ${mode} mode if you want server to automatically pick available port`
-		)
-	})
-}
-
-const close = () => {
-	server.close(() => {
-		log(log.SERVER, `Server closed`)
-		process.exit()
-	})
-}
-
-// Handeling Ctrl + c interrupt
-process.on('SIGINT', () =>  {
-	log(log.PROCESS, `Recieved CTRL + C. Shuttind down server`, {
-		newline: true,
-	})
-	close()
 })
 
-// Handeling process interrupt
-process.on('SIGTERM', function () {
-	log(log.PROCESS, `Recieved SIGTERM. Shutting down server`)
-	close()
-})
+app.useBefore(userparser)
 
-// Starting server
-try {
-	listen()
-} catch (error) {
-	log(log.FATAL, `Uncaught error`, { error })
-}
+app.listen()
