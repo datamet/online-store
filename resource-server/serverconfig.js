@@ -32,6 +32,9 @@ const db_pwd = process.env.DB_PWD
 const db_host = process.env.DB_HOST
 const db_port = process.env.DB_PORT
 
+// Application level env's
+const cart_timeout = process.env.CART_TIMEOUT || 3600000
+
 // Throw error if database info is missing 
 if (gateway !== 'memory') {
 	if (!db_protocol) throw Error('Missing database protocol')
@@ -56,6 +59,7 @@ const config = {
 	db_user,
 	db_pwd,
 	db_name,
+	cart_timeout
 }
 
 module.exports = config

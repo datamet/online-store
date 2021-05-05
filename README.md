@@ -57,5 +57,6 @@ RESOURCE_SERVER_TRACEBACKS="all" \
 RESOURCE_SERVER_FLAGS="--inspect=0.0.0.0" \
 AUTH_SERVER_FLAGS="--inspect=0.0.0.0" \
 FRONTEND_SERVER_PORT="3000" \
+CART_TIMEOUT=3600000 \
 docker-compose up --build
 ```

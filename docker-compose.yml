@@ -63,6 +63,7 @@ services:
             - EVENTS_TO_LOG=${RESOURCE_SERVER_ACTIONS}
             - ERRORS_TO_LOG=${RESOURCE_SERVER_ERRORS}
             - TRACEBACKS_TO_LOG=${RESOURCE_SERVER_TRACEBACKS}
+            - CART_TIMEOUT=${CART_TIMEOUT}
         # ports:
         #     - "9229:9229"
         # command:
