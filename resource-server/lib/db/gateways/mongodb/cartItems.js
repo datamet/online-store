@@ -13,7 +13,7 @@ gateway.updateCartItem = async (db, { user_id, product_id }) => {
 }
 
 gateway.deleteCartItem = async (db, { _id, product_id }) => {
-	const cart = db.collection('users').find({_id}, { cart: 1 })
+	const cart = db.collection('users').findOne({_id}, { cart: 1 })
 	await db.collection('products').updateOne({ _id: product_id }, { $inc: {amount: item.amount} })
 	await db.collection('users').updateOne({ _id }, { $pull: { cart: product_id } })
 }

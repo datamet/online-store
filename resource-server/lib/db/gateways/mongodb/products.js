@@ -13,7 +13,7 @@ gateway.getProductsSorted = async db => {
 }
 
 gateway.getProduct = async (db, { _id }) => {
-	return await db.collection('products').find({ _id })
+	return await db.collection('products').findOne({ _id })
 }
 
 gateway.updateProduct = async (db, { _id, updatedInfo }) => {
@@ -36,7 +36,7 @@ gateway.getProductsFiltered = async (db, { keywords, searchQuery }) => {
 			keywords: {
 				$in: keywords
 			}
-		})
+		}).toArray()
 	} else if (searchQuery) {
 		return await db.collection('products').find(
 			{ $text: { $search: searchQuery } },
@@ -44,13 +44,13 @@ gateway.getProductsFiltered = async (db, { keywords, searchQuery }) => {
 		).sort({
 				score: { $meta: 'textScore' }
 			}
-		)
+		).toArray()
 	} else if (keywords) {
 		return await db.collection('products').find({
 			keywords: {
 				$in: keywords
 			}
-		})
+		}).toArray();
 	} else {
 		return await gateway.getProductsSorted(db)
 	}

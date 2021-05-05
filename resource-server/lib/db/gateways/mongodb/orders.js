@@ -13,7 +13,7 @@ gateway.getOrdersFromUser = async (db, { _id }) => {
 }
 
 gateway.getOrder = async (db, { _id }) => {
-	return await db.collection('orders').find({ _id })
+	return await db.collection('orders').findOne({ _id })
 }
 
 gateway.updateOrder = async (db, { _id }) => {

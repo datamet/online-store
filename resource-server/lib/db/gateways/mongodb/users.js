@@ -5,11 +5,11 @@ gateway.createUser = async (db, { username }) => {
 }
 
 gateway.getUsers = async db => {
-	return await db.collection('users').find({}, { username: 1 }).toArray()
+	return await db.collection('users').findOne({}, { username: 1 }).toArray()
 }
 
 gateway.getUser = async (db, { _id }) => {
-	return await db.collection('users').find({ _id })
+	return await db.collection('users').findOne({ _id })
 }
 
 gateway.updateUser = async (db, { _id, updatedInfo }) => {
