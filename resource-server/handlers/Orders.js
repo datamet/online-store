@@ -1,4 +1,4 @@
-const { db } = require('../db')
+const { db } = require('server-framework')
 const { inGroup } = require('../policies/inGroup')
 
 const Orders = {}

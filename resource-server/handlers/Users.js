@@ -1,6 +1,5 @@
-const { db } = require('../db')
+const { db, error } = require('server-framework')
 const { inGroup } = require('../policies/inGroup')
-const error = require('../lib/error')
 
 const Users = {}
 
