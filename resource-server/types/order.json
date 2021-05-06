@@ -1,0 +1,34 @@
+{
+    "order_item" : {
+        "regex" : ".*",
+        "error" : ""
+    },
+    "note" : {
+        "regex" : ".*",
+        "error" : ""
+    },
+    "country": {
+        "regex" : ".*",
+        "error" : ""
+    },
+    "province": {
+        "regex" : ".*",
+        "error" : ""
+    },
+    "city": {
+        "regex" : ".*",
+        "error" : ""
+    },
+    "zip": {
+        "regex" : ".*",
+        "error" : ""
+    },
+    "street_name": {
+        "regex" : ".*",
+        "error" : ""
+    },
+    "street_number": {
+        "regex" : ".*",
+        "error" : ""
+    }
+}
