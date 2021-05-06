@@ -72,6 +72,8 @@ services:
         #     - "./index.js"
         links:
             - mongodb-server:mongodb
+        volumes:
+            - ./packages:/usr/src/packages
     nginx:
         restart: always
         build:
