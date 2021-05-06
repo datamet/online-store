@@ -52,23 +52,23 @@ db.createRole({
 	privileges: [
 		{
 			resource: { db: 'production', collection: 'products' },
-			actions: ['find', 'update', 'insert', 'delete'],
+			actions: ['find', 'update', 'insert', 'remove'],
 		},
 		{
 			resource: { db: 'production', collection: 'hashes' },
-			actions: ['find', 'update', 'insert', 'delete'],
+			actions: ['find', 'update', 'insert', 'remove'],
 		},
 		{
 			resource: { db: 'production', collection: 'orders' },
-			actions: ['find', 'update', 'insert', 'delete'],
+			actions: ['find', 'update', 'insert', 'remove'],
 		},
 		{
 			resource: { db: 'production', collection: 'tokens' },
-			actions: ['find', 'update', 'insert', 'delete'],
+			actions: ['find', 'update', 'insert', 'remove'],
 		},
 		{
 			resource: { db: 'production', collection: 'users' },
-			actions: ['find', 'update', 'insert', 'delete'],
+			actions: ['find', 'update', 'insert', 'remove'],
 		},
 	],
 	roles: [],
@@ -79,11 +79,11 @@ db.createRole({
 	privileges: [
 		{
 			resource: { db: 'production', collection: 'products' },
-			actions: ['find', 'update', 'insert', 'delete'],
+			actions: ['find', 'update', 'insert', 'remove'],
 		},
 		{
 			resource: { db: 'production', collection: 'orders' },
-			actions: ['find', 'update', 'insert', 'delete'],
+			actions: ['find', 'update', 'insert', 'remove'],
 		},
 		{
 			resource: { db: 'production', collection: 'tokens' },
