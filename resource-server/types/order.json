@@ -1,34 +1,34 @@
 {
     "order_item" : {
         "regex" : ".*",
-        "error" : ""
+        "error" : "error"
     },
     "note" : {
         "regex" : ".*",
-        "error" : ""
+        "error" : "error"
     },
     "country": {
         "regex" : ".*",
-        "error" : ""
+        "error" : "error"
     },
     "province": {
         "regex" : ".*",
-        "error" : ""
+        "error" : "error"
     },
     "city": {
         "regex" : ".*",
-        "error" : ""
+        "error" : "error"
     },
     "zip": {
         "regex" : ".*",
-        "error" : ""
+        "error" : "error"
     },
     "street_name": {
         "regex" : ".*",
-        "error" : ""
+        "error" : "error"
     },
     "street_number": {
         "regex" : ".*",
-        "error" : ""
+        "error" : "error"
     }
 }

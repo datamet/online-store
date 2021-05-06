@@ -1,27 +1,27 @@
 {
     "name" : {
         "regex" : ".*",
-        "error" : ""
+        "error" : "error"
     },
     "price": {
         "regex" : ".*",
-        "error" : ""
+        "error" : "error"
     },
     "stock": {
         "regex" : ".*",
-        "error" : ""
+        "error" : "error"
     },
     "keyword": {
         "regex" : ".*",
-        "error" : ""
+        "error" : "error"
     },
     "short_desc": {
         "regex" : ".*",
-        "error" : ""
+        "error" : "error"
     },
     "long_desc": {
         "regex" : ".*",
-        "error" : ""
+        "error" : "error"
     },
     "count": {
         "regex" : ".*",
@@ -29,6 +29,6 @@
     },
     "search_query": {
         "regex" : ".*",
-        "error" : ""
+        "error" : "error"
     }
 }

@@ -1,14 +1,14 @@
 {
     "user_id" : {
         "regex" : ".*",
-        "error" : ""
+        "error" : "error"
     },
     "product_id" : {
         "regex" : ".*",
-        "error" : ""
+        "error" : "error"
     },
     "order_id" : {
         "regex" : ".*",
-        "error" : ""
+        "error" : "error"
     }
 }
