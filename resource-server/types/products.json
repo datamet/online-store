@@ -1,0 +1,34 @@
+{
+    "name" : {
+        "regex" : ".*",
+        "error" : ""
+    },
+    "price": {
+        "regex" : ".*",
+        "error" : ""
+    },
+    "stock": {
+        "regex" : ".*",
+        "error" : ""
+    },
+    "keyword": {
+        "regex" : ".*",
+        "error" : ""
+    },
+    "short_desc": {
+        "regex" : ".*",
+        "error" : ""
+    },
+    "long_desc": {
+        "regex" : ".*",
+        "error" : ""
+    },
+    "count": {
+        "regex" : ".*",
+        "error" : "Count must be an integer equal to or above 0"
+    },
+    "search_query": {
+        "regex" : ".*",
+        "error" : ""
+    }
+}
