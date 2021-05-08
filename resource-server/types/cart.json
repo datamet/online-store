@@ -1,6 +1,6 @@
 {
     "amount": {
-        "regex": ".*",
+        "regex": "^[1-9][0-9]*$",
         "error": "Amount must be an integer equal to or above one"
     }
 }
