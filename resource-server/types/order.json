@@ -1,8 +1,4 @@
 {
-    "order_item" : {
-        "regex" : ".*",
-        "error" : "error"
-    },
     "note" : {
         "regex" : ".*",
         "error" : "error"
