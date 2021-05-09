@@ -14,18 +14,19 @@ Users.createOne = async (req, res, next) => {
     const username = req.body.username
     const groups = req.body.groups
 
-    let user = await db.getUserByEmail({ email })
+    const user = await db.getUserByEmail({ email })
     if (user) throw error.custom(409, "A user with that email allready exists")
 
-    user = await db.createUser({
+    const user_id = await db.createUser({
         email,
         email_verified: false,
         username,
         groups,
         hash
     })
+    if (!user_id) throw error.internal()
     
-    res.json({ message: 'User created', user_id: user._id })
+    res.json({ message: 'User created', user_id })
     next()
 }
 

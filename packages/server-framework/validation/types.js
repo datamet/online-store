@@ -13,7 +13,7 @@ const { log } = require('../lib/logger')
 let types = {}
 
 const validateType = type => {
-    if (!type.regex || !type.error) throw error.config()
+    if (!type.regex || !type.error) throw error.custom(500, 'Type is missing regex or error field')
 }
 
 const load = (types_path) => {
@@ -24,11 +24,16 @@ const load = (types_path) => {
                 const typeFile = fs.readFileSync(`${types_path}/${filename}`)
                 const newTypes = JSON.parse(typeFile)
                 for (const [name, newType] of Object.entries(newTypes)) {
-                    if (Array.isArray(newType)) {
-                        newType.map(subtype => validateType(subtype))
-                        continue
+                    try {
+                        if (Array.isArray(newType)) {
+                            newType.map(subtype => validateType(subtype))
+                            continue
+                        }
+                        validateType(newType)
                     }
-                    validateType(newType)
+                    catch (error) {
+                        log(log.ERROR, `Could not parse type: ${name}`, { error })
+                    }
                 }
                 types = { ...types, ...newTypes }
             }

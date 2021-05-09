@@ -5,7 +5,7 @@
  * Exports: An express app that uses the router
  */
 
-const path = require('path')
+const { log } = require('../lib/logger')
 const express = require('express')
 const wrap = require('../lib/wrap')
 
@@ -30,7 +30,8 @@ module.exports = (api_path, handlers_path, policies_path) => {
         const policies = endpoint.policies
 
         const wrappedPolicies = policies.map(policy => wrap(policy))
-    
+        
+        log(log.DEBUG, `${method.toUpperCase()} ${path} (${policies.length} policies)`)
         router[method](path, ...wrappedPolicies, wrap(handler))
     }
     

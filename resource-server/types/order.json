@@ -1,0 +1,30 @@
+{
+    "note" : {
+        "regex" : "^.{150}$",
+        "error" : "Note must be less than 150 characters"
+    },
+    "country": {
+        "regex" : "^[A-Za-z]+$",
+        "error" : "Counrty cannot include numbers or special characters"
+    },
+    "province": {
+        "regex" : "^[A-Za-z]+$",
+        "error" : "Province cannot include numbers or special characters"
+    },
+    "city": {
+        "regex" : "^[A-Za-z]+$",
+        "error" : "City cannot include numbers or special characters"
+    },
+    "zip": {
+        "regex" : "^[0-9]{4}",
+        "error" : "Not a valid zip code"
+    },
+    "street_name": {
+        "regex" : "^[A-Za-z]+$",
+        "error" : "Street name cannot include numbers or special characters"
+    },
+    "street_number": {
+        "regex" : "^[0-9]{1,4}((\/[0-9]{1,4})|(\/[A-Za-z]{1,2}))*$",
+        "error" : "Not a valid street number. Street number cannot include lower case letters or special characters"
+    }
+}

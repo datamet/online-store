@@ -1,0 +1,56 @@
+[
+    {
+        "method": "get",
+        "path": "/api/v1/order/:order_id",
+        "handler": "Orders.getOne",
+        "policies": {
+            "inGroup": [
+                "admin",
+                "owner"
+            ]
+        }
+    },
+    {
+        "method": "get",
+        "path": "/api/v1/orders",
+        "handler": "Orders.getMultiple",
+        "query": {
+            "?user_id": "[user_id]"
+        },
+        "policies": {
+            "inGroup": [
+                "owner"
+            ]
+        }
+    },
+    {
+        "method": "delete",
+        "path": "/api/v1/order/:order_id",
+        "handler": "Orders.deleteOne",
+        "policies": {
+            "inGroup": [
+                "admin",
+                "owner"
+            ]
+        }
+    },
+    {
+        "method": "post",
+        "path": "/api/v1/orders",
+        "handler": "Orders.createOne",
+        "body": {
+            "checkout_session": "[checkout_id]",
+            "payment_token" : "[payment_token]",
+            "?cupon" : "[discount_code]",
+            "?note": "[note]",
+            "address": {
+                "country": "[country]",
+                "province": "[province]",
+                "city": "[city]",
+                "zip": "[zip]",
+                "street_name": "[street_name]",
+                "street_number": "[street_number]"
+            }
+        }
+    }
+]

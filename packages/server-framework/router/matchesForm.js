@@ -17,7 +17,7 @@ const setupMatchFrom = (req, res) => async (form, matchedValue) => {
                     errorToThrow = error
                 }
             }
-            else {
+            else if (Array.isArray(meta.values)) {
                 for (const format of meta.values) {
                     try {
                         validate(format, matchedValue[key])
@@ -39,10 +39,33 @@ const setupMatchFrom = (req, res) => async (form, matchedValue) => {
                     }
                 }
             }
+            else {
+                try {
+                    for (const entry of matchedValue[key]) {
+                        const matchFromRecursive = setupMatchFrom(req, res)
+                        matchFromRecursive(meta.values, entry)
+                    }
+                    const policies = [...meta.policies]
+    
+                    // muligens feil for flere policies
+                    const next = async (error) => {
+                        if (error) throw error
+                        const policy = policies.shift()
+                        if (policy) await policy(req, res, next)
+                    }
+                    await next()
+                    
+                    match = true
+                    break
+                }
+                catch (error) {
+                    errorToThrow = error
+                }
+            }
             if (!match) throw errorToThrow
         }
         else if (meta.optional) {
-            if (meta.default) matchedValue[key] = meta.default
+            if (meta.default !== undefined) matchedValue[key] = meta.default
         }
         else {
             throw error.missing()
