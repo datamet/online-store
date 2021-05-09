@@ -10,5 +10,13 @@
     "order_id" : {
         "regex" : ".*",
         "error" : "error"
+    },
+    "checkout_id" : {
+        "regex" : ".*",
+        "error" : "error"
+    },
+    "payment_token" : {
+        "regex" : ".*",
+        "error" : "error"
     }
 }
