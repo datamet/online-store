@@ -18,7 +18,9 @@ services:
             - ./docker-entrypoint-initdb.d/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     client-server:
         container_name: client-server
-        build: ./client-server/svelte
+        build: ./client-server
+        # volumes:
+        #     - ./client-server/svelte/src:/usr/src/app/svelte/src
     auth-server:
         container_name: auth-server
         depends_on: 
