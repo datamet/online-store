@@ -4,9 +4,7 @@
         "path": "/api/v1/products",
         "handler": "Products.createOne",
         "policies": {
-            "inGroup": [
-                "admin"
-            ]
+            "inGroup": ["admin"]
         },
         "body": {
             "name": "[name]",
@@ -30,7 +28,7 @@
                 "$value": "[amount]",
                 "$default": 20
             },
-            "?keywords": "<keyword>",
+            "?keyword": "<keyword>",
             "?search": "[search_query]"
         }
     },
@@ -49,12 +47,11 @@
             ]
         },
         "body": {
-            "name": "[name]",
-            "price": "[price]",
-            "stock": "[stock]",
-            "keywords": "<keyword>",
-            "short_desc": "[short_desc]",
-            "long_desc": "[long_desc]"
+            "?name": "[name]",
+            "?price": "[price]",
+            "?keywords": "<keyword>",
+            "?short_desc": "[short_desc]",
+            "?long_desc": "[long_desc]"
         }
     },
     {
