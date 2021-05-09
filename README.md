@@ -21,14 +21,15 @@ DB_AUTH_PWD="fullaccesspassword" \
 DB_USER="regularuser" \
 DB_PWD="regularpassword" \
 AUTH_SERVER_PORT="3000" \
-AUTH_SERVER_ACTIONS="server, mode, fatal, tips, database" \
+AUTH_SERVER_ACTIONS="server, mode, fatal, tips, database, accept, reject" \
 AUTH_SERVER_ERRORS="all" \
 AUTH_SERVER_TRACEBACKS="all" \
 RESOURCE_SERVER_PORT="3000" \
 RESOURCE_SERVER_ACTIONS="server, mode, fatal, tips, database" \
 RESOURCE_SERVER_ERRORS="critical" \
 RESOURCE_SERVER_TRACEBACKS="none" \
-RESOURCE_SERVER_FLAGS="--inspect=0.0.0.0" \
+AUTH_SERVER_FLAGS="--" \
+RESOURCE_SERVER_FLAGS="--" \
 FRONTEND_SERVER_PORT="3000" \
 docker-compose up --build
 ```
@@ -57,6 +58,7 @@ RESOURCE_SERVER_TRACEBACKS="all" \
 RESOURCE_SERVER_FLAGS="--inspect=0.0.0.0" \
 AUTH_SERVER_FLAGS="--inspect=0.0.0.0" \
 FRONTEND_SERVER_PORT="3000" \
+FRONTEND_ENV=".dev" \
 CART_TIMEOUT=3600000 \
 docker-compose up --build
 ```
