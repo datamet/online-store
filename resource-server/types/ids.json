@@ -1,22 +1,22 @@
 {
     "user_id" : {
-        "regex" : ".*",
-        "error" : "error"
+        "regex" : "^[a-z0-9]{24}$",
+        "error" : "Invalid user ID"
     },
     "product_id" : {
-        "regex" : ".*",
-        "error" : "error"
+        "regex" : "^[a-z0-9]{24}$",
+        "error" : "Invalid product ID"
     },
     "order_id" : {
-        "regex" : ".*",
-        "error" : "error"
+        "regex" : "^[a-z0-9]{24}$",
+        "error" : "Invalid order ID"
     },
     "checkout_id" : {
-        "regex" : ".*",
-        "error" : "error"
+        "regex" : "^[a-z0-9]{24}$",
+        "error" : "Invalid checkout ID"
     },
     "payment_token" : {
         "regex" : ".*",
-        "error" : "error"
+        "error" : "Invalid payment token"
     }
 }

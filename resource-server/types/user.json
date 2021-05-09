@@ -22,11 +22,11 @@
         },
         {
             "regex" : "(?=.*[A-Z])",
-            "error" : "Password needs to inclued one or capital letters"
+            "error" : "Password needs to include one or capital letters"
         },
         {
             "regex" : "(?=.*[a-z])",
-            "error" : "Password needs to inclued one or more lowercase letters"
+            "error" : "Password needs to include one or more lowercase letters"
         }
     ],
     "group" : {
