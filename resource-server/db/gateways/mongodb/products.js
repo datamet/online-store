@@ -1,7 +1,11 @@
+const ObjectId = require("mongodb").ObjectID
 const gateway = {}
 
-gateway.createProduct = async (db, product) => {
-	await db.collection('products').insertOne(product)
+gateway.createProduct = async (db, { product }) => {
+	const res = await db.collection('products').insertOne(product)
+	if (!res.insertedId) return false
+	await db.collection('users').updateOne({ _id: ObjectId(product.owner) }, { $push: { owns: res.insertedId } })
+	return res.insertedId
 }
 
 gateway.getProducts = async db => {
@@ -13,21 +17,31 @@ gateway.getProductsSorted = async db => {
 }
 
 gateway.getProduct = async (db, { _id }) => {
-	return await db.collection('products').findOne({ _id })
+	return await db.collection('products').findOne({ _id: ObjectId(_id) })
 }
 
 gateway.updateProduct = async (db, { _id, updatedInfo }) => {
-	return await db.collection('products').updateOne({ _id }, updatedInfo)
+	const res = await db.collection('products').updateOne({ _id: ObjectId(_id) }, { $set: updatedInfo })
+	return res.modifiedCount > 0
+}
+
+gateway.getProductPrice = async (db, { _id }) => {
+	const product = await db.collection('products').findOne({ _id: ObjectId(_id) })
+	if (!product) return null
+	return product.price
 }
 
 gateway.deleteProduct = async (db, { _id }) => {
-	await db.collection('products').deleteOne({ _id })
+	const product = await db.collection('products').findOneAndDelete({ _id: ObjectId(_id) })
+	if (!product) return false
+	await db.collection('users').updateOne({ _id: ObjectId(product.owner) }, { $pull: { owns: _id } })
+	return true
 }
 
-gateway.getProductsFiltered = async (db, { keywords, searchQuery }) => {
-	if (searchQuery && keywords) {
+gateway.getProductsFiltered = async (db, { keywords, search }) => {
+	if (search && keywords) {
 		return await db.collection('products').find(
-			{ $text: { $search: searchQuery } },
+			{ $text: { $search: search } },
 			{ score: { $meta: 'textScore' } }
 		).sort({
 				score: { $meta: 'textScore' }
@@ -37,9 +51,9 @@ gateway.getProductsFiltered = async (db, { keywords, searchQuery }) => {
 				$in: keywords
 			}
 		}).toArray()
-	} else if (searchQuery) {
+	} else if (search) {
 		return await db.collection('products').find(
-			{ $text: { $search: searchQuery } },
+			{ $text: { $search: search } },
 			{ score: { $meta: 'textScore' } }
 		).sort({
 				score: { $meta: 'textScore' }
@@ -52,7 +66,8 @@ gateway.getProductsFiltered = async (db, { keywords, searchQuery }) => {
 			}
 		}).toArray();
 	} else {
-		return await gateway.getProductsSorted(db)
+		const products = await gateway.getProductsSorted(db)
+		return products
 	}
 }
 
