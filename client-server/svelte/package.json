@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "rollup -c",
-    "dev": "rollup -c -w",
+    "dev": "BACKEND_PORT=80 rollup -c -w",
     "serve": "sirv public --single",
     "start": "rollup -c && node index.js"
   },
@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "express": "^4.17.1",
+    "rollup-plugin-replace": "^2.2.0",
     "sirv-cli": "^1.0.0"
   }
 }
