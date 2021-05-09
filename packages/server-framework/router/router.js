@@ -23,7 +23,7 @@ module.exports = (api_path, handlers_path, policies_path) => {
     const rawEndpoints = getRawEndpoints(api_path)
     const endpoints = getEndpoints(rawEndpoints, handlers, policies)
 
-    for (const endpoint of endpoints) {
+    for (const [i, endpoint] of endpoints.entries()) {
         const method = endpoint.method
         const path = endpoint.path
         const handler = endpoint.handler
@@ -31,7 +31,7 @@ module.exports = (api_path, handlers_path, policies_path) => {
 
         const wrappedPolicies = policies.map(policy => wrap(policy))
         
-        log(log.DEBUG, `${method.toUpperCase()} ${path} (${policies.length} policies)`)
+        log(log.DEBUG, `Setup: ${method.toUpperCase()} ${path} => ${rawEndpoints[i].handler} (${policies.length} policies)`)
         router[method](path, ...wrappedPolicies, wrap(handler))
     }
     
