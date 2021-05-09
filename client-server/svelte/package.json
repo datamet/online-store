@@ -5,7 +5,8 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "start": "node index.js"
+    "serve": "sirv public --single",
+    "start": "rollup -c && node index.js"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
