@@ -1,7 +1,7 @@
-const error = require('server-framework')
+const { error, db, log } = require('server-framework')
 
-const setup = user_id => async (req, res, next) => {
-	const userIsOwner = await isOwner(user_id, { params: req.params, query: req.query })
+const setup = ({ user_id, entity }) => async (req, res, next) => {
+	const userIsOwner = await isOwner(user_id, { entity })
 	if (!userIsOwner) {
 		throw error.unauthorized()
 	}
@@ -21,7 +21,11 @@ const isOwner = async (user_id, { params, query, entity }) => {
 		})
 	}
 	if (entity) _id = entity
-	return await db.userIsOwner({ user_id, _id })
+	if (!_id) return true
+	const owner = await db.userIsOwner({ user_id, _id })
+	if (owner) log(log.DEBUG, `User is owner of: ${_id}`)
+	else log(log.DEBUG, `User does not own: ${_id}`)
+	return owner
 }
 
 module.exports = { setup, isOwner }

@@ -1,8 +1,4 @@
 {
-    "order_item" : {
-        "regex" : "^[.*[A-Za-z0-9]+.*]$",
-        "error" : "Order must contain an item"
-    },
     "note" : {
         "regex" : "^.{150}$",
         "error" : "Note must be less than 150 characters"
@@ -28,7 +24,7 @@
         "error" : "Street name cannot include numbers or special characters"
     },
     "street_number": {
-        "regex" : "^[0-9]{1,4}((\/[0-9]{1,4})|(\/[A-Z]{1,2}))*$",
+        "regex" : "^[0-9]{1,4}((\/[0-9]{1,4})|(\/[A-Za-z]{1,2}))*$",
         "error" : "Not a valid street number. Street number cannot include lower case letters or special characters"
     }
 }

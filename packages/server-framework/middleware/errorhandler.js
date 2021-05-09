@@ -5,9 +5,10 @@
 const { log } = require('../lib/logger')
 
 const errorhandler = (error, req, res, next) => {
+    const auth = req.user && req.user._id ? `(user: ${req.user._id})` : `(unauthenticated)`
 	const status = error.status ? error.status : 500
 
-	log(log.REJECT, `(${status}) ${req.method.toUpperCase()} ${req.path}`, {
+	log(log.REJECT, `(${status}) ${req.method.toUpperCase()} ${req.path} ${auth}`, {
 		error,
 		status,
 	})

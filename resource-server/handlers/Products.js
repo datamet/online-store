@@ -1,51 +1,62 @@
-const { db } = require('server-framework')
+const { db, error } = require('server-framework')
 
 const Products = {}
 
 Products.createOne = async (req, res, next) => {
-	const newProduct = {
+	const product = {
 		name: req.body.name,
 		price: req.body.price,
 		stock: req.body.stock,
+		availability: req.body.stock,
 		keywords: req.body.keywords,
 		short_desc: req.body.short_desc,
-		long_desc: req.body.long_desc
+		long_desc: req.body.long_desc,
+		owner: req.user._id
 	}
 
-	await db.createProduct(newProduct)
+	const product_id = await db.createProduct({ product })
+	if (!product_id) throw error.internal()
 	res.json({
-		message: 'Created product'
+		message: 'Created product',
+		product_id
 	})
 	next()
 }
 
 Products.getMultiple = async (req, res, next) => {
-	const count = req.query.count
-	const start = req.query.index
+	const count = parseInt(req.query.count)
+	const start = parseInt(req.query.index)
 	const end = start + count
 	const search = req.query.search
-	const rawKeywords = req.query.keywords
-	const keywords = rawKeywords.split('%2c')
+	let keywords = req.query.keyword
+	if (keywords && !Array.isArray(keywords)) keywords = [keywords]
 
 	let products = await db.getProductsFiltered({ keywords, search })
+	if (!products) throw error.internal()
 
-	products = products.slice(start, end)
-
-	const response = {
-		products
-	}
+	const response = {}
 
 	if (end < products.length) {
 		response.next = `/api/v1/products?index=${end}&count=${count}`
-		if (rawKeywords) response.next = `${response.next}&keywords=${rawKeywords}`
+		if (keywords) {
+			for (const keyword of keywords) {
+				response.next = `${response.next}&keyword=${keyword}`	
+			}
+		}
 		if (search) response.next = `${response.next}&search=${search}`
 	}
 
 	if (start > 0) {
-		response.prev = `/api/v1/products?index=${Math.max(0, start - count)}`
-		if (rawKeywords) response.prev = `${response.prev}&keywords=${rawKeywords}`
+		response.prev = `/api/v1/products?index=${Math.max(0, start - count)}&count=${count}`
+		if (keywords) {
+			for (const keyword of keywords) {
+				response.prev = `${response.prev}&keyword=${keyword}`	
+			}
+		}
 		if (search) response.prev = `${response.prev}&search=${search}`
 	}
+
+	response.products = products.slice(start, end)
 
 	res.json(response)
 	next()
@@ -53,6 +64,7 @@ Products.getMultiple = async (req, res, next) => {
 
 Products.getProduct = async (req, res, next) => {
 	const product = await db.getProduct({ _id: req.params.product_id })
+	if (!product) throw error.custom(404, 'Product does not exist')
 	res.json({ product })
 	next()
 }
@@ -62,7 +74,6 @@ Products.updateOne = async (req, res, next) => {
 
 	if (req.body.name) updatedInfo.name = req.body.name
 	if (req.body.price) updatedInfo.price = req.body.price
-	if (req.body.stock) updatedInfo.stock = req.body.stock
 	if (req.body.keywords) updatedInfo.keywords = req.body.keywords
 	if (req.body.short_desc) updatedInfo.short_desc = req.body.short_desc
 	if (req.body.long_desc) updatedInfo.long_desc = req.body.long_desc
@@ -72,18 +83,16 @@ Products.updateOne = async (req, res, next) => {
 		_id: req.params.product_id
 	}
 
-	await db.updateProduct(params)
-	res.json({
-		message: 'User updated'
-	})
+	const updated = await db.updateProduct(params)
+	if (!updated) throw error.custom(404, 'Could not update product')
+	res.json({ message: 'Product updated' })
 	next()
 }
 
 Products.deleteOne = async (req, res, next) => {
-	await db.deleteProduct({ _id: req.params.product_id })
-	res.json({
-		message: 'Product deleted'
-	})
+	const deleted = await db.deleteProduct({ _id: req.params.product_id })
+	if (!deleted) error.custom(404, 'Could not delete product')
+	res.json({ message: 'Product deleted' })
 	next()
 }
 

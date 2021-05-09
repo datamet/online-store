@@ -36,12 +36,13 @@
     },
     {
         "method": "post",
-        "path": "/api/v1/user/:user_id/orders",
+        "path": "/api/v1/orders",
         "handler": "Orders.createOne",
         "body": {
-            "buyer": "[user_id]",
-            "products": "<order_item>",
-            "order_note": "[note]",
+            "checkout_session": "[checkout_id]",
+            "payment_token" : "[payment_token]",
+            "?cupon" : "[discount_code]",
+            "?note": "[note]",
             "address": {
                 "country": "[country]",
                 "province": "[province]",
@@ -50,11 +51,6 @@
                 "street_name": "[street_name]",
                 "street_number": "[street_number]"
             }
-        },
-        "policies": {
-            "inGroup": [
-                "user"
-            ]
         }
     }
 ]

@@ -17,7 +17,7 @@ const autoport = process.env.AUTO_PORT || false
 // What events to log to the console
 const events = process.env.EVENTS_TO_LOG
 	? process.env.EVENTS_TO_LOG.split(', ')
-	: ['server', 'mode', 'fatal', 'tips', 'accept', 'reject']
+	: ['server', 'mode', 'fatal', 'tips', 'accept', 'reject', 'debug', 'database']
 const errors = process.env.ERRORS_TO_LOG || 'critical'
 const tracebacks = process.env.TRACEBACKS_TO_LOG
 

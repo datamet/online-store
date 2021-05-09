@@ -33,7 +33,7 @@ Google.authenticate = async (req, res, next) => {
 			groups: ['user']
 		})
 	}
-	await authenticate(user._id, res)
+	await authenticate(user._id, req, res)
 	res.json({ message: 'Authenticated with google' })
 	next()
 }

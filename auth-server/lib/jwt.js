@@ -2,17 +2,17 @@ const https = require('https')
 const hash = require('./hash')
 const { db, error } = require('server-framework')
 
-const authenticate = async (user_id, res) => {
+const authenticate = async (user_id, req, res) => {
     res.clearCookie('auth_token')
 	const auth_token = hash.randomStr(30)
 	const expires = Date.now() + (1000 * 60 * 60 * 24)
 	await db.storeAuthToken({ user_id, auth_token, expires })
-    setAuthCookie(auth_token, res)
+    await setAuthCookie(auth_token, req, res)
 }
 
-const unauthenticate = async ({ user_id, auth_token }, res) => {
+const unauthenticate = async ({ user_id, auth_token }, req, res) => {
     await db.removeAuthToken({ user_id, auth_token })
-    res.clearCookie('auth_token')
+	await clearAuthCookies(req, res)
 }
 
 const verifyLocalToken = async auth_token => {
@@ -73,20 +73,27 @@ const basic = basic_header => {
 	return []
 }
 
-const setAuthCookie = (auth_token, res) => {
+const clearAuthCookies = async (req, res) => {
+	res.clearCookie('auth_token', {domain: 'localhost', path:'/'})
+}
+
+const setAuthCookie = async (auth_token, req, res) => {
 	const time = 24 * 60 * 60
+	await clearAuthCookies(req, res)
 	res.cookie('auth_token', auth_token, {
 		maxAge: time,
 		httpOnly: true,
-		secure: true
+		secure: true,
+		path: '/'
 	})
 }
 
 module.exports = {
+	clearAuthCookies,
 	verifyGoogleToken,
     verifyLocalToken,
 	authenticate,
     unauthenticate,
 	bearer,
-	basic,
+	basic
 }

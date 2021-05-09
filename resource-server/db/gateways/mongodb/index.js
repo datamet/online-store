@@ -1,12 +1,14 @@
 const users = require('./users')
 const products = require('./products')
-const cartItems = require('./cartItems')
+const checkout = require('./checkout')
+const discounts = require('./discounts')
 const orders = require('./orders')
 
 const gateway = {
 	...users,
 	...products,
-	...cartItems,
+	...checkout,
+	...discounts,
 	...orders
 }
 

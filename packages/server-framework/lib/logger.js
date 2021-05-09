@@ -50,6 +50,7 @@ log.PROCESS = { name: 'process', icon: '🚩', color: format.Red }
 log.LISTENING = { name: 'server', icon: '🌍', color: format.Yellow }
 log.FATAL = { name: 'fatal', icon: '💀', color: format.Red }
 log.ERROR = { name: 'error', icon: '❌', color: format.Red }
+log.DEBUG = { name: 'debug', icon: '🐞', color: format.Yellow }
 log.MODE = { name: 'mode', icon: '🔧', color: format.Cyan }
 log.TIPS = { name: 'tips', icon: '📚', color: format.Magenta }
 

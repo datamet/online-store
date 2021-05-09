@@ -33,7 +33,20 @@ const parseKeys = (keys, parsePolicy) => {
                 parsedKey.optional = true
                 key = key.slice(1)
             }
-            if (typeof value === 'object') {
+            if (Array.isArray(value)) {
+                const obj = value[0]
+                const meta = value[1]
+                parseKeys.values = parseKeys(obj, parsePolicy)
+                if (meta) {
+                    if ("$default" in meta) parsedKey.default = value.$default
+                    if ("$policies" in meta && typeof meta.$policies === 'object') {
+                        for (const [rawPolicy, argument] of Object.entries(meta.$policies)) {
+                            parsedKey.policies.push(parsePolicy(rawPolicy, argument))
+                        }
+                    }
+                }
+            }
+            else if (typeof value === 'object') {
                 let val = false
                 if ("$default" in value) {
                     parsedKey.default = value.$default
