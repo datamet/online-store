@@ -24,15 +24,15 @@
  // get all routes
  const loadDir = dir => {
      let endpoints = []
+     let files
      try {
          files = fs.readdirSync(dir)
- 
+
          for (const filename of files) {
              const fileEndpoints = loadFile(filename, path.resolve(dir, filename))
              endpoints = [...endpoints, ...fileEndpoints]
          }
-     }
-     catch (error) {
+     } catch (error) {
          log(log.ERROR, `Could not load api`, { error })
      }
      return endpoints

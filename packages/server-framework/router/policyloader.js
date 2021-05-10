@@ -9,6 +9,7 @@ const { log } = require('../lib/logger')
 
 loadPolicies = dir => {
 	const policies = {}
+	let files
 	try {
 		files = fs.readdirSync(dir)
 

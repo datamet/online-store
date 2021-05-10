@@ -1,7 +1,7 @@
 /**
  * Purpose: Reads handle directory and imports all handlers
  * 
- * Exports: Functions that takes direcory as parameter
+ * Exports: Functions that takes directory as parameter
  * to look for handlers
  */
  const fs = require('fs')

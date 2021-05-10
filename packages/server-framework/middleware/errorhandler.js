@@ -1,6 +1,6 @@
 /**
- * Exports: Error handeling function that
- * logs erors and sends errors back to the client
+ * Exports: Error handling function that
+ * logs errors and sends errors back to the client
  */
 const { log } = require('../lib/logger')
 
