@@ -54,34 +54,34 @@ db.createRole({
 	privileges: [
 		{
 			resource: { db: 'production', collection: 'products' },
-			actions: ['find', 'update', 'insert', 'remove'],
+			actions: ['find', 'update', 'insert', 'remove']
 		},
 		{
 			resource: { db: 'production', collection: 'hashes' },
-			actions: ['find', 'update', 'insert', 'remove'],
+			actions: ['find', 'update', 'insert', 'remove']
 		},
 		{
 			resource: { db: 'production', collection: 'orders' },
-			actions: ['find', 'update', 'insert', 'remove'],
+			actions: ['find', 'update', 'insert', 'remove']
 		},
 		{
 			resource: { db: 'production', collection: 'tokens' },
-			actions: ['find', 'update', 'insert', 'remove'],
+			actions: ['find', 'update', 'insert', 'remove']
 		},
 		{
 			resource: { db: 'production', collection: 'users' },
-			actions: ['find', 'update', 'insert', 'remove'],
+			actions: ['find', 'update', 'insert', 'remove']
 		},
 		{
 			resource: { db: 'production', collection: 'checkout_sessions' },
-			actions: ['find', 'update', 'insert', 'remove'],
+			actions: ['find', 'update', 'insert', 'remove']
 		},
 		{
 			resource: { db: 'production', collection: 'discounts' },
-			actions: ['find', 'update', 'insert', 'remove'],
+			actions: ['find', 'update', 'insert', 'remove']
 		}
 	],
-	roles: [],
+	roles: []
 })
 
 db.createRole({
@@ -89,34 +89,34 @@ db.createRole({
 	privileges: [
 		{
 			resource: { db: 'production', collection: 'products' },
-			actions: ['find', 'update', 'insert', 'remove'],
+			actions: ['find', 'update', 'insert', 'remove']
 		},
 		{
 			resource: { db: 'production', collection: 'orders' },
-			actions: ['find', 'update', 'insert', 'remove'],
+			actions: ['find', 'update', 'insert', 'remove']
 		},
 		{
 			resource: { db: 'production', collection: 'tokens' },
-			actions: ['find', 'remove'],
+			actions: ['find', 'remove']
 		},
 		{
 			resource: { db: 'production', collection: 'users' },
-			actions: ['find', 'update', 'remove'],
+			actions: ['find', 'update', 'remove']
 		},
 		{
 			resource: { db: 'production', collection: 'checkout_sessions' },
-			actions: ['find', 'update', 'insert', 'remove'],
+			actions: ['find', 'update', 'insert', 'remove']
 		},
 		{
 			resource: { db: 'production', collection: 'discounts' },
-			actions: ['find', 'update', 'insert', 'remove'],
+			actions: ['find', 'update', 'insert', 'remove']
 		},
 		{
 			resource: { db: 'production', collection: 'hashes' },
-			actions: ['remove'],
+			actions: ['remove']
 		}
 	],
-	roles: [],
+	roles: []
 })
 
 db.createUser({
@@ -125,9 +125,9 @@ db.createUser({
 	'roles': [
 		{
 			'role': 'hashaccess',
-			'db': 'production',
-		},
-	],
+			'db': 'production'
+		}
+	]
 })
 
 db.createUser({
@@ -136,9 +136,9 @@ db.createUser({
 	'roles': [
 		{
 			'role': 'restricted',
-			'db': 'production',
-		},
-	],
+			'db': 'production'
+		}
+	]
 })
 
 /**
@@ -160,34 +160,34 @@ db.createRole({
 	privileges: [
 		{
 			resource: { db: 'development', collection: 'products' },
-			actions: ['find', 'update', 'insert', 'remove'],
+			actions: ['find', 'update', 'insert', 'remove']
 		},
 		{
 			resource: { db: 'development', collection: 'hashes' },
-			actions: ['find', 'update', 'insert', 'remove'],
+			actions: ['find', 'update', 'insert', 'remove']
 		},
 		{
 			resource: { db: 'development', collection: 'orders' },
-			actions: ['find', 'update', 'insert', 'remove'],
+			actions: ['find', 'update', 'insert', 'remove']
 		},
 		{
 			resource: { db: 'development', collection: 'tokens' },
-			actions: ['find', 'update', 'insert', 'remove'],
+			actions: ['find', 'update', 'insert', 'remove']
 		},
 		{
 			resource: { db: 'development', collection: 'users' },
-			actions: ['find', 'update', 'insert', 'remove'],
+			actions: ['find', 'update', 'insert', 'remove']
 		},
 		{
 			resource: { db: 'development', collection: 'checkout_sessions' },
-			actions: ['find', 'update', 'insert', 'remove'],
+			actions: ['find', 'update', 'insert', 'remove']
 		},
 		{
 			resource: { db: 'development', collection: 'discounts' },
-			actions: ['find', 'update', 'insert', 'remove'],
+			actions: ['find', 'update', 'insert', 'remove']
 		}
 	],
-	roles: [],
+	roles: []
 })
 
 db.createRole({
@@ -195,34 +195,34 @@ db.createRole({
 	privileges: [
 		{
 			resource: { db: 'development', collection: 'products' },
-			actions: ['find', 'update', 'insert', 'remove'],
+			actions: ['find', 'update', 'insert', 'remove']
 		},
 		{
 			resource: { db: 'development', collection: 'orders' },
-			actions: ['find', 'update', 'insert', 'remove'],
+			actions: ['find', 'update', 'insert', 'remove']
 		},
 		{
 			resource: { db: 'development', collection: 'tokens' },
-			actions: ['find', 'remove'],
+			actions: ['find', 'remove']
 		},
 		{
 			resource: { db: 'development', collection: 'users' },
-			actions: ['find', 'update', 'remove'],
+			actions: ['find', 'update', 'remove']
 		},
 		{
 			resource: { db: 'development', collection: 'checkout_sessions' },
-			actions: ['find', 'update', 'insert', 'remove'],
+			actions: ['find', 'update', 'insert', 'remove']
 		},
 		{
 			resource: { db: 'development', collection: 'discounts' },
-			actions: ['find', 'update', 'insert', 'remove'],
+			actions: ['find', 'update', 'insert', 'remove']
 		},
 		{
 			resource: { db: 'development', collection: 'hashes' },
-			actions: ['remove'],
+			actions: ['remove']
 		}
 	],
-	roles: [],
+	roles: []
 })
 
 db.createUser({
@@ -231,9 +231,9 @@ db.createUser({
 	'roles': [
 		{
 			'role': 'hashaccess',
-			'db': 'development',
-		},
-	],
+			'db': 'development'
+		}
+	]
 })
 
 db.createUser({
@@ -242,7 +242,7 @@ db.createUser({
 	'roles': [
 		{
 			'role': 'restricted',
-			'db': 'development',
-		},
-	],
+			'db': 'development'
+		}
+	]
 })
