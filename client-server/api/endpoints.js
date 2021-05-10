@@ -58,9 +58,9 @@ export const routes = {
 	createCheckout: body => browserFetch({ method: 'POST', path: '/api/v1/checkout', body }),
 
 	// Discounts
-	createDiscount: body => browserFetch({method: 'POST', path: '/api/v1/discounts', body}),
-	getDiscount: ({discount_code}) => browserFetch({method: 'GET', path: `/api/v1/discount/:${discount_code}`}),
-	getDiscounts: () => browserFetch({method: 'GET', path: '/api/v1/discounts'})
+	createDiscount: body => browserFetch({ method: 'POST', path: '/api/v1/discounts', body }),
+	getDiscount: ({ discount_code }) => browserFetch({ method: 'GET', path: `/api/v1/discount/:${discount_code}` }),
+	getDiscounts: () => browserFetch({ method: 'GET', path: '/api/v1/discounts' })
 }
 
 export const setup = setupServer
