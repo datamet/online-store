@@ -7,17 +7,17 @@ let hostName
 let portNumber
 
 // Uses the browsers built in fetch api
-const browserFetch = async req => {
+export const browserFetch = async req => {
 	let res = {}
 	try {
-		const { path, method, headers, body } = req
+		const { path, method, headers, body, query } = req
 		const url = portNumber ? `${httpProtocol}://${hostName}:${portNumber}${path}`
-			: `${httpProtocol}://${hostName}${path}`
+			: `${httpProtocol}://${hostName}${path}${parseQuery(query)}`
 
 		const response = await fetch(url, {
 			method,
 			headers,
-			body: method === 'POST' || method === 'PUT' ? JSON.stringify(body) : null
+			body: method === 'POST' || method === 'PUT' ? JSON.stringify(parseBody(body)) : null
 		})
 
 		if (response.headers.get('Content-Type') === 'application/json; charset=utf-8') {
@@ -35,9 +35,25 @@ const browserFetch = async req => {
 	return res
 }
 
-export default (protocol, host, port) => {
+const parseQuery = query => {
+	let str = '?'
+	for (const [key, value] in Object.entries(query)) {
+		if (value) str += `${key}=${value}&`
+	}
+	return str.slice(0, -1)
+}
+
+const parseBody = obj => {
+	for (const propName in obj) {
+		if (obj[propName] === null || obj[propName] === undefined) {
+			delete obj[propName];
+		}
+	}
+	return obj
+}
+
+export const setup = (protocol, host, port) => {
 	httpProtocol = protocol
 	hostName = host
 	portNumber = port
-	return browserFetch
 }
