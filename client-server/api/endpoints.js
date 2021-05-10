@@ -23,6 +23,16 @@ export const routes = {
 		})
 	},
 
+	// Users
+	getUser: ({ user_id }) => browserFetch({ method: 'GET', path: `/api/v1/user/:${user_id}` }),
+	getUsers: () => browserFetch({ method: 'GET', path: '/api/v1/users' }),
+	updateUser: ({ user_id, username, groups, email }) => browserFetch({
+		method: 'PUT',
+		path: `/api/v1/user/:${user_id}`,
+		body: { username, groups, email }
+	}),
+	deleteUser: ({user_id}) => browserFetch({method: 'DELETE', path: `/api/v1/user/:${user_id}`}),
+
 	// Orders
 	createOrder: body => browserFetch({ method: 'POST', path: '/api/v1/orders', body }),
 	getOrder: ({ order_id }) => browserFetch({ method: 'GET', path: `/api/v1/order/:${order_id}` }),
@@ -37,15 +47,12 @@ export const routes = {
 		path: '/api/v1/products',
 		query: { index, count, keyword, search }
 	}),
-	updateProduct: ({ name, price, keywords, short_desc, long_desc, product_id }) => browserFetch({
+	updateProduct: ({ product_id, name, price, keywords, short_desc, long_desc }) => browserFetch({
 		method: 'POST',
 		path: `/api/v1/product/:${product_id}`,
 		body: { name, price, keywords, short_desc, long_desc }
 	}),
-	deleteProduct: ({product_id}) => browserFetch({method: 'DELETE', path: `/api/v1/product/:${product_id}`})
-
-	// Users
-
+	deleteProduct: ({ product_id }) => browserFetch({ method: 'DELETE', path: `/api/v1/product/:${product_id}` })
 
 	// Checkout
 
