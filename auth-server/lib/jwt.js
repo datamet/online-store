@@ -84,7 +84,8 @@ const setAuthCookie = async (auth_token, req, res) => {
 		maxAge: time,
 		httpOnly: true,
 		secure: true,
-		path: '/'
+		path: '/',
+		sameSite: 'none'
 	})
 }
 
