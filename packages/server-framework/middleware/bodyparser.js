@@ -1,6 +1,6 @@
 /**
  * Exports: Parsing function that parses a request body stream
- * and attaches it to request ojbect before continuing.
+ * and attaches it to request object before continuing.
  */
 
 const bodyparser = (req, res, next) => {
