@@ -31,7 +31,7 @@ export const routes = {
 		path: `/api/v1/user/:${user_id}`,
 		body: { username, groups, email }
 	}),
-	deleteUser: ({user_id}) => browserFetch({method: 'DELETE', path: `/api/v1/user/:${user_id}`}),
+	deleteUser: ({ user_id }) => browserFetch({ method: 'DELETE', path: `/api/v1/user/:${user_id}` }),
 
 	// Orders
 	createOrder: body => browserFetch({ method: 'POST', path: '/api/v1/orders', body }),
@@ -52,9 +52,10 @@ export const routes = {
 		path: `/api/v1/product/:${product_id}`,
 		body: { name, price, keywords, short_desc, long_desc }
 	}),
-	deleteProduct: ({ product_id }) => browserFetch({ method: 'DELETE', path: `/api/v1/product/:${product_id}` })
+	deleteProduct: ({ product_id }) => browserFetch({ method: 'DELETE', path: `/api/v1/product/:${product_id}` }),
 
 	// Checkout
+	createCheckout: body => browserFetch({ method: 'POST', path: '/api/v1/checkout', body })
 
 	// Discounts
 }
