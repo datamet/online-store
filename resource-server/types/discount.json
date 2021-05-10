@@ -1,14 +1,14 @@
 {
-    "discount_code" : {
-        "regex" : ".*",
-        "error" : "error"
+    "discount_code": {
+        "regex": ".*",
+        "error": "error"
     },
-    "percent" : {
-        "regex" : ".*",
-        "error" : "error"
+    "percent": {
+        "regex": ".*",
+        "error": "error"
     },
-    "milliseconds" : {
-        "regex" : ".*",
-        "error" : "error"
+    "milliseconds": {
+        "regex": ".*",
+        "error": "error"
     }
 }
