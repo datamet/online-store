@@ -18,7 +18,7 @@ export const routes = {
 	createUser: ({ email, password, username, groups }) => browserFetch({
 		method: 'POST',
 		path: '/auth/users',
-		header: { 'Authorization': encodeCredentials(email, password) },
+		headers: { 'Authorization': encodeCredentials(email, password) },
 		body: { username, groups }
 	}),
 	login: (email, password) => {
@@ -26,7 +26,7 @@ export const routes = {
 		return browserFetch({
 			method: 'POST',
 			path: '/auth/local',
-			header: {
+			headers: {
 				'Authorization': autHeader
 			}
 		})
@@ -35,7 +35,7 @@ export const routes = {
 	createGoogleUser: ({ id_token, email, password }) => browserFetch({
 		method: 'POST',
 		path: '/auth/google',
-		header: { 'Authorization': encodeCredentials(email, password) },
+		headers: { 'Authorization': encodeCredentials(email, password) },
 		query: { id_token }
 	}),
 
