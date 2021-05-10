@@ -1,40 +1,40 @@
 {
-    "username" : {
-        "regex" : "^[A-Za-z0-9]+(?:[ _-][A-Za-z0-9]+)*$",
-        "error" : "Username cannot include special characters"
+    "username": {
+        "regex": "^[A-Za-z0-9]+(?:[ _-][A-Za-z0-9]+)*$",
+        "error": "Username cannot include special characters"
     },
-    "password" : [
+    "password": [
         {
-            "regex" : "(?=^.{8,}$)",
-            "error" : "Password length needs to be 8 or more characters"
+            "regex": "(?=^.{8,}$)",
+            "error": "Password length needs to be 8 or more characters"
         },
         {
-            "regex" : "(?=.*[!@#$%^&*]+)",
-            "error" : "Password needs to inclued one or more special characters"
+            "regex": "(?=.*[!@#$%^&*]+)",
+            "error": "Password needs to included one or more special characters"
         },
         {
-            "regex" : "(?=.*[0-9])",
-            "error" : "Password must containt one or more didgits"
+            "regex": "(?=.*[0-9])",
+            "error": "Password must contain one or more digits"
         },
         {
-            "regex" : "(?![.\\n])",
-            "error" : "Password cannot include new line"
+            "regex": "(?![.\\n])",
+            "error": "Password cannot include new line"
         },
         {
-            "regex" : "(?=.*[A-Z])",
-            "error" : "Password needs to inclued one or capital letters"
+            "regex": "(?=.*[A-Z])",
+            "error": "Password needs to included one or capital letters"
         },
         {
-            "regex" : "(?=.*[a-z])",
-            "error" : "Password needs to inclued one or more lowercase letters"
+            "regex": "(?=.*[a-z])",
+            "error": "Password needs to included one or more lowercase letters"
         }
     ],
-    "email" : {
-        "regex" : "^((?!\\.)[\\w-_.]*[^.])(@\\w+)(\\.\\w+(\\.\\w+)?[^.\\W])$",
-        "error" : "Email is not valid"
+    "email": {
+        "regex": "^((?!\\.)[\\w-_.]*[^.])(@\\w+)(\\.\\w+(\\.\\w+)?[^.\\W])$",
+        "error": "Email is not valid"
     },
-    "user_group" : {
-        "regex" : ".*",
-        "error" : "Usergroup cannot include special characters"
+    "user_group": {
+        "regex": ".*",
+        "error": "Usergroup cannot include special characters"
     }
 }
