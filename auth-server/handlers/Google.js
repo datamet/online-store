@@ -7,12 +7,12 @@ const Google = {}
 Google.authenticate = async (req, res, next) => {
 	const id_token = req.query.id_token
 	const auth_header = req.header('Authorization')
-	const [ _email, password ] = basic(auth_header)
+	const [_email, password] = basic(auth_header)
 	const token = await verifyGoogleToken(id_token)
 	const google_id = token.sub
 	const email = token.email
 	const email_verified = token.email_verified
-	const [ username ] = token.name.split(' ')
+	const [username] = token.name.split(' ')
 	let user = await db.getUserByEmail({ email })
 	if (user && (!user.google_id || user.google_id !== google_id)) {
 		if (!password) {
