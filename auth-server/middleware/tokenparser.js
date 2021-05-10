@@ -20,7 +20,6 @@ const tokenparser = async (req, res, next) => {
     catch (error) {
         log(log.DEBUG, `Non valid auth token provided: ${auth_token}`)
         next()
-        return
     }
 }
 
