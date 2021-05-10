@@ -2,13 +2,18 @@
  * Fetching from server
  */
 
-let config
+let httpProtocol
+let hostName
+let portNumber
 
 // Uses the browsers built in fetch api
-const browserFetch = async (req, res, next) => {
+const browserFetch = async req => {
+	let res = {}
 	try {
 		const { path, method, headers, body } = req
-		const url = config.port ? `http://${config.host}:${config.port}${path}` : `http://${config.host}${path}`
+		const url = portNumber ? `${httpProtocol}://${hostName}:${portNumber}${path}`
+			: `${httpProtocol}://${hostName}${path}`
+
 		const response = await fetch(url, {
 			method,
 			headers,
@@ -16,23 +21,23 @@ const browserFetch = async (req, res, next) => {
 		})
 
 		if (response.headers.get('Content-Type') === 'application/json; charset=utf-8') {
-			const data = await response.json()
+			res.body = await response.json()
 			res.status = response.status
-			res.body = data
 		}
-		else {
-			console.log(await response.text())
-		}
-		next()
-	}
-	catch(err) {
+	} catch (err) {
 		res.status = 408
-		res.body = { error: "Could not connect to the server" }
-		next()
+		res.body = {
+			error: {
+				message: 'Could not connect to the server'
+			}
+		}
 	}
+	return res
 }
 
-export default (options) => {
-	config = options
+export default (protocol, host, port) => {
+	httpProtocol = protocol
+	hostName = host
+	portNumber = port
 	return browserFetch
 }
