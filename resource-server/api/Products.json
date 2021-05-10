@@ -4,7 +4,9 @@
         "path": "/api/v1/products",
         "handler": "Products.createOne",
         "policies": {
-            "inGroup": ["admin"]
+            "inGroup": [
+                "admin"
+            ]
         },
         "body": {
             "name": "[name]",

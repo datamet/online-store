@@ -1,13 +1,13 @@
 [
     {
-        "method" : "post",
-        "path" : "/api/v1/checkout",
-        "handler" : "Checkout.createSession",
-        "body" : {
-            "products" : [
+        "method": "post",
+        "path": "/api/v1/checkout",
+        "handler": "Checkout.createSession",
+        "body": {
+            "products": [
                 {
                     "product_id": "[product_id]",
-                    "amount" : "[amount]"
+                    "amount": "[amount]"
                 }
             ]
         }

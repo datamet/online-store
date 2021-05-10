@@ -1,32 +1,38 @@
 [
     {
-        "method" : "post",
-        "path" : "/api/v1/discounts",
-        "handler" : "Discount.createOne",
-        "policies" : {
-            "inGroup" : ["admin"]
+        "method": "post",
+        "path": "/api/v1/discounts",
+        "handler": "Discount.createOne",
+        "policies": {
+            "inGroup": [
+                "admin"
+            ]
         },
-        "body" : {
-            "code" : "[discount_code]",
-            "percent" : "[percent]",
-            "?user" : "[user_id]",
-            "?products" : "<product_id>"
+        "body": {
+            "code": "[discount_code]",
+            "percent": "[percent]",
+            "?user": "[user_id]",
+            "?products": "<product_id>"
         }
     },
     {
-        "method" : "get",
-        "path" : "/api/v1/discounts",
-        "handler" : "Discount.getMultiple",
-        "policies" : {
-            "inGroup" : ["admin"]
+        "method": "get",
+        "path": "/api/v1/discounts",
+        "handler": "Discount.getMultiple",
+        "policies": {
+            "inGroup": [
+                "admin"
+            ]
         }
     },
     {
-        "method" : "get",
-        "path" : "/api/v1/discount/:discount_code",
-        "handler" : "Discount.verify",
-        "policies" : {
-            "inGroup" : ["user"]
+        "method": "get",
+        "path": "/api/v1/discount/:discount_code",
+        "handler": "Discount.verify",
+        "policies": {
+            "inGroup": [
+                "user"
+            ]
         }
     }
 ]
