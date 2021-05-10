@@ -1,5 +1,6 @@
 const error = require('../lib/error')
 const { validate } = require('../validation/validator')
+const { log } = require('../lib/logger')
 
 const setupMatchFrom = (req, res) => async (form, matchedValue) => {
     if (!matchedValue || typeof matchedValue !== 'object') throw error.missing()
@@ -68,6 +69,7 @@ const setupMatchFrom = (req, res) => async (form, matchedValue) => {
             if (meta.default !== undefined) matchedValue[key] = meta.default
         }
         else {
+            log(log.DEBUG, `Missing: ${key}`)
             throw error.missing()
         }
     }
