@@ -6,14 +6,23 @@
  */
 
 import { setup as setupServer, browserFetch } from './fetch.js'
-import * as path from 'path'
+
+const encodeCredentials = (email, password) => {
+	const credentials = `${email}:${password}`
+	const encode = btoa(credentials)
+	return `Basic ${encode}`
+}
 
 export const routes = {
 	// Login
+	createUser: ({ email, password, username, groups }) => browserFetch({
+		method: 'POST',
+		path: '/auth/users',
+		header: { 'Authorization': encodeCredentials(email, password) },
+		body: { username, groups }
+	}),
 	login: (email, password) => {
-		const credentials = `${email}:${password}`
-		const encode = btoa(credentials)
-		const autHeader = `Basic ${encode}`
+		const autHeader = encodeCredentials(email, password)
 		return browserFetch({
 			method: 'POST',
 			path: '/auth/local',
@@ -22,6 +31,14 @@ export const routes = {
 			}
 		})
 	},
+	logout: () => browserFetch({ method: 'DELETE', path: '/auth/local' }),
+	createGoogleUser: ({ id_token, email, password }) => browserFetch({
+		method: 'POST',
+		path: '/auth/google',
+		header: { 'Authorization': encodeCredentials(email, password) },
+		query: { id_token }
+	}),
+
 
 	// Users
 	getUser: ({ user_id }) => browserFetch({ method: 'GET', path: `/api/v1/user/:${user_id}` }),
