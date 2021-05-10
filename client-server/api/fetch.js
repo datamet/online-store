@@ -16,7 +16,7 @@ export const browserFetch = async req => {
 
 		const response = await fetch(url, {
 			method,
-			headers,
+			headers: parseHeader(headers, body, method),
 			body: method === 'POST' || method === 'PUT' ? JSON.stringify(parseBody(body)) : null
 		})
 
@@ -35,6 +35,18 @@ export const browserFetch = async req => {
 	return res
 }
 
+const parseHeader = (headers, body, method) => {
+	const header = {
+		...headers
+	}
+
+	if ((method === 'POST' || method === 'PUT') && body) {
+		header["Content-Type"] = 'application/json'
+	}
+
+	return header
+}
+
 const parseQuery = query => {
 	let str = '?'
 	for (const [key, value] in Object.entries(query)) {
@@ -46,7 +58,7 @@ const parseQuery = query => {
 const parseBody = obj => {
 	for (const propName in obj) {
 		if (obj[propName] === null || obj[propName] === undefined) {
-			delete obj[propName];
+			delete obj[propName]
 		}
 	}
 	return obj
