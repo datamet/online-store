@@ -13,6 +13,7 @@ const tokenparser = async (req, res, next) => {
     try {
         token_info = await verifyLocalToken(auth_token)
         log(log.DEBUG, `Valid auth token provided: ${auth_token}`)
+        log(log.DEBUG, `User: ${token_info.user_id}`)
         req.user._id = token_info.user_id
         res.header('user', token_info.user_id)
         next()
