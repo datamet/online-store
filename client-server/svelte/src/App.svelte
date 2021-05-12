@@ -1,7 +1,11 @@
 <script>
-	import { Router, Route } from 'svelte-routing'
+	import { Router, Route, Link } from 'svelte-routing'
 	import Frontpage from './containers/Frontpage.svelte'
+	import Header from './containers/Header.svelte'
 	import Profile from './containers/Profile.svelte'
+	import Signin from './containers/Signin.svelte'
+	import Signup from './containers/Signup.svelte'
+
 	const host = location.hostname
 	const port = PORT || location.port
 
@@ -9,10 +13,11 @@
 </script>
 
 <main>
-	<h1>Api is located at:</h1>
-	<h2>{host}:{port}</h2>
 	<Router {basepath}>
-		<Route path="/profile" component="{Profile}"></Route>
-		<Route path="/" component="{Frontpage}"></Route>
+		<Header />
+		<Route path="/profile" component={Profile} />
+		<Route path="/signin" component={Signin} />
+		<Route path="/signup" component={Signup} />
+		<Route path="/" component={Frontpage} />
 	</Router>
 </main>
