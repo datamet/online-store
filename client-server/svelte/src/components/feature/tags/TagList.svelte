@@ -1,11 +1,17 @@
 <script>
 	import Tag from './Tag.svelte'
-	export let tags = ['cloathing', 'food', 'gear'], selected = []
+    import { createEventDispatcher } from 'svelte'
+	export let tags = ['cloathing', 'food', 'gear', 'car'], selected = []
+
+    const dispatch = createEventDispatcher()
 
     const handleChange = ({ detail }) => {
         const { checked, tag } = detail
         if (checked) selected.push(tag)
         else if (selected.indexOf(tag) !== -1) selected.splice(selected.indexOf(tag), 1)
+        dispatch('change', {
+            selected
+        })
         selected = selected
     }
     
