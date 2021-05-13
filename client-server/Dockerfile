@@ -2,6 +2,7 @@ FROM node:14-alpine
 
 WORKDIR /usr/src/app
 
+COPY ./api ../api
 COPY ./svelte/rollup.config.js ./
 COPY ./svelte/package*.json ./
 
