@@ -1,5 +1,5 @@
 <script>
-    export let action = () => {}, disabled = false, disabledText = ''
+    export let action = () => {}, disabled = false
 </script>
 
 <div>
