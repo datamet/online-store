@@ -11,8 +11,7 @@ export const browserFetch = async req => {
 	let res = {}
 	try {
 		const { path, method, headers, body, query } = req
-		const url = portNumber ? `${httpProtocol}://${hostName}:${portNumber}${path}`
-			: `${httpProtocol}://${hostName}${path}${parseQuery(query)}`
+		const url = `${httpProtocol}://${hostName}${portNumber ? `:${portNumber}` : ''}${path}${parseQuery(query)}`
 
 		const response = await fetch(url, {
 			method,
@@ -25,6 +24,7 @@ export const browserFetch = async req => {
 			res.status = response.status
 		}
 	} catch (err) {
+		console.log(err)
 		res.status = 408
 		res.body = {
 			error: {
@@ -48,14 +48,22 @@ const parseHeader = (headers, body, method) => {
 }
 
 const parseQuery = query => {
+	if (!query) return ''
 	let str = '?'
-	for (const [key, value] in Object.entries(query)) {
-		if (value) str += `${key}=${value}&`
+	for (const [key, value] of Object.entries(query)) {
+		console.log(key, value)
+		if (Array.isArray(value)) {
+			for (const val of value) {
+				str += `${key}=${val}&`
+			}
+		}
+		else if (value) str += `${key}=${value}&`
 	}
 	return str.slice(0, -1)
 }
 
 const parseBody = obj => {
+	if (!obj) return {}
 	for (const propName in obj) {
 		if (obj[propName] === null || obj[propName] === undefined) {
 			delete obj[propName]
