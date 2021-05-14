@@ -9,7 +9,7 @@
 	import GoogleSignin from '../components/feature/GoogleSignin.svelte'
 	import FormGroup from '../components/feature/form/FormGroup.svelte'
 	import Heading from '../components/type/Heading.svelte'
-	import { signup } from '../../../api/endpoints'
+	import { signup, validEmail, validUsername, validPassword } from '../../../api/endpoints'
 	import { navigate } from 'svelte-routing'
 
 	let errorMessage = ''
@@ -18,19 +18,24 @@
 	$: valid = email && password && confirmed && username
 
 	const emailValidator = async email => {
-		const regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-		return email.match(regex)
+		const res = await validEmail({ email })
+		if (!res.body.error) return true
+		else return { valid: false, message: res.body.error.message }
 	}
 
 	const usernameValidator = async username => {
-		const regex = /f/
-		const valid = username.match(regex)
-		if (!valid) return { valid, message: "username not valid" }
+		const res = await validUsername({ username })
+		if (!res.body.error) return true
+		else return { valid: false, message: res.body.error.message }
 	}
 
 	const passwordValidator = async password => {
-		if (revalidatePassword) revalidatePassword()
-		return true
+		const res = await validPassword({ password })
+		if (!res.body.error) {
+			if (revalidatePassword) revalidatePassword()
+			return true
+		}
+		else return { valid: false, message: res.body.error.message }
 	}
 
 	const passwordConfirm = async confirmedPassword => {
@@ -39,7 +44,7 @@
 			return true
 		}
 		confirmed = false
-		return false
+		return { valid: false, message: 'Passwords does not match' }
 	}
 
 	const handleSignup = async () => {
