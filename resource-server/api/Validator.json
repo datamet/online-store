@@ -166,5 +166,27 @@
         "body": {
             "payment_token": "[payment_token]"
         }
+    },
+
+    {
+        "method": "post",
+        "path": "/api/v1/validate/discount_code",
+        "body": {
+            "discount_code": "[discount_code]"
+        }
+    },
+    {
+        "method": "post",
+        "path": "/api/v1/validate/percent",
+        "body": {
+            "percent": "[percent]"
+        }
+    },
+    {
+        "method": "post",
+        "path": "/api/v1/validate/milliseconds",
+        "body": {
+            "milliseconds": "[milliseconds]"
+        }
     }
 ]
