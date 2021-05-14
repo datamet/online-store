@@ -11,17 +11,23 @@ export const browserFetch = async req => {
 	let res = {}
 	try {
 		const { path, method, headers, body, query } = req
+		const parsedBody = parseBody(body)
 		const url = `${httpProtocol}://${hostName}${portNumber ? `:${portNumber}` : ''}${path}${parseQuery(query)}`
 
 		const response = await fetch(url, {
 			method,
-			headers: parseHeader(headers, body, method),
-			body: method === 'POST' || method === 'PUT' ? JSON.stringify(parseBody(body)) : null
+			headers: parseHeader(headers, parsedBody, method),
+			body: method === 'POST' || method === 'PUT' ? JSON.stringify(parsedBody) : null
 		})
+
+		if (response.headers.get('Content-Type') === 'text/html') {
+			console.log(await response.text())
+		}
 
 		if (response.headers.get('Content-Type') === 'application/json; charset=utf-8') {
 			res.body = await response.json()
 			res.status = response.status
+			return res
 		}
 	} catch (err) {
 		console.log(err)
@@ -32,7 +38,7 @@ export const browserFetch = async req => {
 			}
 		}
 	}
-	return res
+	return { body: { error: { message: 'Something went wrong' } } }
 }
 
 const parseHeader = (headers, body, method) => {
