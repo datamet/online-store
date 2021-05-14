@@ -13,7 +13,8 @@
 	import { navigate } from 'svelte-routing'
 
 	let errorMessage = ''
-	let email, password, confirmed, username
+	let email, password, username, confirmed
+	let revalidatePassword
 	$: valid = email && password && confirmed && username
 
 	const emailValidator = async email => {
@@ -22,11 +23,13 @@
 	}
 
 	const usernameValidator = async username => {
-		const regex = /.*/
-		return username.match(regex)
+		const regex = /f/
+		const valid = username.match(regex)
+		if (!valid) return { valid, message: "username not valid" }
 	}
 
 	const passwordValidator = async password => {
+		if (revalidatePassword) revalidatePassword()
 		return true
 	}
 
@@ -46,11 +49,12 @@
 			navigate('/')
 		}
 		else if (res.body.error) errorMessage = res.body.error.message
+		else errorMessage = 'Something went wrong'
 	}
 </script>
 
-<div>
-	<Container contain center>
+<Container section contain center>
+	<div>
 		<Form>
 			<FormGroup center>
 				<Logo size="medium"/>
@@ -83,6 +87,7 @@
 				<Input
 					id="signin-confirm-password"
 					validator={passwordConfirm}
+					bind:revalidate={revalidatePassword}
 					type="password">Confirm password</Input
 				>
 			</FormGroup>
@@ -97,11 +102,13 @@
 				<FromText error>{errorMessage}</FromText>
 			</FormGroup>
 		</Form>
-	</Container>
-</div>
+	</div>
+</Container>
 
 <style>
 	div {
-		--f-type: 'Abril Fatface'
+		--f-type: 'Abril Fatface';
+		max-width: 100%;
+		width: 25rem;
 	}
 </style>
