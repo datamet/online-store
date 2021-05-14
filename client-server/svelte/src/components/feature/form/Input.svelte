@@ -1,20 +1,32 @@
 <script>
 	import Icon from '../Icon.svelte'
+	import { onMount } from 'svelte'	
+import FromText from './FromText.svelte'
 
 	export let type = 'text',
-		validator = () => true,
+		validator,
 		id,
 		value = '',
-		placeholder
+		revalidate,
+		required = false
 
-	let error, success, val
+	let error, success, val, message
+
+	onMount(() => {
+		revalidate = () => setTimeout(() => validate(val), 10)
+		if (!validator && required) validator = v => v ? true : false
+	})
 
 	const validate = async v => {
-		const valid = await validator(v)
+		const res = await validator(v)
+		let valid
+		if (typeof res === 'object') ({ valid, message } = res)
+		else valid = res
 		if (valid) {
 			value = v
 			success = true
 			error = false
+			message = ''
 		} else {
 			value = ''
 			success = false
@@ -25,6 +37,10 @@
 	let timeout
 	const handleInput = e => {
 		val = e.target.value
+		if (!validator) {
+			value = e.target.value
+			return
+		}
 		let ms = timeout ? 500 : 700
 		if (timeout) clearTimeout(timeout)
 		timeout = setTimeout(() => {
@@ -45,10 +61,15 @@
         <Icon sprite="{success || error ? success ? 'check' : 'notice' : ''}"/>
     </div>
 </div>
+{#if message}
+	<FromText error>{message}</FromText>
+{/if}
 
 <style>
 	.group {
         position: relative;
+		width: 25rem;
+		max-width: 25rem;
 	}
 
     .icon {
@@ -78,8 +99,7 @@
     }
 
 	.input {
-		width: 25rem;
-		max-width: 25rem;
+		width: 100%;
 		line-height: 3rem;
 		border-radius: 0.3rem;
 		padding: 1px 1rem;
