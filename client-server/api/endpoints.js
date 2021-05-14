@@ -20,14 +20,14 @@ export const signup = ({ email, password, username, groups }) =>
 		headers: { 'Authorization': encodeCredentials(email, password) },
 		body: { username, groups }
 	})
-export const signin = (email, password) => {
+export const signin = ({ email, password }) => {
 	const autHeader = encodeCredentials(email, password)
 	return browserFetch({
 		method: 'POST',
 		path: '/auth/local',
 		headers: {
 			'Authorization': autHeader,
-		},
+		}
 	})
 }
 export const signout = () =>
