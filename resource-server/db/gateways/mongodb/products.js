@@ -41,16 +41,12 @@ gateway.deleteProduct = async (db, { _id }) => {
 gateway.getProductsFiltered = async (db, { keywords, search }) => {
 	if (search && keywords) {
 		return await db.collection('products').find(
-			{ $text: { $search: search } },
+			{ $text: { $search: search }, keywords: { $in: keywords } },
 			{ score: { $meta: 'textScore' } }
 		).sort({
 				score: { $meta: 'textScore' }
 			}
-		).find({
-			keywords: {
-				$in: keywords
-			}
-		}).toArray()
+		).toArray()
 	} else if (search) {
 		return await db.collection('products').find(
 			{ $text: { $search: search } },

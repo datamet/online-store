@@ -26,6 +26,15 @@ formats.set(
 )
 
 formats.set(
+    format => matchType('optional_type_array', format, { noerror: true }) ? format.slice(1, -1) : false,
+    (type, values) => {
+        if (!Array.isArray(values)) return matchType(type, values.toString())
+        values.map(value => matchType(type, value.toString()))
+        return true
+    }
+)
+
+formats.set(
 	format => matchType('path_variable', format, { noerror: true }) ? format.slice(1) : false,
 	(type, value) => matchType(type, value.toString())
 )

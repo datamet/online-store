@@ -4,14 +4,9 @@
 
     let searching
 
-    function out(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
     const doSearch = async (value) => {
         searching = true
         const searched = await search(value)
-        await out(700)
         searching = false
     }
 

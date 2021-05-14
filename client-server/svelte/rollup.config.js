@@ -44,9 +44,6 @@ export default {
 				dev: !production
 			}
 		}),
-		replace({
-			'PORT': process.env.BACKEND_PORT
-		}),
 		// we'll extract any component CSS out into
 		// a separate file - better for performance
 		css({ output: 'bundle.css' }),
@@ -61,6 +58,9 @@ export default {
 			dedupe: ['svelte']
 		}),
 		commonjs(),
+		replace({
+			'PORT': process.env.BACKEND_PORT
+		}),
 
 		// In dev mode, call `npm run start` once
 		// the bundle has been generated

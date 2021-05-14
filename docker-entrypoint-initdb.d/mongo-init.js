@@ -48,6 +48,13 @@ db.createCollection('tokens')
 db.createCollection('checkout_sessions')
 db.createCollection('discounts')
 db.users.createIndex({ email: 1 }, { unique: true })
+db.products.createIndex(
+	{
+	  name: "text",
+	  short_desc: "text",
+	  long_desc: "text"
+	}
+)
 
 db.createRole({
 	role: 'hashaccess',
@@ -154,6 +161,13 @@ db.createCollection('tokens')
 db.createCollection('checkout_sessions')
 db.createCollection('discounts')
 db.users.createIndex({ email: 1 }, { unique: true })
+db.products.createIndex(
+	{
+	  name: "text",
+	  short_desc: "text",
+	  long_desc: "text"
+	}
+)
 
 db.createRole({
 	role: 'hashaccess',

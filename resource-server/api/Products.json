@@ -30,7 +30,7 @@
                 "$value": "[amount]",
                 "$default": 20
             },
-            "?keyword": "<keyword>",
+            "?keyword": "(keyword)",
             "?search": "[search_query]"
         }
     },

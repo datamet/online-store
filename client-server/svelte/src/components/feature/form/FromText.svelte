@@ -1,8 +1,8 @@
 <script>
-
+    export let error = false
 </script>
 
-<div><slot /></div>
+<div class:error><slot /></div>
 
 <style>
     div {
@@ -15,5 +15,9 @@
 
     div > :global(:last-child) {
         margin-right: 0;
+    }
+
+    .error {
+        color: var(--control-r);
     }
 </style>

@@ -7,6 +7,10 @@
         "regex": "^<[a-zA-Z_]*>$",
         "error": "Invalid array type"
     },
+    "optional_type_array": {
+        "regex" : "^\\([a-zA-Z_]*\\)$",
+        "error": "Invalid optional type array"
+    },
     "path_variable": {
         "regex": "^:[a-zA-Z_]*",
         "error": "Invalid path variable"

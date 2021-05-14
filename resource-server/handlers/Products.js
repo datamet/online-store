@@ -1,4 +1,4 @@
-const { db, error } = require('server-framework')
+const { db, error, log } = require('server-framework')
 
 const Products = {}
 
@@ -30,6 +30,8 @@ Products.getMultiple = async (req, res, next) => {
 	const search = req.query.search
 	let keywords = req.query.keyword
 	if (keywords && !Array.isArray(keywords)) keywords = [keywords]
+	log(log.DEBUG, `Fetching products that match ${search ? search : 'everything'}.`)
+	log(log.DEBUG, `${keywords ? `Keywords: ${keywords.toString()}` : 'Matching all keywords'}.`)
 
 	let products = await db.getProductsFiltered({ keywords, search })
 	if (!products) throw error.internal()

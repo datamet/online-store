@@ -5,9 +5,12 @@
 	import Profile from './containers/Profile.svelte'
 	import Signin from './containers/Signin.svelte'
 	import Signup from './containers/Signup.svelte'
+	import { setup } from '../../api/endpoints'
 
 	const host = location.hostname
 	const port = PORT || location.port
+
+	setup('http', host, port)
 
 	let basepath = '/'
 </script>

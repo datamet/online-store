@@ -5,7 +5,8 @@ const responder = (req, res, next) => {
         try {
             if (!res.headersSent) {
                 if (req.user._id) res.sendStatus(200)
-                else throw error.authentication()
+                else res.sendStatus(200)
+                // else throw error.authentication()
             }
             next()
         }
