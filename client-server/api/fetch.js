@@ -51,7 +51,6 @@ const parseQuery = query => {
 	if (!query) return ''
 	let str = '?'
 	for (const [key, value] of Object.entries(query)) {
-		console.log(key, value)
 		if (Array.isArray(value)) {
 			for (const val of value) {
 				str += `${key}=${val}&`
