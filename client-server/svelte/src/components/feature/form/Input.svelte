@@ -1,13 +1,13 @@
 <script>
 	import Icon from '../Icon.svelte'
 	import { onMount } from 'svelte'	
-import FromText from './FromText.svelte'
+	import FromText from './FromText.svelte'
 
 	export let type = 'text',
 		validator,
 		id,
 		value = '',
-		revalidate,
+		revalidate = null,
 		required = false
 
 	let error, success, val, message
