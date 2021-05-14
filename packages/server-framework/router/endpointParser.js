@@ -110,9 +110,17 @@ const endpointParser = (handlers, policies) => raw => {
 			parsed.path = raw.path
 			parsed.policies.unshift(matchesForm(parsed.params, 'params'))
 		}
-		if (validate('[handler]', raw.handler)) {
-			parsed.handler = parseHandler(raw.handler)
-			if (!parsed.handler) parsed.handler = (req, res, next) => {
+		if (raw.handler) {
+			if (validate('[handler]', raw.handler)) {
+				parsed.handler = parseHandler(raw.handler)
+				if (!parsed.handler) parsed.handler = (req, res, next) => {
+					next()
+				}
+			}
+		}
+		else {
+			parsed.handler = (req, res, next) => {
+				res.json({ message: 'ok' })
 				next()
 			}
 		}
