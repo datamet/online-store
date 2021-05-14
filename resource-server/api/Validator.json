@@ -130,5 +130,41 @@
         "body": {
             "street_number": "[street_number]"
         }
+    },
+
+    {
+        "method": "post",
+        "path": "/api/v1/validate/user_id",
+        "body": {
+            "user_id": "[user_id]"
+        }
+    },
+    {
+        "method": "post",
+        "path": "/api/v1/validate/product_id",
+        "body": {
+            "product_id": "[product_id]"
+        }
+    },
+    {
+        "method": "post",
+        "path": "/api/v1/validate/order_id",
+        "body": {
+            "order_id": "[order_id]"
+        }
+    },
+    {
+        "method": "post",
+        "path": "/api/v1/validate/checkout_id",
+        "body": {
+            "checkout_id": "[checkout_id]"
+        }
+    },
+    {
+        "method": "post",
+        "path": "/api/v1/validate/payment_token",
+        "body": {
+            "payment_token": "[payment_token]"
+        }
     }
 ]
