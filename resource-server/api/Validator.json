@@ -27,5 +27,58 @@
         "body": {
             "email": "[email]"
         }
+    },
+
+    {
+        "method": "post",
+        "path": "/api/v1/validate/name",
+        "body": {
+            "name": "[name]"
+        }
+    },
+
+    {
+        "method": "post",
+        "path": "/api/v1/validate/price",
+        "body": {
+            "price": "[price]"
+        }
+    },
+
+    {
+        "method": "post",
+        "path": "/api/v1/validate/keyword",
+        "body": {
+            "keyword": "[keyword]"
+        }
+    },
+
+    {
+        "method": "post",
+        "path": "/api/v1/validate/short_desc",
+        "body": {
+            "short_desc": "[short_desc]"
+        }
+    },
+    {
+        "method": "post",
+        "path": "/api/v1/validate/long_desc",
+        "body": {
+            "long_desc": "[long_desc]"
+        }
+    },
+    {
+        "method": "post",
+        "path": "/api/v1/validate/count",
+        "body": {
+            "count": "[count]"
+        }
+    },
+    {
+        "method": "post",
+        "path": "/api/v1/validate/search_query",
+        "body": {
+            "search_query": "[search_query]"
+        }
     }
 ]
