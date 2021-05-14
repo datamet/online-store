@@ -80,5 +80,55 @@
         "body": {
             "search_query": "[search_query]"
         }
+    },
+
+    {
+        "method": "post",
+        "path": "/api/v1/validate/note",
+        "body": {
+            "note": "[note]"
+        }
+    },
+    {
+        "method": "post",
+        "path": "/api/v1/validate/country",
+        "body": {
+            "country": "[country]"
+        }
+    },
+    {
+        "method": "post",
+        "path": "/api/v1/validate/province",
+        "body": {
+            "province": "[province]"
+        }
+    },
+    {
+        "method": "post",
+        "path": "/api/v1/validate/city",
+        "body": {
+            "city": "[city]"
+        }
+    },
+    {
+        "method": "post",
+        "path": "/api/v1/validate/zip",
+        "body": {
+            "zip": "[zip]"
+        }
+    },
+    {
+        "method": "post",
+        "path": "/api/v1/validate/street_name",
+        "body": {
+            "street_name": "[street_name]"
+        }
+    },
+    {
+        "method": "post",
+        "path": "/api/v1/validate/street_number",
+        "body": {
+            "street_number": "[street_number]"
+        }
     }
 ]
