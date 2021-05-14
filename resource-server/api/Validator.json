@@ -1,9 +1,23 @@
 [
     {
         "method": "post",
+        "path": "/api/v1/validate/username",
+        "body": {
+            "username": "[username]"
+        }
+    },
+    {
+        "method": "post",
         "path": "/api/v1/validate/password",
         "body": {
             "password": "[password]"
+        }
+    },
+    {
+        "method": "post",
+        "path": "/api/v1/validate/group",
+        "body": {
+            "group": "[group]"
         }
     },
     {
