@@ -1,0 +1,17 @@
+[
+    {
+        "method": "post",
+        "path": "/api/v1/validate/password",
+        "body": {
+            "password": "[password]"
+        }
+    },
+    {
+        "method": "post",
+        "path": "/api/v1/validate/email",
+        "handler": "Validator.emailExist",
+        "body": {
+            "email": "[email]"
+        }
+    }
+]
