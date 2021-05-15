@@ -28,6 +28,10 @@ gateway.getUserByGoogleId = async (db, { google_id }) => {
     return await db.collection('users').findOne({ google_id })
 }
 
+gateway.addGoogleIdToUser = async (db, { user_id, google_id }) => {
+    await db.collection('users').updateOne({ _id: ObjectId(user_id) }, { $set: { google_id } })
+}
+
 gateway.getUserGroups = async (db, { _id }) => {
     const user = await db.collection('users').findOne({ _id })
     if (!user) return false
