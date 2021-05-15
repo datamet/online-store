@@ -19,7 +19,6 @@
 
     window.onSignIn = (googleUser) => {
         $activeGoogleUser = googleUser
-        console.log(googleUser)
         email = googleUser.getBasicProfile().getEmail()
         const id_token = googleUser.getAuthResponse().id_token
         googleSignin(id_token)
