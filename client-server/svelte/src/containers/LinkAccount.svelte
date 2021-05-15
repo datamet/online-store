@@ -4,23 +4,26 @@
 	import Button from '../components/feature/Button.svelte'
 	import Container from '../components/layout/Container.svelte'
 	import Logo from '../components/content/Logo.svelte'
-	import FormLink from '../components/feature/form/FormLink.svelte'
 	import FromText from '../components/feature/form/FromText.svelte'
 	import GoogleSignin from '../components/feature/GoogleSigninButton.svelte'
 	import FormGroup from '../components/feature/form/FormGroup.svelte'
 	import Heading from '../components/type/Heading.svelte'
-	import { signin } from '../../../api/endpoints'
+	import { googleSignup } from '../../../api/endpoints'
 	import { navigate } from 'svelte-routing'
 	import { user } from '../stores/user'
 
 	let errorMessage = ''
-	let email, password
+	let id_token, email, password
 
-	const handleSignin = async () => {
-		const res = await signin({ email, password })
-		if (res.body.message) {
-			user.signin()
-			navigate('/')
+	const params = new URLSearchParams(window.location.search)
+	id_token = params.get('id_token')
+	email = params.get('email')
+
+	const handleLink = async () => {
+        const res = await googleSignup({ id_token, email, password })
+        if (res.body.message) {
+            user.signin()
+            navigate('/')
 		}
 		else if (res.body.error) errorMessage = res.body.error.message
 		else errorMessage = 'Something went wrong'
@@ -32,31 +35,25 @@
 		<Form>
 			<FormGroup center>
 				<Logo size="medium"/>
-				<Heading>Welcome back</Heading>
-			</FormGroup>
-			<FormGroup center>
-				<GoogleSignin />
+				<Heading>Link accounts</Heading>
+                <FromText>This email is already in use by a non-google account. Please sign in to verify it's yours. You only have to do this one time.</FromText>
 			</FormGroup>
 			<FormGroup>
 				<Input
-					required
+					readonly
 					bind:value={email}
-					id="signin-email"
+					id="link-email"
 					type="email">Email</Input
 				>
 				<Input
 					required
 					bind:value={password}
-					id="signin-password"
+					id="link-password"
 					type="password">Password</Input
 				>
 			</FormGroup>
-			<FormGroup flex>
-				<Button action={handleSignin}>Sign in</Button>
-				<FromText>
-					<span>No account?</span>
-					<FormLink to="/signup">Sign up</FormLink>
-				</FromText>
+			<FormGroup>
+				<Button action={handleLink}>Link accounts</Button>
 			</FormGroup>
 			<FormGroup>
 				<FromText error>{errorMessage}</FromText>

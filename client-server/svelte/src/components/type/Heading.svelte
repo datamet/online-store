@@ -21,8 +21,7 @@
 <style>
     h1,
     h2,
-    h3,
-    h4 {
+    h3 {
         font-size: var(--f-size);
         font-family: var(--f-type);
         margin: 0;

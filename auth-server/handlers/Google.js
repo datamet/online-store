@@ -1,4 +1,4 @@
-const { db, error } = require('server-framework')
+const { db, error, log } = require('server-framework')
 const hash = require('../lib/hash')
 const { verifyGoogleToken, authenticate, basic } = require('../lib/jwt')
 
@@ -22,7 +22,10 @@ Google.authenticate = async (req, res, next) => {
 				{ email }
 			)
 		}
-		hash.compare(user.hash, password)
+		const credentials = await db.getHashByEmail({ email })
+		hash.compare(credentials.hash, password)
+		await db.addGoogleIdToUser({ user_id: user._id, google_id })
+		log(log.DEBUG, `Linking local account: ${email} with google_id: ${google_id}`)
 	}
 	if (!user) {
 		user = await db.createUser({

@@ -18,9 +18,9 @@ export const signup = ({ email, password, username, groups }) =>
 		method: 'POST',
 		path: '/auth/users',
 		headers: { 'Authorization': encodeCredentials(email, password) },
-		body: { username, groups }
+		body: { username, groups },
 	})
-export const signin = (email, password) => {
+export const signin = ({ email, password }) => {
 	const autHeader = encodeCredentials(email, password)
 	return browserFetch({
 		method: 'POST',
@@ -104,3 +104,23 @@ export const getDiscounts = () =>
 	browserFetch({ method: 'GET', path: '/api/v1/discounts' })
 
 export const setup = setupServer
+
+export const validEmail = ({ email }) => browserFetch({
+	method: 'POST',
+	path: '/api/v1/validate/email',
+	body: { email }
+})
+
+export const validPassword = ({ password }) => browserFetch({
+	method: 'POST',
+	path: '/api/v1/validate/password',
+	body: { password }
+})
+
+export const validUsername = ({ username }) => browserFetch({
+	method: 'POST',
+	path: '/api/v1/validate/username',
+	body: { username }
+})
+
+export const signedin = () => browserFetch({ method: 'GET', path: '/auth/user' })

@@ -5,7 +5,7 @@
 </script>
 
 <a href="/" use:link>
-	<img class="{size}" class:text src="logo.png" alt="Golden camel" />
+	<img class="{size}" class:text src="logo-450.png" alt="Golden camel" />
 	{#if text}
 		<h1>SAHARA</h1>
 	{/if}

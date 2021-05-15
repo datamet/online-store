@@ -7,7 +7,7 @@ Validator.emailExist = async (req, res, next) => {
 
 	const user = await db.getUserByEmail({ email })
 	if (user) throw error.custom(409, 'A user with that email already exists')
-
+	res.json({ message: 'Valid email' })
 }
 
 module.exports = Validator

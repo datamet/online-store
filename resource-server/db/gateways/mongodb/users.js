@@ -9,6 +9,10 @@ gateway.getUser = async (db, { _id }) => {
 	return await db.collection('users').findOne({ _id: ObjectId(_id) })
 }
 
+gateway.getUserByEmail = async (db, { email }) => {
+    return await db.collection('users').findOne({ email })
+}
+
 gateway.updateUser = async (db, { _id, updatedInfo }) => {
 	const res = await db.collection('users').updateOne({ _id: ObjectId(_id) }, { $set: updatedInfo })
 	return res.modifiedCount > 0

@@ -6,28 +6,38 @@
 	import Container from '../components/layout/Container.svelte'
 	import FormLink from '../components/feature/form/FormLink.svelte'
 	import FromText from '../components/feature/form/FromText.svelte'
-	import GoogleSignin from '../components/feature/GoogleSignin.svelte'
+	import GoogleSignin from '../components/feature/GoogleSigninButton.svelte'
 	import FormGroup from '../components/feature/form/FormGroup.svelte'
 	import Heading from '../components/type/Heading.svelte'
-	import { signup } from '../../../api/endpoints'
+	import { signup, signin, validEmail, validUsername, validPassword } from '../../../api/endpoints'
 	import { navigate } from 'svelte-routing'
+	import { user } from '../stores/user'
+	import Load from '../components/feature/Load.svelte'
 
-	let errorMessage = ''
-	let email, password, confirmed, username
+	let errorMessage = '', loading = false
+	let email, password, username, confirmed
+	let revalidatePassword
 	$: valid = email && password && confirmed && username
 
 	const emailValidator = async email => {
-		const regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-		return email.match(regex)
+		const res = await validEmail({ email })
+		if (!res.body.error) return true
+		else return { valid: false, message: res.body.error.message }
 	}
 
 	const usernameValidator = async username => {
-		const regex = /.*/
-		return username.match(regex)
+		const res = await validUsername({ username })
+		if (!res.body.error) return true
+		else return { valid: false, message: res.body.error.message }
 	}
 
 	const passwordValidator = async password => {
-		return true
+		const res = await validPassword({ password })
+		if (!res.body.error) {
+			if (revalidatePassword) revalidatePassword()
+			return true
+		}
+		else return { valid: false, message: res.body.error.message }
 	}
 
 	const passwordConfirm = async confirmedPassword => {
@@ -36,21 +46,30 @@
 			return true
 		}
 		confirmed = false
-		return false
+		return { valid: false, message: 'Passwords does not match' }
 	}
 
 	const handleSignup = async () => {
-		const res = await signup({ email, password, username })
+		loading = true
+		let res = await signup({ email, password, username })
 		if (res.body.message) {
 			errorMessage = ''
-			navigate('/')
+			res = await signin({ email, password })
+			if (res.body.message) {
+				loading = false
+				user.signin()
+				navigate('/')
+			}
+			else errorMessage = 'User created, but could not sign in'
 		}
 		else if (res.body.error) errorMessage = res.body.error.message
+		else errorMessage = 'Something went wrong'
+		loading = false
 	}
 </script>
 
-<div>
-	<Container contain center>
+<Container section contain center>
+	<div>
 		<Form>
 			<FormGroup center>
 				<Logo size="medium"/>
@@ -83,6 +102,7 @@
 				<Input
 					id="signin-confirm-password"
 					validator={passwordConfirm}
+					bind:revalidate={revalidatePassword}
 					type="password">Confirm password</Input
 				>
 			</FormGroup>
@@ -96,12 +116,19 @@
 			<FormGroup>
 				<FromText error>{errorMessage}</FromText>
 			</FormGroup>
+			{#if loading}
+				<FormGroup>
+					<Load />
+				</FormGroup>
+			{/if}
 		</Form>
-	</Container>
-</div>
+	</div>
+</Container>
 
 <style>
 	div {
-		--f-type: 'Abril Fatface'
+		--f-type: 'Abril Fatface';
+		max-width: 100%;
+		width: 25rem;
 	}
 </style>
