@@ -6,7 +6,7 @@
 	import { navigate } from 'svelte-routing'
 
 	const handleSignout = async () => {
-		if($googleUser) $googleUser.disconnect()
+		// if($googleUser) $googleUser.disconnect()
 		await signout()
 		user.signout()
 		navigate('/')
