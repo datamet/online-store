@@ -122,3 +122,5 @@ export const validUsername = ({ username }) => browserFetch({
 	path: '/api/v1/validate/username',
 	body: { username }
 })
+
+export const signedin = () => browserFetch({ method: 'GET', path: '/auth/user' })
