@@ -6,7 +6,7 @@
 	import Container from '../components/layout/Container.svelte'
 	import FormLink from '../components/feature/form/FormLink.svelte'
 	import FromText from '../components/feature/form/FromText.svelte'
-	import GoogleSignin from '../components/feature/GoogleSignin.svelte'
+	import GoogleSignin from '../components/feature/GoogleSigninButton.svelte'
 	import FormGroup from '../components/feature/form/FormGroup.svelte'
 	import Heading from '../components/type/Heading.svelte'
 	import { signup, signin, validEmail, validUsername, validPassword } from '../../../api/endpoints'
