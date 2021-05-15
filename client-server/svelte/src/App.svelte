@@ -6,6 +6,7 @@
 	import Signin from './containers/Signin.svelte'
 	import Signup from './containers/Signup.svelte'
 	import { setup } from '../../api/endpoints'
+	import LinkAccount from './containers/LinkAccount.svelte';
 
 	const host = location.hostname
 	const port = PORT || location.port
@@ -21,6 +22,7 @@
 		<Route path="/profile" component={Profile} />
 		<Route path="/signin" component={Signin} />
 		<Route path="/signup" component={Signup} />
+		<Route path="/google/link" component={LinkAccount} />
 		<Route path="/" component={Frontpage} />
 	</Router>
 </main>
