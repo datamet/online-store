@@ -22,3 +22,4 @@ const createUserStore = () => {
 }
 
 export const user = createUserStore()
+export const googleUser = writable()
