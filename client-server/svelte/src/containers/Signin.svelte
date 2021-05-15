@@ -11,13 +11,17 @@
 	import Heading from '../components/type/Heading.svelte'
 	import { signin } from '../../../api/endpoints'
 	import { navigate } from 'svelte-routing'
+	import { user } from '../stores/user'
 
 	let errorMessage = ''
 	let email, password
 
 	const handleSignin = async () => {
 		const res = await signin({ email, password })
-		if (res.body.message) navigate('/')
+		if (res.body.message) {
+			user.signin()
+			navigate('/')
+		}
 		else if (res.body.error) errorMessage = res.body.error.message
 		else errorMessage = 'Something went wrong'
 	}
