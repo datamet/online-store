@@ -10,6 +10,7 @@ hash.create = secret => {
 }
 
 hash.compare = (hash, secret) => {
+    if (!hash) throw error.unauthorized()
     const [ scheme, encoding, salt, hash_value ] = hash.split('$')
     const compare_hash = crypto.createHmac(scheme, 'secret').update(`${salt}${secret}`).digest(encoding)
     if (hash_value !== compare_hash) throw error.credentials()
