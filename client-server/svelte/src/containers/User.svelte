@@ -1,14 +1,24 @@
 <script>
-	import Icon from '../components/feature/Icon.svelte'
+	import Button from '../components/feature/Button.svelte'
 	import Link from '../components/feature/Link.svelte'
+	import { user } from '../stores/user'
+	import { signout } from '../../../api/endpoints'
+	import { navigate } from 'svelte-routing'
+
+	const handleSignout = async () => {
+		await signout()
+		user.signout()
+		navigate('/')
+	}
 </script>
 
 <div>
-	<Link to="/signin">
-		Sign in
-	</Link>
+	{#if !$user}
+		<Link to="/signin">Sign in</Link>
+	{:else}
+		<Button action={handleSignout}>Sign out</Button>
+	{/if}
 </div>
 
 <style>
-	
 </style>
