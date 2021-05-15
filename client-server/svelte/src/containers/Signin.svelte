@@ -6,7 +6,7 @@
 	import Logo from '../components/content/Logo.svelte'
 	import FormLink from '../components/feature/form/FormLink.svelte'
 	import FromText from '../components/feature/form/FromText.svelte'
-	import GoogleSignin from '../components/feature/GoogleSignin.svelte'
+	import GoogleSignin from '../components/feature/GoogleSigninButton.svelte'
 	import FormGroup from '../components/feature/form/FormGroup.svelte'
 	import Heading from '../components/type/Heading.svelte'
 	import { signin } from '../../../api/endpoints'
