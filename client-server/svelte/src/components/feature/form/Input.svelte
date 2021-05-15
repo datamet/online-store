@@ -8,13 +8,15 @@
 		id,
 		value = '',
 		revalidate = null,
-		required = false
+		required = false,
+		readonly = false
 
 	let error, success, val, message
 
 	onMount(() => {
 		revalidate = () => setTimeout(() => validate(val), 10)
 		if (!validator && required) validator = v => v ? true : false
+		val = value
 	})
 
 	const validate = async v => {
@@ -52,14 +54,17 @@
 <div class="group">
 	<input
 		class="input"
+		class:readonly
 		{id}
 		{type}
+		{readonly}
+		{value}
 		on:input={handleInput}
 	/>
 	<label class="label" class:val for={id}><slot /></label>
 	<div class="icon" class:success class:error>
-        <Icon sprite="{success || error ? success ? 'check' : 'notice' : ''}"/>
-    </div>
+		<Icon sprite="{readonly ? 'lock' : success || error ? success ? 'check' : 'notice' : ''}"/>
+	</div>
 </div>
 {#if message}
 	<FromText error>{message}</FromText>
@@ -107,6 +112,10 @@
 		max-width: 100%;
 	}
 
+	.readonly {
+		color: gray;
+	}
+
     .icon.error {
         color: var(--control-r);
     }
@@ -115,7 +124,7 @@
         color: var(--control-g);
     }
 
-	.input:focus {
+	.input:not(.readonly):focus {
 		padding: 0 1rem;
 		border: 2px solid var(--control-y);
 	}
