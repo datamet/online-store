@@ -1,11 +1,12 @@
 <script>
 	import Button from '../components/feature/Button.svelte'
 	import Link from '../components/feature/Link.svelte'
-	import { user } from '../stores/user'
+	import { user, googleUser } from '../stores/user'
 	import { signout } from '../../../api/endpoints'
 	import { navigate } from 'svelte-routing'
 
 	const handleSignout = async () => {
+		if($googleUser) $googleUser.disconnect()
 		await signout()
 		user.signout()
 		navigate('/')
