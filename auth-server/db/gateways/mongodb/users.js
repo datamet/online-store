@@ -1,3 +1,4 @@
+const ObjectId = require('mongodb').ObjectId
 const gateway = {}
 
 gateway.createUser = async (db, { email, email_verified, username, hash, groups, google_id }) => {
@@ -13,6 +14,10 @@ gateway.createUser = async (db, { email, email_verified, username, hash, groups,
     await db.collection('users').updateOne({ _id: res.insertedId }, { $push: { owns: res.insertedId } })
     await db.collection('hashes').insertOne({ user_id: res.insertedId, email, hash })
     return res.insertedId
+}
+
+gateway.getUserById = async (db, { _id }) => {
+    return await db.collection('users').findOne({ _id: ObjectId(_id) })
 }
 
 gateway.getUserByEmail = async (db, { email }) => {
