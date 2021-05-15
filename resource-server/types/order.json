@@ -25,6 +25,6 @@
     },
     "street_number": {
         "regex": "^[0-9]{1,4}[A-Za-z]{0,1}$",
-        "error": "Not a valid street number. Street number cannot include lower case letters or special characters"
+        "error": "Not a valid street number. Street number cannot include special characters"
     }
 }
