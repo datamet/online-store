@@ -1,12 +1,12 @@
 <script>
 	import Icon from '../Icon.svelte'
 	import { link } from 'svelte-routing'
+	import { cart } from '../../../stores/cart'
 
     export let id
 
     const addToCart = () => {
-        id = id
-        alert("hi")
+        cart.add(id, 1)
     }
 
 </script>
