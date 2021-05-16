@@ -26,13 +26,13 @@
 		else valid = res
 		if (valid) {
 			value = v
-			success = true
+			if (typeof res === 'object') success = true
 			error = false
 			message = ''
 		} else {
 			value = ''
 			success = false
-			error = true
+			if (typeof res === 'object') error = true
 		}
 	}
 
@@ -74,7 +74,7 @@
 	.group {
         position: relative;
 		width: 25rem;
-		max-width: 25rem;
+		width: 100%;
 	}
 
     .icon {
