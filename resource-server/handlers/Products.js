@@ -93,8 +93,15 @@ Products.updateOne = async (req, res, next) => {
 
 Products.deleteOne = async (req, res, next) => {
 	const deleted = await db.deleteProduct({ _id: req.params.product_id })
-	if (!deleted) error.custom(404, 'Could not delete product')
+	if (!deleted) throw error.custom(404, 'Could not delete product')
 	res.json({ message: 'Product deleted' })
+	next()
+}
+
+Products.getKeywords = async (req, res, next) => {
+	const keywords = await db.getProductKeywords()
+	if (!keywords) throw error.internal()
+	res.json({ keywords: keywords[0].keywords })
 	next()
 }
 
