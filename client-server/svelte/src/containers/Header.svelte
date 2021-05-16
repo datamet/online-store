@@ -13,6 +13,7 @@
 			<Logo text />
 		</div>
 		<div class="flex gap" slot="right">
+			<Link to="/catalogue">Catalogue</Link>
 			<User />
 			<Link to="/cart">
                 <Icon sprite="cart" />
