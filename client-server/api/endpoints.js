@@ -42,7 +42,7 @@ export const googleSignup = ({ id_token, email, password }) =>
 
 // Users
 export const getUser = ({ user_id }) =>
-	browserFetch({ method: 'GET', path: `/api/v1/user/:${user_id}` })
+	browserFetch({ method: 'GET', path: `/api/v1/user/${user_id}` })
 export const getUsers = () =>
 	browserFetch({ method: 'GET', path: '/api/v1/users' })
 export const updateUser = ({ user_id, username, groups, email }) =>
@@ -52,23 +52,23 @@ export const updateUser = ({ user_id, username, groups, email }) =>
 		body: { username, groups, email },
 	})
 export const deleteUser = ({ user_id }) =>
-	browserFetch({ method: 'DELETE', path: `/api/v1/user/:${user_id}` })
+	browserFetch({ method: 'DELETE', path: `/api/v1/user/${user_id}` })
 
 // Orders
 export const createOrder = body =>
 	browserFetch({ method: 'POST', path: '/api/v1/orders', body })
 export const getOrder = ({ order_id }) =>
-	browserFetch({ method: 'GET', path: `/api/v1/order/:${order_id}` })
+	browserFetch({ method: 'GET', path: `/api/v1/order/${order_id}` })
 export const getOrders = ({ user_id }) =>
 	browserFetch({ method: 'GET', path: '/api/v1/orders', query: { user_id } })
 export const deleteOrder = ({ order_id }) =>
-	browserFetch({ method: 'DELETE', path: `/api/v1/order/:${order_id}` })
+	browserFetch({ method: 'DELETE', path: `/api/v1/order/${order_id}` })
 
 // Products
 export const createProduct = body =>
 	browserFetch({ method: 'POST', path: '/api/v1/products' }, body)
 export const getProduct = ({ product_id }) =>
-	browserFetch({ method: 'GET', path: `/api/v1/product/:${product_id}` })
+	browserFetch({ method: 'GET', path: `/api/v1/product/${product_id}` })
 export const getProducts = ({ index, count, keyword, search }) =>
 	browserFetch({
 		method: 'GET',
@@ -89,7 +89,7 @@ export const updateProduct = ({
 		body: { name, price, keywords, short_desc, long_desc },
 	})
 export const deleteProduct = ({ product_id }) =>
-	browserFetch({ method: 'DELETE', path: `/api/v1/product/:${product_id}` })
+	browserFetch({ method: 'DELETE', path: `/api/v1/product/${product_id}` })
 
 // Checkout
 export const createCheckout = body =>
@@ -99,7 +99,7 @@ export const createCheckout = body =>
 export const createDiscount = body =>
 	browserFetch({ method: 'POST', path: '/api/v1/discounts', body })
 export const getDiscount = ({ discount_code }) =>
-	browserFetch({ method: 'GET', path: `/api/v1/discount/:${discount_code}` })
+	browserFetch({ method: 'GET', path: `/api/v1/discount/${discount_code}` })
 export const getDiscounts = () =>
 	browserFetch({ method: 'GET', path: '/api/v1/discounts' })
 

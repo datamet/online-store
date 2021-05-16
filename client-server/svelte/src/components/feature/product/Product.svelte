@@ -13,7 +13,7 @@
 
 
 	<div class="product">
-        <a href="/products" use:link>
+        <a href="/product/{id}" use:link>
 		<div class="image">
             <div class="add-to-cart">
                 <button on:click|preventDefault={addToCart} class="gap add-to-cart-button">

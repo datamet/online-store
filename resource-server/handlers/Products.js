@@ -64,7 +64,7 @@ Products.getMultiple = async (req, res, next) => {
 	next()
 }
 
-Products.getProduct = async (req, res, next) => {
+Products.getOne = async (req, res, next) => {
 	const product = await db.getProduct({ _id: req.params.product_id })
 	if (!product) throw error.custom(404, 'Product does not exist')
 	res.json({ product })
