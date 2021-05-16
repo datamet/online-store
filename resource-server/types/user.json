@@ -34,7 +34,7 @@
         "error": "Not a valid usergroup"
     },
     "email": {
-        "regex": "^[a-z0-9]{1,}[@][a-z]{1,}[.][a-z]{1,10}$",
+        "regex": "^((?!\\.)[\\w-_.]*[^.])(@\\w+)(\\.\\w+(\\.\\w+)?[^.\\W])$",
         "error": "Not a valid email"
     }
 }
