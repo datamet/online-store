@@ -75,6 +75,8 @@ export const getProducts = ({ index, count, keyword, search }) =>
 		path: '/api/v1/products',
 		query: { index, count, keyword, search },
 	})
+export const getProductKeywords = () => browserFetch({ method:'GET', path: '/api/v1/products/keywords' })
+
 export const updateProduct = ({
 	product_id,
 	name,
