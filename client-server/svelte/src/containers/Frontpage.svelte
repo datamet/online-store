@@ -1,10 +1,10 @@
 <script>
 	import Container from '../components/layout/Container.svelte'
-	import Products from './Products.svelte'
+	import Catalogue from './Catalogue.svelte'
 </script>
 
-<Container contain content>
-	<Products />
+<Container contain>
+	<Catalogue />
 </Container>
 
 <style>
