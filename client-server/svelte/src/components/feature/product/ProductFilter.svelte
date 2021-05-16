@@ -3,20 +3,20 @@
 	import Search from '../form/Search.svelte'
 	import TagList from '../tags/TagList.svelte'
 
-	export let search = () => true
+	export let search = () => true, keywords = []
 
-	let keywords, searchFrase
+	let selectedKeywords, searchFrase
 
 	const handleSearch = async (frase) => {
 		searchFrase = frase
-		await search(searchFrase, keywords)
+		await search(searchFrase, selectedKeywords)
 		return true
 	}
 
 	const handleKeywordChange = ({ detail }) => {
 		const { selected } = detail
-		keywords = selected
-		search(searchFrase, keywords)
+		selectedKeywords = selected
+		search(searchFrase, selectedKeywords)
 	}
 
 </script>
@@ -24,7 +24,7 @@
 <Form>
 	<div class="controls">
 		<Search search={handleSearch}/>
-		<TagList on:change={handleKeywordChange} />
+		<TagList on:change={handleKeywordChange} tags={keywords} />
 	</div>
 </Form>
 
