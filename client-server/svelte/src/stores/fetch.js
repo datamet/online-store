@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store'
-import { getProducts } from '../../../api/endpoints.js'
+import { getProducts, getProductKeywords } from '../../../api/endpoints.js'
 
 const createFetchStore = (fetchFunc) => {
     const { subscribe, set } = writable([])
@@ -14,3 +14,4 @@ const createFetchStore = (fetchFunc) => {
 }
 
 export const productStore = createFetchStore(getProducts)
+export const keywordStore = createFetchStore(getProductKeywords)
