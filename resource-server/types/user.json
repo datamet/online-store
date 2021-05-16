@@ -1,7 +1,7 @@
 {
     "username": {
         "regex": "^[A-Za-z0-9]+(?:[ _-][A-Za-z0-9]+)*$",
-        "error": "Username cannot include special characters"
+        "error": "Username cannot include special characters except spaces, '_' or '-' if they are followed by characters"
     },
     "password": [
         {
@@ -30,11 +30,11 @@
         }
     ],
     "group": {
-        "regex": "[a-z]{1,20}",
+        "regex": "^[a-z]{1,20}$",
         "error": "Not a valid usergroup"
     },
     "email": {
         "regex": "^((?!\\.)[\\w-_.]*[^.])(@\\w+)(\\.\\w+(\\.\\w+)?[^.\\W])$",
-        "error": "Email is not valid"
+        "error": "Not a valid email"
     }
 }
