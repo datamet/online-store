@@ -21,13 +21,13 @@
 
 	const emailValidator = async email => {
 		const res = await validEmail({ email })
-		if (!res.body.error) return true
+		if (!res.body.error) return { valid: true }
 		else return { valid: false, message: res.body.error.message }
 	}
 
 	const usernameValidator = async username => {
 		const res = await validUsername({ username })
-		if (!res.body.error) return true
+		if (!res.body.error) return { valid: true }
 		else return { valid: false, message: res.body.error.message }
 	}
 
@@ -35,7 +35,7 @@
 		const res = await validPassword({ password })
 		if (!res.body.error) {
 			if (revalidatePassword) revalidatePassword()
-			return true
+			return { valid: true }
 		}
 		else return { valid: false, message: res.body.error.message }
 	}
@@ -43,7 +43,7 @@
 	const passwordConfirm = async confirmedPassword => {
 		if (password === confirmedPassword) {
 			confirmed = true
-			return true
+			return { valid: true }
 		}
 		confirmed = false
 		return { valid: false, message: 'Passwords does not match' }
