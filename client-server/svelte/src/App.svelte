@@ -6,8 +6,10 @@
 	import Signin from './containers/Signin.svelte'
 	import Signup from './containers/Signup.svelte'
 	import { setup } from '../../api/endpoints'
-	import LinkAccount from './containers/LinkAccount.svelte';
-	import Product from './containers/Product.svelte';
+	import LinkAccount from './containers/LinkAccount.svelte'
+	import Product from './containers/Product.svelte'
+	import Cart from './containers/Cart.svelte'
+	import Catalogue from './containers/Catalogue.svelte';
 
 	const host = location.hostname
 	const port = PORT || location.port
@@ -27,6 +29,8 @@
 			<Product id={params.product_id} />
 		</Route>
 		<Route path="/google/link" component={LinkAccount} />
+		<Route path="/cart" component={Cart} />
+		<Route path="/catalogue" component={Catalogue} />
 		<Route path="/" component={Frontpage} />
 	</Router>
 </main>
