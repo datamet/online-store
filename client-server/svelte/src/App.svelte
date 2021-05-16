@@ -7,6 +7,7 @@
 	import Signup from './containers/Signup.svelte'
 	import { setup } from '../../api/endpoints'
 	import LinkAccount from './containers/LinkAccount.svelte';
+	import Product from './containers/Product.svelte';
 
 	const host = location.hostname
 	const port = PORT || location.port
@@ -22,6 +23,9 @@
 		<Route path="/profile" component={Profile} />
 		<Route path="/signin" component={Signin} />
 		<Route path="/signup" component={Signup} />
+		<Route path="/product/:product_id" let:params>
+			<Product id={params.product_id} />
+		</Route>
 		<Route path="/google/link" component={LinkAccount} />
 		<Route path="/" component={Frontpage} />
 	</Router>
