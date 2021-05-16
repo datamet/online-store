@@ -17,7 +17,7 @@
     
 </script>
 
-<ul class="gap">
+<ul>
 	{#each tags as tag (tag)}
 		<li><Tag on:change={handleChange} name={tag}></Tag></li>
 	{/each}
@@ -29,5 +29,9 @@
         margin: 0;
         padding: 0;
         display: flex;
+        gap: var(--gap);
+        flex-wrap: wrap;
+        max-width: 60rem;
+        justify-content: center;
     }
 </style>
