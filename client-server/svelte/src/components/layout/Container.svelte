@@ -1,8 +1,8 @@
 <script>
-    export let contain = false, content = false, center = false, section = false
+    export let contain = false, content = false, center = false, section = false, size="medium"
 </script>
 
-<div class="container" class:contain class:content class:center class:section>
+<div class="container {size}" class:contain class:content class:center class:section>
     <slot />
 </div>
 
@@ -20,6 +20,11 @@
     .section {
         padding-top: 5rem;
         padding-bottom: 5rem;
+    }
+
+    .section.small {
+        padding-top: 2.5rem;
+        padding-bottom: 2.5rem;
     }
 
     .contain {
