@@ -1,7 +1,7 @@
 <script>
 	import Tag from './Tag.svelte'
     import { createEventDispatcher } from 'svelte'
-	export let tags = ['cloathing', 'food', 'gear', 'car'], selected = []
+	export let tags = [], selected = []
 
     const dispatch = createEventDispatcher()
 
