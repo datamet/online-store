@@ -67,4 +67,12 @@ gateway.getProductsFiltered = async (db, { keywords, search }) => {
 	}
 }
 
+gateway.getProductKeywords = async db => {
+	return db.collection('products').aggregate([
+		{$unwind:"$keywords"},
+		{$group:{_id:null, kwrds: {$addToSet : "$keywords"} }},
+		{$project:{_id:0, keywords: "$kwrds"}}
+	]).toArray()
+}
+
 module.exports = gateway
