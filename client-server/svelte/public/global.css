@@ -40,8 +40,7 @@ body {
     Enable focus outline for keyboard users
 */
 *:focus {
-	outline: 2px solid rgb(54, 54, 54);
-	outline-offset: 1px;
+	outline: 2px solid #414141;
 }
 
 /* 
@@ -79,9 +78,11 @@ img {
     --control-g: #19A974;
     --control-y: #FFB700;
     --control-r: #FF4136;
+    --control-dr: #cc2f27;
     --control-p: #c584f0;
 
     --text-p: #290033; /* Purple text */
+    --back-dp: #2e0a36;
     --back-p: #c584f0bd; /* Purple background */
 
     --space: 1.8rem;
