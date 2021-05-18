@@ -30,6 +30,10 @@
         text-decoration: none;
     }
 
+    .container > :global(a:focus) {
+        outline: 2px solid var(--text-g);
+    }
+
     .link {
         height: 4rem;
         text-decoration: none;
@@ -44,7 +48,8 @@
 
     .link:hover,
     .link.selected {
-        color: var(--text-p);        
-        background-color: var(--back-p);        
+        color: var(--text-p);
+        /* text-decoration: underline;      */
+        background-color: var(--back-lg);        
     }
 </style>
