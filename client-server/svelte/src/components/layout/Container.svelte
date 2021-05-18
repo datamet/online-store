@@ -1,8 +1,8 @@
 <script>
-    export let contain = false, content = false, center = false, section = false, size="medium"
+    export let contain = false, content = false, center = false, section = false, size="medium", narrow = false, nopadding = false
 </script>
 
-<div class="container {size}" class:contain class:content class:center class:section>
+<div class="container {size}" class:nopadding class:contain class:content class:center class:section class:narrow>
     <slot />
 </div>
 
@@ -13,8 +13,13 @@
         padding: 0 var(--space);
     }
 
+    .nopadding {
+        padding: 0;
+    }
+
     .content {
-        padding: var(--space);
+        padding-top: var(--space);
+        padding-bottom: var(--space);
     }
 
     .section {
@@ -29,6 +34,10 @@
 
     .contain {
         max-width: 120rem;
+    }
+
+    .contain.narrow {
+        max-width: 80rem;
     }
 
     .center {
