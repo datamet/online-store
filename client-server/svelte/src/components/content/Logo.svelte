@@ -1,11 +1,10 @@
 <script>
 	import { link } from 'svelte-routing'
-	import Heading from '../type/Heading.svelte'
 	export let size = 'small', text = false
 </script>
 
 <a href="/" use:link>
-	<img class="{size}" class:text src="logo-450.png" alt="Golden camel" />
+	<img class="{size}" class:text src="/logo-450.png" alt="Golden camel" />
 	{#if text}
 		<h1>SAHARA</h1>
 	{/if}
