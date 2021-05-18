@@ -4,7 +4,7 @@
 	import Nav from '../components/feature/Nav.svelte'
 	import Logo from '../components/content/Logo.svelte'
 	import User from './User.svelte'
-    import Icon from '../components/feature/Icon.svelte'
+	import CartLink from '../components/content/CartLink.svelte'
 </script>
 
 <Container content contain>
@@ -15,9 +15,7 @@
 		<div class="flex gap" slot="right">
 			<Link to="/catalogue">Catalogue</Link>
 			<User />
-			<Link to="/cart">
-                <Icon sprite="cart" />
-            </Link>
+			<CartLink />
 		</div>
 	</Nav>
 </Container>
