@@ -1,17 +1,17 @@
 <script>
-    export let type = 'h2', light = false
+    export let type = 'h2', light = false, center = false
 </script>
 
 {#if type === 'h1'}
-    <h1 class:light>
+    <h1 class:light class:center>
         <slot />
     </h1>
 {:else if type === 'h2'}
-    <h2 class:light>
+    <h2 class:light class:center>
         <slot />
     </h2>
 {:else if type === 'h3'}
-    <h3 class:light>
+    <h3 class:light class:center>
         <slot />
     </h3>
 {/if}
@@ -29,5 +29,9 @@
 
     .light {
         font-weight: 400;
+    }
+
+    .center {
+        text-align: center;
     }
 </style>
