@@ -19,12 +19,8 @@
         "regex": "^[0-9]{4}",
         "error": "Not a valid zip code"
     },
-    "street_name": {
-        "regex": "^[A-Za-z ]+$",
+    "street": {
+        "regex": ".*",
         "error": "Street name cannot include numbers or special characters"
-    },
-    "street_number": {
-        "regex": "^[0-9]{1,4}[A-Za-z]{0,1}$",
-        "error": "Not a valid street number. Street number cannot include special characters"
     }
 }
