@@ -1,11 +1,11 @@
 {
     "discount_code": {
-        "regex": ".*",
-        "error": "error"
+        "regex": "^[A-Za-z0-9]+$",
+        "error": "Discount code cannot include spaces or special characters"
     },
     "percent": {
-        "regex": ".*",
-        "error": "error"
+        "regex": "^[0-9][0-9]?$|^100$",
+        "error": "Percent needs to be a number between 0 and 100"
     },
     "milliseconds": {
         "regex": ".*",
