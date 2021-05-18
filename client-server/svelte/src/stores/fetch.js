@@ -6,8 +6,8 @@ const createFetchStore = (fetchFunc) => {
 
     return {
         subscribe,
-        fetch: async (params) => {
-            const res = await fetchFunc(params)
+        fetch: async (params) => { 
+            const res = typeof params === 'string' ? await fetch(params) : await fetchFunc(params)
             return { set, res }
         }
     }
