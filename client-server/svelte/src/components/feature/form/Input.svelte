@@ -2,21 +2,30 @@
 	import Icon from '../Icon.svelte'
 	import { onMount } from 'svelte'	
 	import FromText from './FromText.svelte'
+	import { createEventDispatcher } from 'svelte'
+
+	const dispatch = createEventDispatcher()
 
 	export let type = 'text',
-		validator,
+		validator = null,
 		id,
 		value = '',
+		initial = '',
 		revalidate = null,
 		required = false,
-		readonly = false
+		readonly = false,
+		clear
 
-	let error, success, val, message
+	let error, success, val, message, input
 
 	onMount(() => {
 		revalidate = () => setTimeout(() => validate(val), 10)
 		if (!validator && required) validator = v => v ? true : false
 		val = value
+		if (initial) validate(val)
+		clear = () => {
+			input.value = ''
+		}
 	})
 
 	const validate = async v => {
@@ -49,26 +58,34 @@
 			validate(e.target.value)
 		}, ms)
 	}
+
+	const handleKeypress = e => {
+		if (e.keyCode === 13) dispatch('enter')
+	}
 </script>
 
-<div class="group">
-	<input
-		class="input"
-		class:readonly
-		{id}
-		{type}
-		{readonly}
-		{value}
-		on:input={handleInput}
-	/>
-	<label class="label" class:val for={id}><slot /></label>
-	<div class="icon" class:success class:error>
-		<Icon sprite="{readonly ? 'lock' : success || error ? success ? 'check' : 'notice' : ''}"/>
+<div>
+	<div class="group">
+		<input
+			on:keydown={handleKeypress}
+			bind:this={input}
+			class="input"
+			class:readonly
+			{id}
+			{type}
+			{readonly}
+			value={initial}
+			on:input={handleInput}
+		/>
+		<label class="label" class:val for={id}><slot /></label>
+		<div class="icon" class:success class:error>
+			<Icon sprite="{readonly ? 'lock' : success || error ? success ? 'check' : 'notice' : ''}"/>
+		</div>
 	</div>
+	{#if message}
+		<FromText error>{message}</FromText>
+	{/if}
 </div>
-{#if message}
-	<FromText error>{message}</FromText>
-{/if}
 
 <style>
 	.group {
