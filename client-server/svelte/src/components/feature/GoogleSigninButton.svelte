@@ -14,7 +14,6 @@
         else {
             navigate(`/google/link?id_token=${id_token}&email=${email}`)
         }
-        console.log(res)
     }
 
     window.onSignIn = (googleUser) => {
