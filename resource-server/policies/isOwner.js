@@ -22,7 +22,11 @@ const isOwner = async (user_id, { params, query, entity }) => {
 	}
 	if (entity) _id = entity
 	if (!_id) return true
-	const owner = await db.userIsOwner({ user_id, _id })
+	let owner
+	if (user_id) owner = await db.userIsOwner({ user_id, _id })
+	let owned
+	if (!owner) owned = await db.isOwned({ entity: _id })
+	owner = !owned
 	if (owner) log(log.DEBUG, `User is owner of: ${_id}`)
 	else log(log.DEBUG, `User does not own: ${_id}`)
 	return owner
