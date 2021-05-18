@@ -18,6 +18,11 @@
     let currency
     let price
 
+    const removeItem = () => {
+        cart.remove(id)
+        total.remove(id)
+    }
+
 	const fetchProduct = async () => {
 		const res = await getProduct({ product_id: id })
 		if (res.body.product) {
@@ -26,7 +31,10 @@
             price = product.price * initial
             total.set(id, price, currency)
         }
-		else if (res.body.error) message = res.body.error.message
+		else if (res.body.error) {
+            message = res.body.error.message
+            if (res.status === 404) removeItem()
+        }
 	}
 
     const updateAmount = e => {
@@ -55,11 +63,6 @@
         price = product.price * current
         total.set(id, price, currency)
         cart.silent(id, num)
-    }
-
-    const removeItem = () => {
-        cart.remove(id)
-        total.remove(id)
     }
 
 	onMount(() => {
