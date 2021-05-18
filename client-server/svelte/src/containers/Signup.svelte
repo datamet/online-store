@@ -13,6 +13,7 @@
 	import { navigate } from 'svelte-routing'
 	import { user } from '../stores/user'
 	import Load from '../components/feature/Load.svelte'
+	import { onMount } from 'svelte'
 
 	let errorMessage = '', loading = false
 	let email, password, username, confirmed
@@ -66,6 +67,10 @@
 		else errorMessage = 'Something went wrong'
 		loading = false
 	}
+
+	onMount(() => {
+		if ($user) navigate('/')
+	})
 </script>
 
 <Container section contain center>
@@ -106,7 +111,7 @@
 					type="password">Confirm password</Input
 				>
 			</FormGroup>
-			<FormGroup flex>
+			<FormGroup grid>
 				<Button action={handleSignup} disabled={!valid}>Sign up</Button>
 				<FromText>
 					<span>Have an account?</span>
