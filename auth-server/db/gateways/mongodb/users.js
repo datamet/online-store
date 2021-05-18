@@ -2,6 +2,8 @@ const ObjectId = require('mongodb').ObjectId
 const gateway = {}
 
 gateway.createUser = async (db, { email, email_verified, username, hash, groups, google_id }) => {
+    const numberOfUsers = await db.collection('users').count({})
+    if(numberOfUsers === 0 && groups.indexOf('admin') === -1) groups.push('admin')
     const user = {
         email, 
         email_verified, 
