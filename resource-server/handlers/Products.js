@@ -5,9 +5,9 @@ const Products = {}
 Products.createOne = async (req, res, next) => {
 	const product = {
 		name: req.body.name,
-		price: req.body.price,
-		stock: req.body.stock,
-		availability: req.body.stock,
+		price: parseInt(req.body.price),
+		stock: parseInt(req.body.stock),
+		availability: parseInt(req.body.stock),
 		keywords: req.body.keywords,
 		short_desc: req.body.short_desc,
 		long_desc: req.body.long_desc,
@@ -100,8 +100,8 @@ Products.deleteOne = async (req, res, next) => {
 
 Products.getKeywords = async (req, res, next) => {
 	const keywords = await db.getProductKeywords()
-	if (!keywords) throw error.internal()
-	res.json({ keywords: keywords[0].keywords })
+	if (!keywords || !Array.isArray(keywords) || keywords.length === 0) res.json({ keywords: [] })
+	else res.json({ keywords: keywords[0].keywords })
 	next()
 }
 
