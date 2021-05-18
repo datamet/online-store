@@ -18,4 +18,20 @@ Checkout.createSession = async (req, res, next) => {
     next()
 }
 
+Checkout.getOne = async (req, res, next) => {
+    const session = await db.getCheckoutSession({ checkout_id: req.params.checkout_id })
+    if (!session) throw error.custom(404, 'Could not find checkout session')
+    const products = []
+    let totalPrice = 0
+    for (const { product_id, amount } of session.products) {
+        const product = await db.getProduct({ _id: product_id })
+        if (!product) throw error.internal()
+        product.amount = amount
+        totalPrice += product.price * amount
+        products.push(product)
+    }
+    res.json({ products, total: totalPrice, exp: session.exp })
+    next()
+}
+
 module.exports = Checkout
