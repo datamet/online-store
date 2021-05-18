@@ -12,6 +12,7 @@
 	import { signin } from '../../../api/endpoints'
 	import { navigate } from 'svelte-routing'
 	import { user } from '../stores/user'
+	import { onMount } from 'svelte';
 
 	let errorMessage = ''
 	let email, password
@@ -25,6 +26,10 @@
 		else if (res.body.error) errorMessage = res.body.error.message
 		else errorMessage = 'Something went wrong'
 	}
+
+	onMount(() => {
+		if ($user) navigate('/')
+	})
 </script>
 
 <Container section contain center>
