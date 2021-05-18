@@ -1,25 +1,19 @@
 <script>
-	import Button from '../components/feature/Button.svelte'
+	import { user } from '../stores/user'
 	import Link from '../components/feature/Link.svelte'
-	import { user, googleUser } from '../stores/user'
-	import { signout } from '../../../api/endpoints'
-	import { navigate } from 'svelte-routing'
-
-	const handleSignout = async () => {
-		// if($googleUser) $googleUser.disconnect()
-		await signout()
-		user.signout()
-		navigate('/')
-	}
+	import UserProfile from '../components/feature/UserProfile.svelte'
 </script>
 
-<div>
+<div class="flex gap">
 	{#if !$user}
 		<Link to="/signin">Sign in</Link>
-	{:else}
-		<Button action={handleSignout}>Sign out</Button>
 	{/if}
+	<UserProfile />
 </div>
 
 <style>
+	.flex {
+		display: flex;
+		align-items: center;
+	}
 </style>
