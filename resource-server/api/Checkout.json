@@ -11,5 +11,10 @@
                 }
             ]
         }
+    },
+    {
+        "method" : "get",
+        "path" : "/api/v1/checkout/:checkout_id",
+        "handler" : "Checkout.getOne"
     }
 ]
