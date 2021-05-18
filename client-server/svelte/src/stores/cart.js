@@ -11,6 +11,16 @@ const createCartStore = ()  => {
 
     return {
         subscribe,
+        number: () => {
+            let count = 0
+            subscribe(cart => {
+                if (!cart) cart = []
+                for (const item of cart) {
+                    count += item.amount
+                }
+            })
+            return count
+        },
         silent: (product_id, amount) => {
             subscribe(cart => {
                 let remove = false
