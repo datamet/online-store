@@ -21,19 +21,16 @@
 
 </script>
 
-<Form>
-	<div class="controls">
-		<Search search={handleSearch}/>
-		<TagList on:change={handleKeywordChange} tags={keywords} />
-	</div>
-</Form>
+<div class="controls">
+	<Search search={handleSearch}/>
+	<TagList on:change={handleKeywordChange} tags={keywords} />
+</div>
 
 <style>
 	.controls {
-		margin: 4rem 0 7rem 0;
-		border-radius: 0.3rem;
-		display: grid;
-		gap: 2rem;
+		display: flex;
+		flex-direction: column;
 		align-items: center;
+		gap: 2rem;
 	}
 </style>
