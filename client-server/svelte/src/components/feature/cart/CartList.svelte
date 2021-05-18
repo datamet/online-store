@@ -5,9 +5,6 @@
     import { link } from 'svelte-routing'
 
     export let cart = []
-    
-
-    
 
 </script>
 
