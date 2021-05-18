@@ -8,6 +8,10 @@ gateway.createCheckoutSession = async (db, { session }) => {
     return res.insertedId
 }
 
+gateway.getCheckoutSession = async (db, { checkout_id }) => {
+    return db.collection('checkout_sessions').findOne({ _id: ObjectId(checkout_id) })
+}
+
 gateway.getAndDeleteCheckoutSession = async (db, { checkout_id }) => {
     return await db.collection('checkout_sessions').findOneAndDelete({ _id: ObjectId(checkout_id) })
 }
