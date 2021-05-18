@@ -25,10 +25,10 @@ gateway.updateProduct = async (db, { _id, updatedInfo }) => {
 	return res.modifiedCount > 0
 }
 
-gateway.getProductPrice = async (db, { _id }) => {
-	const product = await db.collection('products').findOne({ _id: ObjectId(_id) })
+gateway.sellProduct = async (db, { _id, amount }) => {
+	const product = await db.collection('products').findOneAndUpdate({ _id: ObjectId(_id) }, { $inc: { sold: amount, stock: -amount } })
 	if (!product) return null
-	return product.price
+	return [product.value.price, product.value.name]
 }
 
 gateway.deleteProduct = async (db, { _id }) => {
