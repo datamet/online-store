@@ -41,7 +41,7 @@
 			<FormGroup>
 				<Input
 					readonly
-					bind:value={email}
+					initial={email}
 					id="link-email"
 					type="email">Email</Input
 				>

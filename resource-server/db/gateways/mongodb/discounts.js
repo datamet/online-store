@@ -3,7 +3,7 @@ const gateway = {}
 
 gateway.createDiscount = async (db, { discount, owner }) => {
     const { code, percent } = discount
-	const res = await db.collection('discounts').insertOne({ code, exp, products, user, owner, percent })
+	const res = await db.collection('discounts').insertOne({ code, percent })
 	await db.collection('users').updateOne({ _id: ObjectId(owner) }, { $push: { owns: res.insertedId } })
 }
 
@@ -19,6 +19,11 @@ gateway.verifyDiscount = async (db, { code }) => {
 	const arr = await discount.toArray()
 	if (count > 0) return { valid: true, percent: arr[0].percent }
 	return { valid: false }
+}
+
+gateway.removeDiscount = async (db, { code }) => {
+	const res = await db.collection('discounts').removeOne({ code })
+	return res.deletedCount > 0
 }
 
 module.exports = gateway

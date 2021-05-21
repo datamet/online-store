@@ -13,6 +13,7 @@
 	import { navigate } from 'svelte-routing'
 	import { user } from '../stores/user'
 	import Load from '../components/feature/Load.svelte'
+	import { onMount } from 'svelte'
 
 	let errorMessage = '', loading = false
 	let email, password, username, confirmed
@@ -21,13 +22,13 @@
 
 	const emailValidator = async email => {
 		const res = await validEmail({ email })
-		if (!res.body.error) return true
+		if (!res.body.error) return { valid: true }
 		else return { valid: false, message: res.body.error.message }
 	}
 
 	const usernameValidator = async username => {
 		const res = await validUsername({ username })
-		if (!res.body.error) return true
+		if (!res.body.error) return { valid: true }
 		else return { valid: false, message: res.body.error.message }
 	}
 
@@ -35,7 +36,7 @@
 		const res = await validPassword({ password })
 		if (!res.body.error) {
 			if (revalidatePassword) revalidatePassword()
-			return true
+			return { valid: true }
 		}
 		else return { valid: false, message: res.body.error.message }
 	}
@@ -43,7 +44,7 @@
 	const passwordConfirm = async confirmedPassword => {
 		if (password === confirmedPassword) {
 			confirmed = true
-			return true
+			return { valid: true }
 		}
 		confirmed = false
 		return { valid: false, message: 'Passwords does not match' }
@@ -66,6 +67,10 @@
 		else errorMessage = 'Something went wrong'
 		loading = false
 	}
+
+	onMount(() => {
+		if ($user) navigate('/')
+	})
 </script>
 
 <Container section contain center>
@@ -106,7 +111,7 @@
 					type="password">Confirm password</Input
 				>
 			</FormGroup>
-			<FormGroup flex>
+			<FormGroup grid>
 				<Button action={handleSignup} disabled={!valid}>Sign up</Button>
 				<FromText>
 					<span>Have an account?</span>

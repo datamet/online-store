@@ -28,7 +28,6 @@
             "email": "[email]"
         }
     },
-
     {
         "method": "post",
         "path": "/api/v1/validate/name",
@@ -44,7 +43,13 @@
             "price": "[price]"
         }
     },
-
+    {
+        "method": "post",
+        "path": "/api/v1/validate/keywords",
+        "body": {
+            "keyword": "<keyword>"
+        }
+    },
     {
         "method": "post",
         "path": "/api/v1/validate/keyword",
@@ -52,7 +57,6 @@
             "keyword": "[keyword]"
         }
     },
-
     {
         "method": "post",
         "path": "/api/v1/validate/short_desc",
@@ -119,19 +123,11 @@
     },
     {
         "method": "post",
-        "path": "/api/v1/validate/street_name",
+        "path": "/api/v1/validate/street",
         "body": {
-            "street_name": "[street_name]"
+            "street": "[street]"
         }
     },
-    {
-        "method": "post",
-        "path": "/api/v1/validate/street_number",
-        "body": {
-            "street_number": "[street_number]"
-        }
-    },
-
     {
         "method": "post",
         "path": "/api/v1/validate/user_id",

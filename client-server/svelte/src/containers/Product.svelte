@@ -6,6 +6,8 @@
     import Stack from '../components/layout/Stack.svelte'
     import Icon from '../components/feature/Icon.svelte'
     import Button from '../components/feature/Button.svelte'
+    import { cart } from '../stores/cart'
+    import Catalogue from './Catalogue.svelte'
 
 	export let id
 	let product, message
@@ -15,6 +17,10 @@
 		if (res.body.product) product = res.body.product
 		else if (res.body.error) message = res.body.error.message
 	}
+
+    const addToCart = () => {
+        cart.add(id, 1)
+    }
 
 	onMount(() => {
         fetchProduct()
@@ -45,9 +51,11 @@
                     </div>
                     <div class="flex price">
                         <Heading h3>{product.currency ? product.currency : 'NOK'} {product.price},-</Heading>
-                        <Button>
-                            <Icon sprite="add-cart" />
-                            Add to cart
+                        <Button action={addToCart}>
+                            <div class="flex gap">
+                                <Icon sprite="add-cart" />
+                                <span>Add to cart</span>
+                            </div>
                         </Button>
                     </div>
                 </Stack>
@@ -59,6 +67,12 @@
 		    <p>{message}</p>
         </Container>
 	{/if}
+</Container>
+
+<Container contain section>
+    <Heading center>More Products</Heading>
+    <p class="center">Continue looking for products bellow</p>
+    <Catalogue />
 </Container>
 
 <style>
@@ -106,5 +120,9 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+    }
+
+    .center {
+        text-align: center;
     }
 </style>

@@ -28,11 +28,11 @@
     {
         "method": "get",
         "path": "/api/v1/discount/:discount_code",
-        "handler": "Discount.verify",
-        "policies": {
-            "inGroup": [
-                "user"
-            ]
-        }
+        "handler": "Discount.verify"
+    },
+    {
+        "method" : "delete",
+        "path" : "/api/v1/discount/:discount_code",
+        "handler" : "Discount.deleteOne"
     }
 ]

@@ -13,14 +13,14 @@ const setup = groups => async (req, res, next) => {
 }
 
 const inGroup = async (user_id, groups, options) => {
-    if (!user_id) return false
     const params = options && options.params ? options.params : null
     const query = options && options.query ? options.query : null
     const entity = options && options.entity ? options.entity : null
 
-    const user_groups = await db.getUserGroups({ _id: user_id })
+    let user_groups 
+    if (user_id) user_groups = await db.getUserGroups({ _id: user_id })
     log(log.DEBUG, `User is in the following groups: ${user_groups}`)
-    if (!user_groups) return false
+    if (!user_groups) user_groups = []
     let result = user_groups.some(group => groups.includes(group))
     if (!result && groups.includes('owner')) {
         if (!(params || query || entity)) return true

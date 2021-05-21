@@ -78,7 +78,7 @@ const clearAuthCookies = async (req, res) => {
 }
 
 const setAuthCookie = async (auth_token, req, res) => {
-	const time = 24 * 60 * 60
+	const time = 86_400_000
 	await clearAuthCookies(req, res)
 	res.cookie('auth_token', auth_token, {
 		maxAge: time,

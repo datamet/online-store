@@ -48,9 +48,16 @@
                 "province": "[province]",
                 "city": "[city]",
                 "zip": "[zip]",
-                "street_name": "[street_name]",
-                "street_number": "[street_number]"
+                "street": "[street]"
             }
+        }
+    },
+    {
+        "method": "get",
+        "path": "/api/v1/orders/statistics",
+        "handler" : "Orders.getStatistics",
+        "policies": {
+            "inGroup" : ["admin"]
         }
     }
 ]

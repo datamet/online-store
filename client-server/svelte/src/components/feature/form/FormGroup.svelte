@@ -1,8 +1,8 @@
 <script>
-    export let center = false, flex = false
+    export let center = false, right = false, flex = false, grid = false
 </script>
 
-<div class="group" class:center class:flex>
+<div class="group" class:center class:flex class:grid class:right>
     <slot />
 </div>
 
@@ -16,10 +16,21 @@
     .center {
         align-items: center;
     }
+    
+    .right {
+        align-items: flex-end;
+    }
 
     .flex {
         flex-direction: row;
+        gap: calc(var(--gap) * 2);
         align-items: center;
         justify-content: space-between;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--gap);
     }
 </style>

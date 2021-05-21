@@ -65,5 +65,10 @@
                 "admin"
             ]
         }
+    },
+    {
+        "method" : "get",
+        "path" : "/api/v1/products/keywords",
+        "handler" : "Products.getKeywords"
     }
 ]

@@ -47,6 +47,7 @@ db.createCollection('hashes')
 db.createCollection('tokens')
 db.createCollection('checkout_sessions')
 db.createCollection('discounts')
+db.createCollection('noowner')
 db.users.createIndex({ email: 1 }, { unique: true })
 db.products.createIndex(
 	{
@@ -86,6 +87,10 @@ db.createRole({
 		{
 			resource: { db: 'production', collection: 'discounts' },
 			actions: ['find', 'update', 'insert', 'remove']
+		},
+		{
+			resource: { db: 'production', collection: 'noowner' },
+			actions: ['find', 'update', 'insert', 'remove']
 		}
 	],
 	roles: []
@@ -121,6 +126,10 @@ db.createRole({
 		{
 			resource: { db: 'production', collection: 'hashes' },
 			actions: ['remove']
+		},
+		{
+			resource: { db: 'production', collection: 'noowner' },
+			actions: ['find', 'update', 'insert', 'remove']
 		}
 	],
 	roles: []
@@ -160,6 +169,7 @@ db.createCollection('hashes')
 db.createCollection('tokens')
 db.createCollection('checkout_sessions')
 db.createCollection('discounts')
+db.createCollection('noowner')
 db.users.createIndex({ email: 1 }, { unique: true })
 db.products.createIndex(
 	{
@@ -199,6 +209,10 @@ db.createRole({
 		{
 			resource: { db: 'development', collection: 'discounts' },
 			actions: ['find', 'update', 'insert', 'remove']
+		},
+		{
+			resource: { db: 'development', collection: 'noowner' },
+			actions: ['find', 'update', 'insert', 'remove']
 		}
 	],
 	roles: []
@@ -234,6 +248,10 @@ db.createRole({
 		{
 			resource: { db: 'development', collection: 'hashes' },
 			actions: ['remove']
+		},
+		{
+			resource: { db: 'development', collection: 'noowner' },
+			actions: ['find', 'update', 'insert', 'remove']
 		}
 	],
 	roles: []

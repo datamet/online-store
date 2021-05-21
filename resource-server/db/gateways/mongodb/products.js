@@ -25,10 +25,10 @@ gateway.updateProduct = async (db, { _id, updatedInfo }) => {
 	return res.modifiedCount > 0
 }
 
-gateway.getProductPrice = async (db, { _id }) => {
-	const product = await db.collection('products').findOne({ _id: ObjectId(_id) })
+gateway.sellProduct = async (db, { _id, amount }) => {
+	const product = await db.collection('products').findOneAndUpdate({ _id: ObjectId(_id) }, { $inc: { sold: amount, stock: -amount } })
 	if (!product) return null
-	return product.price
+	return [product.value.price, product.value.name]
 }
 
 gateway.deleteProduct = async (db, { _id }) => {
@@ -65,6 +65,14 @@ gateway.getProductsFiltered = async (db, { keywords, search }) => {
 		const products = await gateway.getProductsSorted(db)
 		return products
 	}
+}
+
+gateway.getProductKeywords = async db => {
+	return db.collection('products').aggregate([
+		{$unwind:"$keywords"},
+		{$group:{_id:null, kwrds: {$addToSet : "$keywords"} }},
+		{$project:{_id:0, keywords: "$kwrds"}}
+	]).toArray()
 }
 
 module.exports = gateway
