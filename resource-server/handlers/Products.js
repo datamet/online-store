@@ -1,3 +1,4 @@
+const { saveImages } = require('../lib/data')
 const { db, error, log } = require('server-framework')
 
 const Products = {}
@@ -11,14 +12,18 @@ Products.createOne = async (req, res, next) => {
 		keywords: req.body.keywords,
 		short_desc: req.body.short_desc,
 		long_desc: req.body.long_desc,
-		owner: req.user._id
+		owner: req.user._id,
+	}
+
+	if (req.body.images) {
+		product.images = await saveImages(req.body.images)
 	}
 
 	const product_id = await db.createProduct({ product })
 	if (!product_id) throw error.internal()
 	res.json({
 		message: 'Created product',
-		product_id
+		product_id,
 	})
 	next()
 }
@@ -30,8 +35,18 @@ Products.getMultiple = async (req, res, next) => {
 	const search = req.query.search
 	let keywords = req.query.keyword
 	if (keywords && !Array.isArray(keywords)) keywords = [keywords]
-	log(log.DEBUG, `Fetching products that match ${search ? search : 'everything'}.`)
-	log(log.DEBUG, `${keywords ? `Keywords: ${keywords.toString()}` : 'Matching all keywords'}.`)
+	log(
+		log.DEBUG,
+		`Fetching products that match ${search ? search : 'everything'}.`
+	)
+	log(
+		log.DEBUG,
+		`${
+			keywords
+				? `Keywords: ${keywords.toString()}`
+				: 'Matching all keywords'
+		}.`
+	)
 
 	let products = await db.getProductsFiltered({ keywords, search })
 	if (!products) throw error.internal()
@@ -42,17 +57,20 @@ Products.getMultiple = async (req, res, next) => {
 		response.next = `/api/v1/products?index=${end}&count=${count}`
 		if (keywords) {
 			for (const keyword of keywords) {
-				response.next = `${response.next}&keyword=${keyword}`	
+				response.next = `${response.next}&keyword=${keyword}`
 			}
 		}
 		if (search) response.next = `${response.next}&search=${search}`
 	}
 
 	if (start > 0) {
-		response.prev = `/api/v1/products?index=${Math.max(0, start - count)}&count=${count}`
+		response.prev = `/api/v1/products?index=${Math.max(
+			0,
+			start - count
+		)}&count=${count}`
 		if (keywords) {
 			for (const keyword of keywords) {
-				response.prev = `${response.prev}&keyword=${keyword}`	
+				response.prev = `${response.prev}&keyword=${keyword}`
 			}
 		}
 		if (search) response.prev = `${response.prev}&search=${search}`
@@ -82,7 +100,7 @@ Products.updateOne = async (req, res, next) => {
 
 	const params = {
 		updatedInfo,
-		_id: req.params.product_id
+		_id: req.params.product_id,
 	}
 
 	const updated = await db.updateProduct(params)
@@ -100,8 +118,19 @@ Products.deleteOne = async (req, res, next) => {
 
 Products.getKeywords = async (req, res, next) => {
 	const keywords = await db.getProductKeywords()
-	if (!keywords || !Array.isArray(keywords) || keywords.length === 0) res.json({ keywords: [] })
+	if (!keywords || !Array.isArray(keywords) || keywords.length === 0)
+		res.json({ keywords: [] })
 	else res.json({ keywords: keywords[0].keywords })
+	next()
+}
+
+Products.uploadImage = async (req, res, next) => {
+	const images = req.body.images
+	const urls = await saveImages(images)
+	
+	const added = await db.addImagesToProduct({ images: urls })
+	if (!added) throw error.internal()
+	res.json({ message: `Images uploaded`, images: urls })
 	next()
 }
 
