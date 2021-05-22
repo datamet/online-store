@@ -18,6 +18,7 @@ const bodyparser = (req, res, next) => {
 			}
 			return
 		}
+		req.rawBody = data
 		req.body = {}
 		next()
 	})

@@ -5,16 +5,16 @@
 	import { productStore, keywordStore } from '../stores/fetch'
 	import { onMount } from 'svelte'
 	import ProductListTraverser from '../components/feature/product/ProductListTraverser.svelte'
-import Heading from '../components/type/Heading.svelte'
-import Stack from '../components/layout/Stack.svelte'
+	import Heading from '../components/type/Heading.svelte'
+	import Stack from '../components/layout/Stack.svelte'
 
-    let search, keywords, index, count, availableKeywords
+    let search, keywords, index, count = 9, availableKeywords
 	let previous, next
 
 	const fetchProducts = async (url) => {
-		const { set, res } = url ? productStore.fetch(url) : await productStore.fetch({ search, keyword: keywords, index, count })
+		const { set, res } = url ? await productStore.fetch(url) : await productStore.fetch({ search, keyword: keywords, index, count })
 		let products = res.body.products
-		previous = res.body.previous
+		previous = res.body.prev
 		next = res.body.next
 		if (products) set(products)
 	}

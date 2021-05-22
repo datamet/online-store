@@ -43,10 +43,6 @@
         background-color: var(--control-dr);
     }
 
-    button:disabled:hover {
-        
-    }
-
     button:disabled {
         color: var(--text-l);
         background-color: var(--back-g);

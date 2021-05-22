@@ -77,8 +77,7 @@ export const updateProduct = ({
 		path: `/api/v1/product/:${product_id}`,
 		body: { name, price, keywords, short_desc, long_desc },
 	})
-export const deleteProduct = ({ product_id }) =>
-	browserFetch({ method: 'DELETE', path: `/api/v1/product/${product_id}` })
+export const deleteProduct = ({ product_id }) => browserFetch({ method: 'DELETE', path: `/api/v1/product/${product_id}` })
 
 // Checkout
 export const createCheckoutSession = body => browserFetch({ method: 'POST', path: '/api/v1/checkout', body })
@@ -126,3 +125,5 @@ export const validShortDesc = ({ short_desc }) => browserFetch({ method: 'POST',
 export const validLongDesc = ({ long_desc }) => browserFetch({ method: 'POST', path: '/api/v1/validate/long_desc', body: { long_desc } })
 
 export const signedin = () => browserFetch({ method: 'GET', path: '/auth/user' })
+
+export const get = (url) => browserFetch({ method: 'GET', path: url })

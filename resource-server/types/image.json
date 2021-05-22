@@ -1,0 +1,10 @@
+{
+    "image_type" : {
+        "regex" : "^(png|jpeg|jpg)$",
+        "error" : "Image type must be either png or jpg/jpeg"
+    },
+    "image" : {
+        "regex" : ".*",
+        "error" : "Invalid image format"
+    }
+}

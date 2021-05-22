@@ -3,7 +3,7 @@
 	import { link } from 'svelte-routing'
 	import { cart } from '../../../stores/cart'
 
-    export let id
+    export let id, image = null
 
     const addToCart = () => {
         cart.add(id, 1)
@@ -21,9 +21,13 @@
                     <Icon sprite="add-cart" />
                 </button>
             </div>
-			<slot name="image">
-				<Icon sprite="camera-off" />
-			</slot>
+			{#if image}
+				<img class="img" src="{image}" alt="product">
+			{:else}
+				<div class="no-image">
+					<Icon sprite="camera-off" />
+				</div>
+			{/if}
 		</div>
 		<div class="meta">
 			<div class="flex">
@@ -54,20 +58,37 @@
 
 	.image {
 		position: relative;
-		--i-size: 4rem;
 		width: 100%;
-		background-color: var(--back-g);
 		border-radius: 0.3rem;
-		display: flex;
-		align-items: center;
-		justify-content: center;
+        overflow: hidden;
 	}
 
-	.image:before {
+	.image::before {
 		content: '';
 		float: left;
 		padding-top: 100%;
 	}
+
+    .img {
+        position: absolute;
+        display: block;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    .no-image {
+        position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+        display: flex;
+		background-color: var(--back-g);
+        align-items: center;
+        justify-content: center;
+        --i-size: 4rem;
+    }
 
     .meta {
         margin-top: 1.5rem;
@@ -102,6 +123,7 @@
 	}
 
     .add-to-cart-button {
+		z-index: 10;
         top: 1rem;
         right: 1rem;
         position: absolute;
