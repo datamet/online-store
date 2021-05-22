@@ -85,6 +85,7 @@ services:
             - mongodb-server:mongodb
         volumes:
             # Providing local packages through volume
+            - ./nginx-server/usercontent:/usr/src/app/usercontent
             - ./packages:/usr/src/packages
     nginx:
         restart: always
@@ -97,9 +98,11 @@ services:
         ports:
             - "80:80"
             - "443:443"
-        logging:
-            # Disable nginx logging
-            driver: none
+        volumes:
+            - ./nginx-server/usercontent:/www/usercontent
+        # logging:
+        #     # Disable nginx logging
+        #     driver: none
 volumes:
     mongodb:
     
