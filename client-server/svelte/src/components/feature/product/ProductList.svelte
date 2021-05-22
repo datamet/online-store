@@ -6,7 +6,7 @@ import Product from "./Product.svelte";
 
 <div class="list">
     {#each products as product (product._id)}
-        <Product id={product._id}>
+        <Product id={product._id} image={product.images && product.images.length > 0 ? product.images[0] : null}>
             <span slot="title">{product.name}</span>
             <span slot="description">{product.short_desc}</span>
             <span slot="price">{product.currency ? product.currency : 'NOK'} {product.price},-</span>
