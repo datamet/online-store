@@ -74,7 +74,7 @@
 			id="order-zip"
 			bind:value={address.zip}
 			type="text"
-			initial="{address.country}"
+			initial="{address.zip}"
 			validator={validator('zip')}>Zip</Input
 		>
 		<Input
