@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store'
-import { getProducts, getProductKeywords } from '../../../api/endpoints.js'
+import { getProducts, getProductKeywords, get } from '../../../api/endpoints.js'
 
 const createFetchStore = (fetchFunc) => {
     const { subscribe, set } = writable([])
@@ -7,7 +7,7 @@ const createFetchStore = (fetchFunc) => {
     return {
         subscribe,
         fetch: async (params) => { 
-            const res = typeof params === 'string' ? await fetch(params) : await fetchFunc(params)
+            const res = typeof params === 'string' ? await get(params) : await fetchFunc(params)
             return { set, res }
         }
     }
