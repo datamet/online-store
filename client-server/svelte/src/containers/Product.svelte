@@ -18,13 +18,15 @@
 		else if (res.body.error) message = res.body.error.message
 	}
 
+    $: fetchProduct(id)
+
     const addToCart = () => {
         cart.add(id, 1)
     }
 
-	onMount(() => {
-        fetchProduct()
-    })
+	// onMount(() => {
+    //     fetchProduct()
+    // })
 </script>
 
 <Container contain section>
@@ -32,9 +34,11 @@
 		<div class="product">
 			<div class="images">
                  {#if product.images}
-                    <img src="{product.images[0].url}" alt="{product.images[0].alt}">
+                    <img class="img" src="{product.images[0]}" alt="product">
                  {:else}
-                    <Icon sprite="camera-off" />
+                    <div class="no-image">
+                        <Icon sprite="camera-off" />
+                    </div>
                  {/if}
             </div>
 			<Container content>
@@ -42,7 +46,7 @@
                     <Heading>{product.name}</Heading>
                     <ul class="keywords gap">
                         {#each product.keywords as keyword (keyword)}
-                        <li class="keyword">{keyword}</li>
+                            <li class="keyword">{keyword}</li>
                         {/each}
                     </ul>
                     <div>
@@ -78,20 +82,34 @@
 <style>
     .images {
 		position: relative;
-		--i-size: 4rem;
 		width: 100%;
-		background-color: var(--back-g);
 		border-radius: 0.3rem;
-		display: flex;
-		align-items: center;
-		justify-content: center;
+        overflow: hidden;
 	}
 
-	.images:before {
+	.images::before {
 		content: '';
 		float: left;
 		padding-top: 100%;
 	}
+
+    .img {
+        position: absolute;
+        display: block;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    .no-image {
+        width: 100%;
+        height: 100%;
+        display: flex;
+		background-color: var(--back-g);
+        align-items: center;
+        justify-content: center;
+        --i-size: 6rem;
+    }
 
 	.product {
 		display: grid;
