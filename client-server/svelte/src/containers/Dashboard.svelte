@@ -12,16 +12,17 @@
     import DiscountManager from '../components/feature/discounts/DiscountManager.svelte';
     import KeywordList from '../components/feature/keywords/KeywordList.svelte';
     import OrderStatistics from '../components/feature/orders/OrderStatistics.svelte';
+    import { productStore } from '../stores/fetch'
 
     let products, previous, next, errorMessage = ''
     let codes = [], discountError, createDiscountError
     let statistics, statsError = ''
 
     const fetchProducts = async (url) => {
-        const res = url ? await fetch(url) : await getProducts({})
+        const { set, res } = url ? await productStore.fetch(url) : await productStore.fetch({ count: 6 })
         if (res.body.products) {
             products = res.body.products
-            previous = res.body.previous
+            previous = res.body.prev
             next = res.body.next
         }
         else if (res.body.error) errorMessage = res.body.error.message
@@ -84,7 +85,6 @@
                 <p>The dashboard allows you to manage products, orders and discount codes.</p>
             </div>
             <div class="image-container">
-                <!-- <DashboardImage /> -->
                 <img src="/assets/dashboard.svg" alt="Dashboard">
             </div>
         </div>
