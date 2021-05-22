@@ -14,7 +14,26 @@
             "stock": "[stock]",
             "keywords": "<keyword>",
             "short_desc": "[short_desc]",
-            "long_desc": "[long_desc]"
+            "long_desc": "[long_desc]",
+            "?images": [
+                {
+                    "type" : "[image_type]",
+                    "image" : "[image]"
+                }
+            ]
+        }
+    },
+    {
+        "method": "post",
+        "path" : "/api/v1/product/:product_id/images",
+        "handler" : "Products.uploadImage",
+        "body": {
+            "images": [
+                {
+                    "type" : "[image_type]",
+                    "image" : "[image]"
+                }
+            ]
         }
     },
     {
