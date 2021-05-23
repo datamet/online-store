@@ -184,10 +184,6 @@
         max-width: 30rem;
     }
 
-    .error {
-        
-    }
-
     .error-message {
         margin: 0;
         color: var(--control-r);

@@ -21,8 +21,10 @@ const saveImages = async images => {
 	const urls = []
 
 	for (const img of images) {
-		const filename = `${uuid()}.${img.type}`
-		const base64Image = img.image.replace(/^data:image\/png;base64,/, '')
+		const [ type, ext ] = img.type.split('/')
+		const filename = `${uuid()}.${ext}`
+		const regex = new RegExp(`^data:${type}\/${ext};base64,`, 'gi')
+		const base64Image = img.image.replace(regex, '')
 		const buffer = Buffer.from(base64Image, 'base64')
 		await saveFile(path.resolve(__dirname, `../usercontent/${filename}`), buffer)
 		urls.push(`http://${public_host}/usercontent/${filename}`)

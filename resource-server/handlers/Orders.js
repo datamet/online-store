@@ -16,8 +16,10 @@ Orders.createOne = async (req, res, next) => {
 	const payed = await validatePaymentToken(req.body.payment_token)
 
 	let total_price = 0
+	let number_of_products = 0
 	const products = await Promise.all(
 		checkout_session.products.map(async ({ product_id, amount }) => {
+			number_of_products += amount
 			const [pricePerUnit, name] = await db.sellProduct({
 				_id: product_id,
 				amount,
@@ -45,6 +47,7 @@ Orders.createOne = async (req, res, next) => {
 
 	const order = {
 		total_price,
+		number_of_products,
 		products,
 		payment_token: req.body.payment_token,
 		payed,
