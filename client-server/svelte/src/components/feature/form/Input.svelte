@@ -104,6 +104,7 @@
 
 	.label {
 		position: absolute;
+		pointer-events: none;
         left: 1rem;
         top: 50%;
         font-size: 1.3rem;
@@ -112,6 +113,7 @@
 	}
 
 	.label.val,
+	.readonly + .label,
 	.input:focus + .label {
         top: 0;
         background-color: white;
