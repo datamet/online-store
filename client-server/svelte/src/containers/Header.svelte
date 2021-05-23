@@ -5,6 +5,7 @@
 	import Logo from '../components/content/Logo.svelte'
 	import User from './User.svelte'
 	import CartLink from '../components/content/CartLink.svelte'
+	import { user } from '../stores/user'
 </script>
 
 <Container content contain>
@@ -14,6 +15,9 @@
 		</div>
 		<div class="flex gap" slot="right">
 			<Link to="/catalogue">Catalogue</Link>
+			{#if !$user}
+				<Link to="/orders">Find Orders</Link>
+			{/if}
 			<User />
 			<CartLink />
 		</div>
