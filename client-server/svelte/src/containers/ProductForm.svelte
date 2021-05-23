@@ -78,8 +78,7 @@
 		if (images && images.length > 0) {
 			productToAdd.images = []
 			for (const image of images) {
-				const fragment = image.name.split('.')
-				const type = fragment[fragment.length - 1]
+				const type = image.type
 				const base64Image = await toBase64(image)
 				productToAdd.images.push({ image: base64Image, type })
 			}
