@@ -2,6 +2,7 @@ const { error } = require('server-framework')
 const fs = require('fs').promises
 const uuid = require('./uuid')
 const path = require('path')
+const { public_host } = require('../config')
 
 const saveFile = async (path, buffer) => {
 	try {
@@ -24,7 +25,7 @@ const saveImages = async images => {
 		const base64Image = img.image.replace(/^data:image\/png;base64,/, '')
 		const buffer = Buffer.from(base64Image, 'base64')
 		await saveFile(path.resolve(__dirname, `../usercontent/${filename}`), buffer)
-		urls.push(`http://localhost/usercontent/${filename}`)
+		urls.push(`http://${public_host}/usercontent/${filename}`)
 	}
 	return urls
 }
