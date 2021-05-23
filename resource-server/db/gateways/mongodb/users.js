@@ -41,14 +41,25 @@ gateway.userIsOwner = async (db, { user_id, _id }) => {
 }
 
 gateway.isEmpty = async db => {
-    const res = await db.collection('users').find()
-    const count = await res.count()
-    if (count === 1) {
-        const arr = await res.toArray()
-        const admin = arr[0]
-        if (admin.initial) return false
-        await db.collection('users').updateOne({ _id: ObjectId(admin._id) }, { $set: { initial: true } })
-        return admin
+    const timeout = ms => {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    let res
+    let count = 0
+    while(count < 1) {
+        res = await db.collection('users').find()
+        count = await res.count()
+        if (count === 1) {
+            const arr = await res.toArray()
+            const admin = arr[0]
+            if (admin.initial) return false
+            await db.collection('users').updateOne({ _id: ObjectId(admin._id) }, { $set: { initial: true } })
+            return admin
+        }
+        if (count === 0) {
+            await timeout(3000)
+        } 
     }
     return false
 }
