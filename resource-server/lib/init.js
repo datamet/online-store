@@ -34,7 +34,7 @@ const init = async () => {
 		price: 3500,
 		stock: 450,
 		availability: 450,
-		keywords: ['Speaker'],
+		keywords: ['Music'],
 		short_desc: 'Speaker with deep and rich sound',
 		long_desc: 'Fits any room and can be paired with up to four others of the same type to get surround sound. ' +
 			'Provides a unique music experience',
@@ -489,7 +489,7 @@ const init = async () => {
 		long_desc: 'Bring Odin into your morning routine with this awesome viking compass coffee mug. The viking ' +
 			'compass is known as the symbol of guidance and protection in norse mythology, so let its power guide ' +
 			'and protect you during the day ahead. With a slightly rough texture and an added, and removable, ' +
-			'rope handle, this mug looks like it\'s straight out of the neighbouring viking village',
+			'rope handle, this mug looks like it is straight out of the neighbouring viking village',
 		owner: admin_id,
 		images: [`http://${public_host}/usercontent/bb128b9a-e7f8-44e3-9bb6-f2b91435ee01.jpg`]
 	}
