@@ -28,7 +28,8 @@ Google.authenticate = async (req, res, next) => {
 		log(log.DEBUG, `Linking local account: ${email} with google_id: ${google_id}`)
 	}
 	if (!user) {
-		user = await db.createUser({
+		user = {}
+		user._id = await db.createUser({
 			google_id,
 			email,
 			email_verified,
