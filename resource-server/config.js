@@ -13,6 +13,8 @@ const ENV = process.env.NODE_ENV || 'development'
 const mode = ENV
 const port = process.env.PORT || 3000
 const autoport = process.env.AUTO_PORT || false
+const public_host = process.env.PUBLIC_HOST
+const public_port = process.env.PUBLIC_PORT
 
 // What events to log to the console
 const events = process.env.EVENTS_TO_LOG
@@ -48,6 +50,8 @@ if (gateway !== 'memory') {
 const config = {
 	mode,
 	port,
+	public_host,
+	public_port,
 	autoport,
 	gateway,
 	events,
