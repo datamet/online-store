@@ -43,7 +43,7 @@ gateway.getOrderStats = async db => {
 					$sum: "$price_before_discount"
 				},
 				products_sold: {
-					$sum: "$sold"
+					$sum: "$number_of_products"
 				}
 			}
 		}
