@@ -13,7 +13,6 @@ const errorhandler = require('./middleware/errorhandler')
 const logger = require('./middleware/logger')
 const cookieparser = require('./middleware/cookieparser')
 const wrap = require('./lib/wrap')
-const cors = require('cors')
 
 const server = http.createServer()
 const app = express()
@@ -38,7 +37,6 @@ const useBefore = (func) => middlewareBefore.push(wrap(func))
 const useAfter = (func) => middlewareAfter.push(wrap(func))
 
 module.exports = (api_path, handlers_path, policies_path) => {
-    app.use(cors())
     app.use(bodyparser)
     app.use(cookieparser)
     app.use(userMiddleware(middlewareBefore))
