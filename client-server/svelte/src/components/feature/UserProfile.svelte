@@ -24,6 +24,7 @@
 		await signout()
 		user.signout()
 		navigate('/')
+        window.location.reload();
 	}
 </script>
 
