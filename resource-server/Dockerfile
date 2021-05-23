@@ -1,20 +1,29 @@
 # pull the Node.js Docker image
 FROM node:alpine
 
-# create the directory inside the container
+# Create working directory
 WORKDIR /usr/src/app
 
-# copy the package.json files from local machine to the workdir in container
-COPY ./package*.json ./
+# Copy the package.json files from local machine to the workdir in container
+COPY ./resource-server/package*.json ./
 
-# run npm install in our local machine
+# Copy entire packages folder with shared packages
+COPY ./packages/ ../packages
+
+# Running npm install in server-framework module
+WORKDIR /usr/src/packages/server-framework
 RUN npm install
 
-# copy the generated modules and all other files to the container
-COPY . .
 
-# our app is running on port 5000 within the container, so need to expose it
+# Running npm install in for the app
+WORKDIR /usr/src/app
+RUN npm install
+
+# Copy files from resource-server
+COPY ./resource-server .
+
+# Expose running port
 EXPOSE 3000
 
-# the command that starts our app
+# The command that starts our app
 CMD ["node", "index.js"]

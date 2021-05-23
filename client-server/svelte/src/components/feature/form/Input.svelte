@@ -29,7 +29,7 @@
 	})
 
 	const validate = async v => {
-		const res = await validator(v)
+		const res = validator ? await validator(v) : true
 		let valid
 		if (typeof res === 'object') ({ valid, message } = res)
 		else valid = res

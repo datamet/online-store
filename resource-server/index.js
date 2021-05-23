@@ -1,6 +1,7 @@
 const path = require('path')
 const { mode, port, autoport, gateway, events, errors, tracebacks } = require('./config')
 const { server } = require('server-framework')
+const init = require('./lib/init')
 
 const userparser = require('./middleware/userparser')
 
@@ -26,4 +27,12 @@ const app = server({
 
 app.useBefore(userparser)
 
-app.listen()
+const start = async () => {
+	await app.listen()
+
+	// Init script that runs only if
+	// the database is empty
+	init()
+}
+
+start()

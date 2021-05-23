@@ -29,6 +29,10 @@
         <div class="hollow-card">
             <Stack>
                 <div>
+                    <Heading type="h3">Order id</Heading>
+                    <p>{order._id}</p>
+                </div>
+                <div>
                     <Heading type="h3">Total price</Heading>
                     <p>NOK {order.total_price},-</p>
                 </div>

@@ -1,6 +1,6 @@
 <script>
 	import Container from '../layout/Container.svelte'
-
+	import { user } from '../../stores/user'
 </script>
 
 <Container contain>

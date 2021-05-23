@@ -1,4 +1,4 @@
-const { db, error } = require('server-framework')
+const { db, error, log } = require('server-framework')
 const { verifyLocalToken, authenticate, unauthenticate, basic, clearAuthCookies } = require('../lib/jwt')
 const hash = require('../lib/hash')
 const Local = {}

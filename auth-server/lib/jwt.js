@@ -1,6 +1,7 @@
 const https = require('https')
 const hash = require('./hash')
 const { db, error } = require('server-framework')
+const { public_host } = require('../config')
 
 const authenticate = async (user_id, req, res) => {
     res.clearCookie('auth_token')
@@ -74,7 +75,7 @@ const basic = basic_header => {
 }
 
 const clearAuthCookies = async (req, res) => {
-	res.clearCookie('auth_token', {domain: 'localhost', path:'/'})
+	res.clearCookie('auth_token', {domain: public_host, path:'/'})
 }
 
 const setAuthCookie = async (auth_token, req, res) => {
