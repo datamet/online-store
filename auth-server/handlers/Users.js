@@ -32,7 +32,6 @@ Users.createOne = async (req, res, next) => {
 
 Users.authenticated = async (req, res, next) => {
     if (!req.user._id) throw error.unauthorized()
-    console.log(req.user._id)
     const user = await db.getUserById({ _id: req.user._id })
     if (!user) throw error.internal()
     res.json({ message: 'Logged in', user_id: req.user._id, username: user.username, email: user.email, groups: user.groups })
