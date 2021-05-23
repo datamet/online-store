@@ -289,12 +289,12 @@ db.createUser({
 })
 
 let setup = async () => {
-	db.getSiblingDB('production')
+	db = db.getSiblingDB('production')
 	let res = await db.users.insertOne(user)
 	await db.users.updateOne({ _id: res.insertedId }, { $push: { owns: res.insertedId } })
 	await db.hashes.insertOne({ user_id: res.insertedId, email, hash })
 
-	db.getSiblingDB('development')
+	db = db.getSiblingDB('development')
 	res = await db.users.insertOne(user)
 	await db.users.updateOne({ _id: res.insertedId }, { $push: { owns: res.insertedId } })
 	await db.hashes.insertOne({ user_id: res.insertedId, email, hash })

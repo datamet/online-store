@@ -1,4 +1,4 @@
-const { db } = require('server-framework')
+const { db, log } = require('server-framework')
 const { public_host } = require('../config')
 
 const init = async () => {
@@ -6,7 +6,9 @@ const init = async () => {
 	if (!admin) return
 	const admin_id = admin._id
 
+	log(log.DB, `Initialized products in database. This happens only one time.`)
 	// Create admin user
+
 	await db.createDiscount({
 		discount: { code: 'alfred', percent: 100 },
 		owner: admin_id
