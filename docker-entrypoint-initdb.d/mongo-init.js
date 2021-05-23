@@ -157,6 +157,15 @@ db.createUser({
 	]
 })
 
+let hash = 'sha256$hex$11aacb586ae7f8e04cde$adc6114b0ef97f17d55268ffb0c478015db84b0b61ef7ba0b4587af3cdc8de17'
+let email = 'admin@sahara.com'
+let user = {
+	email,
+	email_verified: true,
+	username: 'Admin',
+	groups: ['user', 'admin']
+}
+
 /**
  * Setup development database
  */
@@ -278,3 +287,16 @@ db.createUser({
 		}
 	]
 })
+
+let setup = async () => {
+	db.getSiblingDB('production')
+	let res = await db.users.insertOne(user)
+	await db.users.updateOne({ _id: res.insertedId }, { $push: { owns: res.insertedId } })
+	await db.hashes.insertOne({ user_id: res.insertedId, email, hash })
+
+	db.getSiblingDB('development')
+	res = await db.users.insertOne(user)
+	await db.users.updateOne({ _id: res.insertedId }, { $push: { owns: res.insertedId } })
+	await db.hashes.insertOne({ user_id: res.insertedId, email, hash })
+}
+setup()
